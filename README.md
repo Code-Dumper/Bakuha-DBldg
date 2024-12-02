@@ -59,6 +59,9 @@ PRが作成されたら、担当のレビュアーがコードをチェックし
 
 ↓イメージを膨らませるために
 
+Minecraftのプラグイン開発
 https://github.com/GiganticMinecraft/SeichiAssist
-
+データ構造や技術を集めたリポジトリ
 https://qiita.com/baby-degu/items/6c0c73a1e79644ebbb1a
+
+Powered by ChatGPT
