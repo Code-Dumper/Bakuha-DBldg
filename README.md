@@ -59,6 +59,6 @@ PRが作成されたら、担当のレビュアーがコードをチェックし
 
 ↓イメージを膨らませるために
 
-https://github.com/GiganticMinecraft/SeichiAssist&ved=2ahUKEwjE5oO16YiKAxUmc_UHHcYMOXwQFnoECAwQAQ&usg=AOvVaw1IFqQL-JsKjGTYqinDZ1y4
+https://github.com/GiganticMinecraft/SeichiAssist
 
 https://qiita.com/baby-degu/items/6c0c73a1e79644ebbb1a
