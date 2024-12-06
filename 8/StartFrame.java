@@ -28,28 +28,47 @@ class Background extends JPanel {
     }
 }
 
-class Title extends JPanel {
+class Title extends JPanel{
     private BufferedImage title;
-    JPanel p1 = new JPanel(null);
+    JPanel p1 = new JPanel(new GridLayout(3,1));
 
     public Title(){
-        JLabel b1 = new JLabel();
-        
         try {
-            ImageIcon icon1 = new ImageIcon("title1.jpg");
-            
-            b1.setIcon(icon1);
-            
-            b1.setPreferredSize(new Dimension(600,200));
-            
-        }catch(Exception e){
-            e.printStackTrace();
+            title = ImageIO.read(new File("title.jpg"));
+        } catch (IOException e){
+            e.printStackTrace();            
         }
-        b1.setBounds(0,0,600,200);
-        
-        p1.add(b1); 
+        // 画像を縦に3分割する
+        int height = title.getHeight();
+        int width = title.getWidth();
+        int buttonHeight = width / 3; // 高さを3等分
+
+        // 画像を分割してボタンに設定
+        JButton b1 = createButtonFromImage(0, 0, width, buttonHeight); // 上部
+        JButton b2 = createButtonFromImage(0, buttonHeight, width, buttonHeight); // 中央
+        JButton b3 = createButtonFromImage(0, 2 * buttonHeight, width, buttonHeight); // 下部
+
+        p1.add(b1); p1.add(b2); p1.add(b3);
     }
-    
+    private JButton createButtonFromImage(int x, int y, int width, int height) {
+        // 画像の指定部分を切り出す
+        BufferedImage subImage = title.getSubimage(x, y, width, height);
+
+        // 切り出した部分をImageIconに変換
+        ImageIcon icon = new ImageIcon(subImage);
+
+        // アイコンを設定したボタンを作成
+        JButton button = new JButton();
+        button.setIcon(icon);
+
+        // ボタンの背景を透明に設定
+        button.setOpaque(false);
+        button.setBorderPainted(false);
+        button.setText(""); // テキストは表示しない
+
+        return button;
+    }
+
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         if (title != null) {
@@ -57,44 +76,7 @@ class Title extends JPanel {
         }        
     }
 
-    public JPanel getButtonPanel() {
-        return p1;
-    }
-}
-
-class Button extends JButton{
-    private BufferedImage button;
-    JPanel p1 = new JPanel(null);
-    public Button(){
-        JButton b2 = new JButton();
-        JButton b3 = new JButton();
-
-        try {
-            ImageIcon icon2 = new ImageIcon("start.jpg");
-            ImageIcon icon3 = new ImageIcon("end.jpg");
-
-            b2.setIcon(icon2);
-            b3.setIcon(icon3);
-
-            b2.setPreferredSize(new Dimension(500,200));
-            b3.setPreferredSize(new Dimension(500,200));
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        b2.setBounds(0,0,150,50);
-        b3.setBounds(0,50,150,50);
-
-        p1.add(b2); p1.add(b3);
-    }
-
-    protected void paintComponent(Graphics g){
-        super.paintComponent(g);
-        if (button != null) {
-            g.drawImage(button, 0, 0, getWidth(), getHeight(), this);
-        }        
-    }
-
-    public JPanel getButtonPanel() {
+    public JPanel getButtonPanel(){
         return p1;
     }
 }
@@ -107,23 +89,13 @@ class StartFrame extends JFrame{
         this.setContentPane(back);
 
         Title title = new Title();
-        title.setBounds(0, 150, 600, 200); // タイトルパネルの位置とサイズを設定
+        title.setBounds(0,150,600,600);
         title.setLayout(null);
-        title.getButtonPanel().setBounds(0, 0, 600, 600); // ボタンパネルをタイトル画像の上に重ねる
-        title.add(title.getButtonPanel()); // タイトルパネルにボタンパネルを追加
+        title.getButtonPanel().setBounds(0, 0, 600, 600); // ボタンパネルをタイトル画像に重ねる
+        title.add(title.getButtonPanel()); // タイトルにボタンパネルを追加
 
         // フレームにタイトルパネルを追加
         this.add(title);
-
-        
-        Button button = new Button();
-        button.setBounds(225, 400, 150, 100); 
-        button.setLayout(null);
-        button.getButtonPanel().setBounds(0, 0, 600, 600); // ボタンパネルをタイトル画像の上に重ねる
-        button.add(button.getButtonPanel()); // タイトルパネルにボタンパネルを追加
-
-        // フレームにタイトルパネルを追加
-        this.add(button);
         this.setLayout(null);
         
         this.setVisible(true);
