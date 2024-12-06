@@ -141,6 +141,9 @@ class GameOverState extends State{
     }    
 }
 
+/**
+ * 状態遷移だけを担うクラス。
+ */
 class StateFactory{
     public static State createState(Event event){
         switch(event){
