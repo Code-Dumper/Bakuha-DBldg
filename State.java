@@ -10,11 +10,17 @@ enum Event{
     //TODO あとはここに追加していく。ここも切り出したいのが本音。
 }
 
+interface StateInterface{
+    public State transitionTo(Event event);
+    public String getTitle();
+    public abstract Event getState();
+}
+
 /*
  * @brief
  * 状態を管理する抽象クラス
  */
-abstract class State {
+abstract class State implements StateInterface{
     protected String title;
     //コンストラクタ
     public State(String title) { this.title = title;}
@@ -29,9 +35,9 @@ abstract class State {
 }
 
 //タイトル画面の状態を管理するクラス。
-class TitleScreenState extends State{
+class TitleState extends State{
 
-    public TitleScreenState(){
+    public TitleState(){
         super("タイトル画面");
     }
 
@@ -41,7 +47,7 @@ class TitleScreenState extends State{
     }
     @Override
     public State transitionTo(Event event){
-        if(event == Event.STATE_LOBBY || event == Event.STATE_END){
+        if(event == Event.STATE_LOBBY || event == Event.STATE_END || event ==Event.STATE_GAMEOVER){
             return super.transitionTo(event);
         }else{
             return this;
@@ -59,7 +65,7 @@ class EndState extends State{
     }
     @Override
     public State transitionTo(Event event){
-        if(event == Event.STATE_TITLE){
+        if(event == Event.STATE_TITLE || event == Event.STATE_GAMEOVER){
             return super.transitionTo(event);
         }else{
             return this;
@@ -79,7 +85,7 @@ class LobbyState extends State{
     }
     @Override
     public State transitionTo(Event event){
-        if(event == Event.STATE_1F || event == Event.STATE_2F || event == Event.STATE_3F || event == Event.STATE_4F){
+        if(event == Event.STATE_1F || event == Event.STATE_2F || event == Event.STATE_3F || event == Event.STATE_4F || event == Event.STATE_GAMEOVER){
             return super.transitionTo(event);
         }else{
             return this;
@@ -141,21 +147,3 @@ class GameOverState extends State{
     }    
 }
 
-/**
- * 状態遷移だけを担うクラス。
- */
-class StateFactory{
-    public static State createState(Event event){
-        switch(event){
-            case STATE_TITLE: return new TitleScreenState();
-            case STATE_LOBBY: return new LobbyState();
-            case STATE_END: return new EndState();
-            case STATE_1F: return new FloorOneState();
-            case STATE_2F: return new FloorTwoState();
-            case STATE_3F: return new FloorThreeState();
-            case STATE_4F: return new FloorFourState();
-            case STATE_GAMEOVER: return new GameOverState();
-            default: throw new UnsupportedOperationException("Unimplemented State");
-        }
-    }
-}
