@@ -17,6 +17,27 @@ class StateFactory{
             default: throw new UnsupportedOperationException("Unimplemented State");
         }
     }
+    public static Event getState(State state){
+        if(state instanceof TitleState){
+            return Event.STATE_TITLE;
+        }else if(state instanceof LobbyState){
+            return Event.STATE_LOBBY;
+        }else if(state instanceof EndState){
+            return Event.STATE_END;
+        }else if(state instanceof FloorOneState){
+            return Event.STATE_1F;
+        }else if(state instanceof FloorTwoState){
+            return Event.STATE_2F;
+        }else if(state instanceof FloorThreeState){
+            return Event.STATE_3F;
+        }else if(state instanceof FloorFourState){
+            return Event.STATE_4F;
+        }else if(state instanceof GameOverState){
+            return Event.STATE_GAMEOVER;
+        }else{
+            throw new UnsupportedOperationException("Unimplemented State");
+        }
+    }
 }
 
 
