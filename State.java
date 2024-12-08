@@ -26,7 +26,6 @@ class State{
     public State transitionTo(Event event){
         return StateFactory.createState(event);
     }
-
     public String getTitle(){ return title;}
     public Event getState(){
         return StateFactory.getState(this);
@@ -44,7 +43,8 @@ class TitleState extends State{
     public State transitionTo(Event event){
         if( event == Event.STATE_LOBBY || 
             event == Event.STATE_END || 
-            event ==Event.STATE_GAMEOVER){
+            event ==Event.STATE_GAMEOVER
+        ){
             return super.transitionTo(event);
         }else{
             return this;
@@ -63,7 +63,8 @@ class EndState extends State{
     @Override
     public State transitionTo(Event event){
         if( event == Event.STATE_TITLE || 
-            event == Event.STATE_GAMEOVER){
+            event == Event.STATE_GAMEOVER
+        ){
             return super.transitionTo(event);
         }else{
             return this;
@@ -84,7 +85,8 @@ class LobbyState extends State{
             event == Event.STATE_2F || 
             event == Event.STATE_3F || 
             event == Event.STATE_4F || 
-            event == Event.STATE_GAMEOVER){
+            event == Event.STATE_GAMEOVER
+        ){
             return super.transitionTo(event);
         }else{
             return this;
@@ -113,7 +115,8 @@ class FloorOneState extends State{
     public State transitionTo(Event event){
         if( event == Event.STATE_LOBBY ||
             event == Event.STATE_GAMEOVER || 
-            event == Event.STATE_1F_ROOM){
+            event == Event.STATE_1F_ROOM
+        ){
             return super.transitionTo(event);
         }else{
             return this;
@@ -128,7 +131,8 @@ class FloorTwoState extends State{
     public State transitionTo(Event event){
         if( event == Event.STATE_LOBBY || 
             event == Event.STATE_GAMEOVER || 
-            event == Event.STATE_2F_ROOM){
+            event == Event.STATE_2F_ROOM
+        ){
             return super.transitionTo(event);
         }else{
             return this;
@@ -144,7 +148,8 @@ class FloorThreeState extends State{
     public State transitionTo(Event event){
         if( event == Event.STATE_LOBBY || 
             event == Event.STATE_GAMEOVER || 
-            event == Event.STATE_3F_ROOM){
+            event == Event.STATE_3F_ROOM
+        ){
             return super.transitionTo(event);
         }else{
             return this;
@@ -160,7 +165,8 @@ class FloorFourState extends State{
     public State transitionTo(Event event){
         if( event == Event.STATE_LOBBY || 
             event == Event.STATE_GAMEOVER || 
-            event == Event.STATE_4F_ROOM){
+            event == Event.STATE_4F_ROOM
+        ){
             return super.transitionTo(event);
         }else{
             return this;
