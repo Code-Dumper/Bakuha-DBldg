@@ -20,10 +20,11 @@ interface DisarmStrategy {
 class CodeDisarmStrategy implements DisarmStrategy{
     private String correctCode;
 
+    //コンストラクタ
     public CodeDisarmStrategy(String correctCode){
         this.correctCode = correctCode;
     }
-    
+    //inputCodeがcorrectCodeと等しいかどうかで解除を決める
     public boolean tryToDisarm(String inputCode){
         return inputCode.equals(correctCode);
     }
@@ -36,12 +37,14 @@ class CodeDisarmStrategy implements DisarmStrategy{
 class Bomb {
     private boolean isDefused;
     private DisarmStrategy disarmStrategy;
-
+    
+    //コンストラクタ
     public Bomb(DisarmStrategy disarmStrategy){
         this.isDefused = false;
         this.disarmStrategy = disarmStrategy;
     }
 
+    //爆弾を解除できるか判定し、解除できるならisDefusedをtrueにする
     public void defuse(String input){
         if(disarmStrategy instanceof CodeDisarmStrategy){
             if(disarmStrategy.tryToDisarm(input)){
@@ -50,6 +53,7 @@ class Bomb {
         }
     }
 
+    //爆弾が解除されてるかを教える
     public boolean isDefused(){
         return isDefused;
     }
@@ -61,14 +65,18 @@ class Bomb {
 class BombManager{
     private ArrayList<Bomb> bombs;
 
+    //コンストラクタ
     public BombManager(){
         bombs = new ArrayList<Bomb>();
     }
 
+    //爆弾をマネージャに追加する
     public void addBomb(Bomb bomb){
         bombs.add(bomb);
     }
 
+    //indexの爆弾がinputCodeで解除できるか検証し、
+    //解除できるなら解除しtrueを返す、解除できないなら解除せずfalse。
     public boolean defuseBomb(int index, String inputCode){
         if(index < 0 || index >= bombs.size()){
             throw new IllegalArgumentException("Invalid");
@@ -79,6 +87,7 @@ class BombManager{
         }
     }
 
+    //マネージャの管理する全ての爆弾が解除されてるかを返す
     public boolean areAllBombsDefused(){
         for(Bomb bomb: bombs){
             if(!bomb.isDefused()){
@@ -87,7 +96,7 @@ class BombManager{
         }
         return true;
     }
-
+    //マネージャの管理している爆弾のListを返す
     public List<Bomb> getBombs(){
         return bombs;
     }
