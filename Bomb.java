@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+    //TODO Bombが長いのでできればパッケージ化とかで細かくしたい
+
 /*
  * 爆弾解除の解除戦略を定義するインターフェース
  */
