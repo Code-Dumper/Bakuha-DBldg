@@ -1,7 +1,8 @@
 import javax.swing.*;
 
 /**
- * 状態遷移だけを担うクラス。
+ * 状態遷移と状態取得を担うクラス。
+ * 各メソッドはstaticにより記述されているため、クラスのインスタンスを作成することなく各メソッドを呼び出すことができる。
  */
 class StateFactory{
     public static State createState(Event event){
