@@ -75,11 +75,15 @@ class GameModel extends Observable implements GameTimer.TimerListener{
         remainTime = newTime;
         notifyTimeChange();
     }
+
     @Override
     public void onTimeOut(){
         setCurrentState(Event.STATE_GAMEOVER);
     }
 
+    /**
+     * Observerに時間変化を伝えるためのメソッド。
+     */
     private void notifyTimeChange(){
         //ラムダ式を使っている
         SwingUtilities.invokeLater(() -> {
@@ -87,7 +91,10 @@ class GameModel extends Observable implements GameTimer.TimerListener{
             notifyObservers("TIME_CHANGE");
         });
     }
-
+    
+    /**
+     * Observerに状態変化を伝えるためのメソッド。
+     */
     private void notifyStateChange(){
         SwingUtilities.invokeLater(() ->{
                 setChanged(); 
