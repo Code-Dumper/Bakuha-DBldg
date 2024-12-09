@@ -1,7 +1,6 @@
-import java.util.Observable;
 import javax.swing.*;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 
 
@@ -28,6 +27,7 @@ class GameModel extends Observable implements GameTimer.TimerListener{
     private State currentState; //現在のゲーム状態
     private GameTimer timer; //ゲームで共通のタイマー
     private int remainTime; //残り時間
+    private BombManager bombManager;
 
     /**
      * コンストラクタ。初期状態としてタイトル画面を設定。残り時間を初期化し、タイマーを開始する。
@@ -36,9 +36,31 @@ class GameModel extends Observable implements GameTimer.TimerListener{
         currentState = new TitleState();
         remainTime = INITIAL_TIME;
         timer = new GameTimer(INITIAL_TIME, this);
+        bombManager = new BombManager();
+        //仮で爆弾を追加しておく。
+        //TODO 爆弾の仕様が明確に決まったらその実現のためにコードを書く
+        bombManager.addBomb(new Bomb(new CodeDisarmStrategy("299792458 m")));
+        bombManager.addBomb(new Bomb(new CodeDisarmStrategy("赤方偏移")));
+        bombManager.addBomb(new Bomb(new CodeDisarmStrategy("粘性率と非熱")));
+        bombManager.addBomb(new Bomb(new CodeDisarmStrategy("再履修")));
+
         timer.start();
     }
 
+    public void defuseBomb( int index, String inputcode ){
+        boolean success = bombManager.defuseBomb(index, inputcode);
+        if(success){
+            //TODO ここのメッセージもパネルで表示する?
+            System.out.println("解除に成功しました");
+        }else{
+            System.out.println("解除に失敗しました");
+        }
+
+        if(bombManager.areAllBombsDefused()){
+            setCurrentState(Event.STATE_GAMECLEAR);
+            System.out.println("全ての爆弾が解除されました");
+        }
+    }
     /**
      * 現在の状態を取得
      * @return モデルが管理している現在のStateオブジェクト
@@ -91,7 +113,7 @@ class GameModel extends Observable implements GameTimer.TimerListener{
             notifyObservers("TIME_CHANGE");
         });
     }
-    
+
     /**
      * Observerに状態変化を伝えるためのメソッド。
      */
