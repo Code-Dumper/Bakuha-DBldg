@@ -68,6 +68,10 @@ class BombManager{
     //コンストラクタ
     public BombManager(){
         bombs = new ArrayList<Bomb>();
+        addBomb(new Bomb(new CodeDisarmStrategy("299792458 m")));
+        addBomb(new Bomb(new CodeDisarmStrategy("赤方偏移")));
+        addBomb(new Bomb(new CodeDisarmStrategy("粘性率と非熱")));
+        addBomb(new Bomb(new CodeDisarmStrategy("再履修")));
     }
 
     //爆弾をマネージャに追加する
