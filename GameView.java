@@ -20,9 +20,6 @@ public class GameView extends JPanel implements Observer {
 
         currentPanel = PanelFactory.createPanel(model.getCurrentState());
         add(currentPanel, "Center");
-
-        setSize(800, 600);
-        setVisible(true);
     }
 
     @Override
