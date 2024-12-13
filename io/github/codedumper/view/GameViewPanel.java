@@ -1,16 +1,19 @@
 package io.github.codedumper.view;
 
+import io.github.codedumper.model.*;
+import io.github.codedumper.controller.*;
 import javax.swing.*;
 import java.util.Observer;
 import java.util.Observable;
 
-public class GameView extends JPanel implements Observer {
+@SuppressWarnings("deprecation")
+public class GameViewPanel extends JPanel implements Observer {
     private JLabel timerLabel;
     private JPanel currentPanel;
     private GameModel model;
     private GameController controller;
 
-    public GameView(GameModel model, Gamecontroller controller) {
+    public GameViewPanel(GameModel model, GameController controller) {
         this.model = model;
         this.controller = controller;
         model.addObserver(this); // Observerに登録
