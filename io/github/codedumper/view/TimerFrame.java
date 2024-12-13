@@ -1,7 +1,6 @@
+package io.github.codedumper.view;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 
 class TimerFrame extends JFrame {
     private static final int totalsec = 3600;
