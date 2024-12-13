@@ -18,7 +18,7 @@ public enum Event {
     STATE_HIDDEN_ROOM
 }
 
-class StateMachine {
+public class StateMachine {
     // 各状態に対して、遷移先が記録されたMap.
     //Mapはキーと値の2⻆ 要素からなる複数データを格納するものである。
     //すなわち、Map<キーの型名, 値の型名> 変数名にて宣言される。
