@@ -1,22 +1,38 @@
 import java.util.Timer;
 import java.util.TimerTask;
-
-    /**
+/**
  * ゲーム内で使用する汎用タイマークラス。
- * 残り時間を管理し、時間変更やタイムアウト時にリスナーへ通知する。
+ * 残り時間を管理し、時間変更やタイムアウト時にリスナーへ通知します。
+ * <p>
+ * 主な機能:
+ * <ul>
+ *   <li>残り時間のカウントダウン</li>
+ *   <li>残り時間変更時の通知</li>
+ *   <li>時間切れ時の通知</li>
+ *   <li>残り時間の取得と設定</li>
+ * </ul>
+ * </p>
  */
-class GameTimer {
+public class GameTimer {
     private int remainTime; // 残り時間
     private Timer timer; // タイマー
     private TimerListener listener; // リスナー（通知先）
 
     /**
      * タイマーリスナーのインターフェース。
-     * 時間変更やタイムアウト時に通知を行う。
+     * 時間変更やタイムアウト時に通知を行います。
      */
-    interface TimerListener {
-        void onTimeChange(int newTime); // 残り時間が変更されたとき
-        void onTimeOut(); // 残り時間が0になったとき
+    public interface TimerListener {
+        /**
+         * 残り時間が変更されたときに呼び出されます。
+         * @param newTime 新しい残り時間（秒）
+         */
+        void onTimeChange(int newTime);
+
+        /**
+         * 残り時間が0になったときに呼び出されます。
+         */
+        void onTimeOut();
     }
 
     /**
@@ -30,7 +46,9 @@ class GameTimer {
     }
 
     /**
-     * タイマーを開始する。
+     * タイマーを開始します。
+     * 残り時間が1秒ごとに減少し、変更が通知されます。
+     * 残り時間が0になると、タイムアウト通知が行われます。
      */
     public void start() {
         stop(); // 既存のタイマーが動いていれば停止
@@ -57,7 +75,7 @@ class GameTimer {
     }
 
     /**
-     * タイマーを停止する。
+     * タイマーを停止します。
      */
     public void stop() {
         if (timer != null) {
@@ -68,7 +86,7 @@ class GameTimer {
     }
 
     /**
-     * 残り時間を取得する。
+     * 現在の残り時間を取得します。
      * @return 現在の残り時間（秒）
      */
     public int getRemainingTime() {
@@ -76,7 +94,7 @@ class GameTimer {
     }
 
     /**
-     * 残り時間を設定する（リセットや強制変更用）。
+     * 残り時間を設定します（リセットや強制変更用）。
      * @param time 新しい残り時間（秒）
      */
     public void setRemainingTime(int time) {
