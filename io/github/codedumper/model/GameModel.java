@@ -31,7 +31,7 @@ import java.util.*;
 
 
 @SuppressWarnings("deprecation")
-class GameModel extends Observable implements GameTimer.TimerListener{
+public class GameModel extends Observable implements GameTimer.TimerListener{
     private static final int INITIAL_TIME = 3600;
     
     private Event currentState; //現在のゲーム状態
