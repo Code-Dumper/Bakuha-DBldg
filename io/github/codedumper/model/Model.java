@@ -1,3 +1,5 @@
+package io.github.codedumper.model;
+
 import javax.swing.*;
 import java.util.*;
 
