@@ -1,4 +1,7 @@
+package io.github.codedumper.view;
 import javax.swing.*;
+
+import io.github.codedumper.model.Event;
 
 
 /**
