@@ -22,6 +22,7 @@ public class GameViewPanel extends JPanel implements Observer {
         add(timerLabel, "North"); // ラベルを北側に配置
 
         currentPanel = PanelFactory.createPanel(model.getCurrentState());
+        System.out.println("" + model.getCurrentState());
         add(currentPanel, "Center");
     }
 
@@ -30,14 +31,17 @@ public class GameViewPanel extends JPanel implements Observer {
         //modelが時間変化、状態変化で送るメッセージ区別しているのでそこを区別して書く
         if (o instanceof GameModel) {
             // 残り時間を更新
-            timerLabel.setText("残り時間: " + model.getTimeRemaining() + "秒");
-
-            // 状態に応じてパネルを切り替え
-            remove(currentPanel);
-            currentPanel = PanelFactory.createPanel(model.getCurrentState());
-            add(currentPanel, "Center");
-            revalidate();
-            repaint();
+            if("TIME_CHANGE".equals(arg)){
+                timerLabel.setText("残り時間: " + model.getTimeRemaining() + "秒");
+            }else if("STATE_CHANGE".equals(arg)){
+                // 状態に応じてパネルを切り替え
+                remove(currentPanel);
+                currentPanel = PanelFactory.createPanel(model.getCurrentState());
+                add(currentPanel, "Center");
+                revalidate();
+                repaint();
+            }
+            
         }
     }
 }
