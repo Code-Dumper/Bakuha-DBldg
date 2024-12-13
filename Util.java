@@ -1,46 +1,5 @@
 import javax.swing.*;
 
-/**
- * 状態遷移と状態取得を担うクラス。
- * 各メソッドはstaticにより記述されているため、クラスのインスタンスを作成することなく各メソッドを呼び出すことができる。
- */
-class StateFactory{
-    public static State createState(Event event){
-        switch(event){
-            case STATE_TITLE: return new TitleState();
-            case STATE_LOBBY: return new LobbyState();
-            case STATE_END: return new EndState();
-            case STATE_1F: return new FloorOneState();
-            case STATE_2F: return new FloorTwoState();
-            case STATE_3F: return new FloorThreeState();
-            case STATE_4F: return new FloorFourState();
-            case STATE_GAMEOVER: return new GameOverState();
-            default: throw new UnsupportedOperationException("Unimplemented State");
-        }
-    }
-    public static Event getState(State state){
-        if(state instanceof TitleState){
-            return Event.STATE_TITLE;
-        }else if(state instanceof LobbyState){
-            return Event.STATE_LOBBY;
-        }else if(state instanceof EndState){
-            return Event.STATE_END;
-        }else if(state instanceof FloorOneState){
-            return Event.STATE_1F;
-        }else if(state instanceof FloorTwoState){
-            return Event.STATE_2F;
-        }else if(state instanceof FloorThreeState){
-            return Event.STATE_3F;
-        }else if(state instanceof FloorFourState){
-            return Event.STATE_4F;
-        }else if(state instanceof GameOverState){
-            return Event.STATE_GAMEOVER;
-        }else{
-            throw new UnsupportedOperationException("Unimplemented State");
-        }
-    }
-}
-
 
 /**
  * 状態に対応するPanelを作成するUtilのclass.
