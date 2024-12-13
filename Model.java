@@ -1,24 +1,32 @@
 import javax.swing.*;
 import java.util.*;
-import java.util.Timer;
 
 
 
 
 /**
- * ゲームのモデルを管理するクラス。
- * - 現在の状態 (currentState)
- * - 残り時間 (remainTime)
- * を保持し、ゲームロジックの中心となる。
- * 
- * 主な機能:
- * 1. 現在の状態(State)の管理
- * 2. 残り時間のカウントダウンと通知
- * 3. 状態変更や時間変更の際にObserverに通知を行う
- * 
- * 備考:
- * - Observerパターンを利用し、ビュー（パネルなど）に変更を通知する。
+ * GameModelは、MVCアーキテクチャにおけるModelの役割を担うクラスです。
+ * ゲームの現在の状態を{@link StateMachine}を用いたイベント遷移で管理し、
+ * ゲーム内のタイマーや爆弾の状態を統括します。
+ * <p>
+ * このクラスの主な機能は以下の通りです：
+ * <ul>
+ *   <li>ゲームの残り時間の管理および取得</li>
+ *   <li>ゲーム状態の遷移および確認</li>
+ *   <li>爆弾解除の処理</li>
+ * </ul>
+ * <p>
+ * このクラスが生成されると、以下の初期化が行われます：
+ * <ul>
+ *   <li>{@link BombManager}および{@link StateMachine}のインスタンス生成</li>
+ *   <li>初期状態としてタイトル画面を設定</li>
+ *   <li>残り時間を3600秒（1時間）に設定</li>
+ *   <li>{@link GameTimer}インスタンスの生成およびタイマーの開始</li>
+ * </ul>
+ * <p>
+ * GameModelは、時間や状態の変化を監視するObserverに通知する機能を提供します。
  */
+
 
 @SuppressWarnings("deprecation")
 class GameModel extends Observable implements GameTimer.TimerListener{
@@ -45,15 +53,10 @@ class GameModel extends Observable implements GameTimer.TimerListener{
 
     public void defuseBomb( int index, String inputcode ){
         boolean success = bombManager.defuseBomb(index, inputcode);
-        if(success){
-            //TODO 解除成功時のViewへの通知
-        }else{
-            //TODO 解除失敗時のViewへの通知
-        }
-
+        notifyBombResultState(success);
         if(bombManager.areAllBombsDefused()){
             setCurrentState(Event.STATE_GAMECLEAR);
-            //TODO ゲームクリア時のViewへの通知
+            notifyStateChange();
         }
     }
 
@@ -102,6 +105,16 @@ class GameModel extends Observable implements GameTimer.TimerListener{
                 setChanged(); 
                 notifyObservers("STATE_CHANGE");
             });
+    }
+    private void notifyBombResultState(boolean isDefused){
+        SwingUtilities.invokeLater(() ->{
+            setChanged();
+            if(isDefused == true){
+                notifyObservers("BOMB_DEFUSED");
+            }else{
+                notifyObservers("BOMB_IS_NOT_DEFUSED");
+            }
+        });
     }
 }
 
