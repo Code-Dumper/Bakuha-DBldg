@@ -1,6 +1,7 @@
+package io.github.codedumper.model;
 import java.util.*;
 
-enum Event {
+public enum Event {
     STATE_TITLE,
     STATE_LOBBY,
     STATE_END,
