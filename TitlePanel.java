@@ -21,14 +21,14 @@ public class TitlePanel extends BasePanel implements ActionListener {
         int size[][] = new int[BUTTON_NUMBER][2]; //ボタンのサイズ
         
         //1つめのボタンの名前、位置、サイズ
-        state[0] = START; //ラベル
+        state[0] = START; //名前
         locate[0][0] = 0; //x座標
         locate[0][1] = 0; //y座標
         size[0][0] = 100; //width
         size[0][1] = 100; //height
 
         //2つめのボタンの名前、位置、サイズ
-        state[1] = END; //ラベル
+        state[1] = END; //名前
         locate[1][0] = 0; //x座標
         locate[1][1] = 50; //y座標
         size[1][0] = 100; //width
