@@ -17,7 +17,7 @@ public class BasePanel extends JPanel implements ActionListener{
     /*コンポーネントを階層的に配置するpanel
     ボタンの上に画像を配置してボタンを見えなくする*/
     private JLayeredPane panel;
-    private GameController controller;
+    protected GameController controller;
     public BasePanel(GameController controller) {
         this.setLayout(null); //親パネルのレイアウト無効化
         panel = new JLayeredPane();
