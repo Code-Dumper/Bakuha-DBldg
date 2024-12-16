@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
-public class TitlePanel extends BasePanel implements ActionListener {
+public class TitlePanel extends BasePanel{
 
     public TitlePanel(GameController controller) {
         super(controller);
