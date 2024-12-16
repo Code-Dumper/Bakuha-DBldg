@@ -6,69 +6,118 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * それぞれのPanelに共通な基本的な機能を持った親クラスBasePanel。
- * このクラスを継承して各状態のパネルが作成されることが期待される。
- * JLayeredPaneにより重なりを実現しており、背景が最上層1層、ボタンが最下層0層に配置される。
- * 現行の仕様ではコントローラーにボタンの処理を委任する必要があるため、コンストラクタの中でコントローラを指定する必要がある。
- * BasePanelは背景のセット、buttonの作成&貼り付け、状態遷移のためのメソッドを持ち、子クラスはこの性質を持たなければならない。
+ * BasePanelは、各状態の画面を構成する基本的なパネルの親クラスです。
+ * このクラスは、背景画像のセットアップやボタンの作成、
+ * 状態遷移のための仕組みを提供します。
+ * 
+ * <p>特に以下の特徴があります:
+ * <ul>
+ *   <li>JLayeredPaneを用いた背景とボタンの重なり管理</li>
+ *   <li>GameControllerとの連携を容易にするための構造</li>
+ *   <li>背景画像がボタンの動作を妨げないような工夫</li>
+ * </ul>
+ * 
+ * <p>このクラスは直接使用されることは想定されておらず、
+ * サブクラス化されて特定の画面（状態）を構成するために利用されます。
  */
+public class BasePanel extends JPanel implements ActionListener {
 
-public class BasePanel extends JPanel implements ActionListener{
-    /*コンポーネントを階層的に配置するpanel
-    ボタンの上に画像を配置してボタンを見えなくする*/
+    /**
+     * JLayeredPaneは、コンポーネントを階層的に管理するパネルです。
+     * 背景やボタンの重なりを制御するために使用されます。
+     */
     private JLayeredPane panel;
+
+    /**
+     * 状態遷移を管理するGameController。
+     * BasePanelの動作は、このコントローラと連携します。
+     */
     protected GameController controller;
+
+    /**
+     * コンストラクタ。
+     * GameControllerを受け取り、JLayeredPaneを初期化してBasePanelに追加します。
+     * 
+     * @param controller ボタンの状態遷移を管理するためのGameController。
+     */
     public BasePanel(GameController controller) {
-        this.setLayout(null); //親パネルのレイアウト無効化
+        this.setLayout(null); // 親パネルのレイアウトを無効化
+        this.controller = controller;
+
         panel = new JLayeredPane();
-        panel.setLayout(null);
-        panel.setSize(600, 800);
+        panel.setLayout(null); // 子要素の自由配置を可能に
+        panel.setSize(600, 800); // パネルのサイズを指定
         panel.setVisible(true);
-        this.add(panel);
+
+        this.add(panel); // BasePanelにJLayeredPaneを追加
     }
 
     /**
-     * 背景画像をセットするメソッド。
-     * @param path pathにはio/github/codedumper/viewの中のファイルが指定されるはずである。
+     * 指定されたパスの画像を背景として設定します。
+     * 背景画像がボタンの操作を妨げないように、背景をマウスイベント対象外に設定します。
+     * 
+     * @param path 背景画像のファイルパス。
+     *             このパスは、リソースパス（io/github/codedumper/view）を基準とします。
      */
     public void setBackground(String path) {
-        //画像のパスを取得する処理
+        // リソースから画像を取得
         ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(path));
         JLabel background = new JLabel(imageIcon);
 
+        // 背景画像のサイズと位置を設定
         background.setBounds(0, 0, 600, 800);
 
-        /*背景をマウスイベント対象外にする処理
-        この処理がない場合クリックが背景画像に対して反応してしまいボタンが動作しない*/
+        // 背景をマウスイベント対象外に設定
         background.addMouseListener(new java.awt.event.MouseAdapter() {});
 
-        //背景をpanelの最上層に配置
+        // 背景をJLayeredPaneの最上層に配置
         panel.add(background, Integer.valueOf(1));
     }
 
-    
-    //ボタンをButtonPropertiesにより指示された位置に配置し、クリックした際の遷移先をEventにする処理。
+    /**
+     * ボタンを指定された位置とサイズで作成し、
+     * クリック時の遷移先を指定します。
+     * 
+     * @param event クリックされた際の状態遷移先を表すEvent。
+     * @param layout ボタンの位置とサイズを指定するButtonProperties。
+     */
     public void createButton(Event event, ButtonProperties layout) {
-            JButton button = new JButton();
-            //ボタンの位置指定
-            button.setBounds(   layout.getX(), 
-                                layout.getY(), 
-                                layout.getWidth(), 
-                                layout.getHeight()
-                            );
-            //eventはEnumなのでtoStringが実装されているはず
-            button.setActionCommand(event.toString());
-            //ボタンをpanelの最下層に配置
-            panel.add(button, Integer.valueOf(0));
-            button.addActionListener(this);
+        JButton button = new JButton();
+
+        // ボタンの位置とサイズを設定
+        button.setBounds(
+            layout.getX(),
+            layout.getY(),
+            layout.getWidth(),
+            layout.getHeight()
+        );
+
+        // 状態遷移先を文字列として設定
+        button.setActionCommand(event.toString());
+
+        // ボタンをJLayeredPaneの最下層に配置
+        panel.add(button, Integer.valueOf(0));
+
+        // ボタンにアクションリスナーを追加
+        button.addActionListener(this);
     }
 
-    //遷移先をcontrollerに渡す
+    /**
+     * ボタンがクリックされた際に呼び出されるメソッド。
+     * アクションコマンドから状態を取得し、
+     * GameControllerに遷移先を通知します。
+     * 
+     * @param e ボタンのアクションイベント。
+     */
+    @Override
     public void actionPerformed(ActionEvent e) {
-        //getActionCommand()はStringを返す
+        // アクションコマンド（状態名）を取得
         String state = e.getActionCommand();
-        //StringをEventに変換
+
+        // アクションコマンドをEventに変換
         Event destination = Event.valueOf(state);
+
+        // GameControllerに遷移先を通知
         controller.transition(destination);
     }
 }
