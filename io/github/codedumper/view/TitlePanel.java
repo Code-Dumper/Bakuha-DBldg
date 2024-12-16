@@ -1,12 +1,8 @@
 package io.github.codedumper.view;
 
 import io.github.codedumper.controller.GameController;
-import io.github.codedumper.model.*;
 import io.github.codedumper.model.Event;
-import java.awt.*;
 import java.awt.event.*;
-
-import javax.swing.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
