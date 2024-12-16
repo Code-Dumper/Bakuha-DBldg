@@ -2,11 +2,13 @@ package io.github.codedumper.view;
 
 import io.github.codedumper.model.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
-public class TitlePanel extends BasePanel implements ButtonLayout, ActionListener {
+public class TitlePanel extends BasePanel implements ActionListener {
 
     public TitlePanel() {
 
