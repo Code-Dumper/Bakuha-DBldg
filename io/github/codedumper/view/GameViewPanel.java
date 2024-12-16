@@ -21,7 +21,7 @@ public class GameViewPanel extends JPanel implements Observer {
         timerLabel = new JLabel("残り時間: " + model.getTimeRemaining() + "秒");
         add(timerLabel, "North"); // ラベルを北側に配置
 
-        currentPanel = PanelFactory.createPanel(model.getCurrentState());
+        currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
         System.out.println("" + model.getCurrentState());
         add(currentPanel, "Center");
     }
@@ -36,7 +36,7 @@ public class GameViewPanel extends JPanel implements Observer {
             }else if("STATE_CHANGE".equals(arg)){
                 // 状態に応じてパネルを切り替え
                 remove(currentPanel);
-                currentPanel = PanelFactory.createPanel(model.getCurrentState());
+                currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
                 add(currentPanel, "Center");
                 revalidate();
                 repaint();
