@@ -19,6 +19,7 @@ class PanelFactory{
                 return new TitlePanel(controller);
             case STATE_LOBBY:
                 return new LobbyPanel(controller);
+            /*
             case STATE_END:
                 return new EndPanel(controller);
             case STATE_1F:
@@ -31,6 +32,7 @@ class PanelFactory{
                 return new FloorFourPanel(controller);
             case STATE_GAMEOVER:
                 return new GameOverPanel(controller);
+            */
             default:
                 return new TitlePanel(controller);
         }
