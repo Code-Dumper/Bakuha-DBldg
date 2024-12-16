@@ -1,8 +1,10 @@
 package io.github.codedumper.view;
 
+import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.*;
+import io.github.codedumper.model.Event;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 
@@ -10,14 +12,11 @@ import javax.swing.*;
 
 public class TitlePanel extends BasePanel implements ActionListener {
 
-    public TitlePanel() {
-
-        //背景画像をset
-        setBackground(getClass().getClassLoader().getResource("/*画像のクラスパス*/").getPath());
-
+    public TitlePanel(GameController controller) {
+        super(controller);
         //ボタンをset
-        createButton(STATE_TITLE, new ButtonLayout(0, 0, 100, 100));
-        createButton(STATE_END, new ButtonLayout(0, 50, 100, 100));
+        createButton(Event.STATE_TITLE, new ButtonProperties(0, 0, 100, 100));
+        createButton(Event.STATE_END, new ButtonProperties(0, 50, 100, 100));
     }
 
     @Override
