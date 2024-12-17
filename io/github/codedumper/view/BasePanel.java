@@ -57,7 +57,9 @@ public class BasePanel extends JPanel implements ActionListener {
      * 背景画像がボタンの操作を妨げないように、背景をマウスイベント対象外に設定します。
      * 
      * @param path 背景画像のファイルパス。
-     *             このパスは、リソースパス（io/github/codedumper/view）を基準とします。
+     *             このパスは、"io/github/codedumper/view/d1.png"のようにクラスパスのルートから記載される必要があります。
+     *      
+     * 
      */
     public void setBackground(String path) {
         // リソースから画像を取得
