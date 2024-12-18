@@ -1,6 +1,7 @@
 package io.github.codedumper.view;
 import javax.swing.*;
 
+import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
 
 
@@ -12,26 +13,28 @@ import io.github.codedumper.model.Event;
  * ...
  */
 class PanelFactory{
-    public static JPanel createPanel(Event event){
+    public static JPanel createPanel(Event event, GameController controller){
         switch(event){
             case STATE_TITLE:
-                return new TitlePanel();
+                return new TitlePanel(controller);
             case STATE_LOBBY:
-                return new LobbyPanel();
+                return new LobbyPanel(controller);
+            /*
             case STATE_END:
-                return new EndPanel();
+                return new EndPanel(controller);
             case STATE_1F:
-                return new FloorOnePanel();
+                return new FloorOnePanel(controller);
             case STATE_2F:
-                return new FloorTwoPanel();
+                return new FloorTwoPanel(controller);
             case STATE_3F:
-                return new FloorThreePanel();
+                return new FloorThreePanel(controller);
             case STATE_4F:
-                return new FloorFourPanel();
+                return new FloorFourPanel(controller);
             case STATE_GAMEOVER:
-                return new GameOverPanel();
+                return new GameOverPanel(controller);
+            */
             default:
-                return new TitlePanel();
+                return new TitlePanel(controller);
         }
     }
 }
