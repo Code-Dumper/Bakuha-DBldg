@@ -11,7 +11,7 @@ public class LobbyPanel extends BasePanel{
     public LobbyPanel(GameController controller) {
         super(controller);
         //背景画像をset
-        setBackground(getClass().getClassLoader().getResource("画像のクラスパス").getPath());
+        this.setBackground("io/github/codedumper/view/LobbyPicture.png");
 
         //ボタンをset
         //TODO この実装だと同じ位置にボタンを追加している。
