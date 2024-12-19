@@ -1,6 +1,6 @@
 package io.github.codedumper.view;
 
-import io.github.codedumper.controller.GameController;
+import io.github.codedumper.controller.*;
 import io.github.codedumper.model.Event;
 import java.awt.event.*;
 
@@ -10,6 +10,8 @@ public class TitlePanel extends BasePanel{
 
     public TitlePanel(GameController controller) {
         super(controller);
+        //背景画像をset
+        this.setBackground("io/github/codedumper/view/TitlePicture.png");
         //ボタンをset
         createButton(Event.STATE_TITLE, new ButtonProperties(0, 0, 100, 100));
         createButton(Event.STATE_END, new ButtonProperties(0, 50, 100, 100));
