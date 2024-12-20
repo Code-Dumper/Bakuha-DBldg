@@ -75,7 +75,7 @@ public class BasePanel extends JPanel implements ActionListener {
             background.addMouseListener(new java.awt.event.MouseAdapter() {});
 
             // 背景をJLayeredPaneの最上層に配置
-            layeredPanel.add(background, Integer.valueOf(1));
+            layeredPanel.add(background, Integer.valueOf(0));
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -100,9 +100,13 @@ public class BasePanel extends JPanel implements ActionListener {
 
         // 状態遷移先を文字列として設定
         button.setActionCommand(event.toString());
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+
 
         // ボタンをJLayeredPaneの最下層に配置
-        layeredPanel.add(button, Integer.valueOf(0));
+        layeredPanel.add(button, Integer.valueOf(1));
 
         // ボタンにアクションリスナーを追加
         button.addActionListener(this);
@@ -119,6 +123,7 @@ public class BasePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // アクションコマンド（状態名）を取得
         String state = e.getActionCommand();
+        System.out.println("state");
 
         // アクションコマンドをEventに変換
         Event destination = Event.valueOf(state);
