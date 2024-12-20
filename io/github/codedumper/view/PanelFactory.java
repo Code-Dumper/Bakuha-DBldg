@@ -18,7 +18,7 @@ class PanelFactory{
         switch(event){
             case STATE_TITLE:
                 productPanel = new TitlePanel(controller);
-                productPanel.setBounds(0,100,600,700);
+                productPanel.setBounds(0,0,600,800);
                 return productPanel;
             case STATE_LOBBY:
                 return new LobbyPanel(controller);

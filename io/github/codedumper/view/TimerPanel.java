@@ -7,9 +7,9 @@ public class TimerPanel extends JPanel {
     private JLabel timerLabel;
     public TimerPanel(int remainSeconds) {
         this.setLayout(null); //絶対位置指定レイアウトへ
-        this.setSize(new Dimension(200, 100));//TODO 保守性が最悪
+        this.setSize(new Dimension(100, 50));//TODO 保守性が最悪
         timerLabel = new JLabel(formatTime(remainSeconds)); //残り時間の指定
-        timerLabel.setBounds(0,0,200,100);
+        timerLabel.setBounds(0,0,100,50);
         timerLabel.setFont(new Font("Monospaced", Font.BOLD, 20)); //フォントの指定
         this.add(timerLabel);
     }

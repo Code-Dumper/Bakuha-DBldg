@@ -62,7 +62,7 @@ public class BasePanel extends JPanel implements ActionListener {
      *      
      * 
      */
-    public void setBackground(String path) {
+    public void setBackground(String path, int layerNumber) {
         try{
             // リソースから画像を取得
             ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(path));
@@ -75,7 +75,7 @@ public class BasePanel extends JPanel implements ActionListener {
             background.addMouseListener(new java.awt.event.MouseAdapter() {});
 
             // 背景をJLayeredPaneの最上層に配置
-            layeredPanel.add(background, Integer.valueOf(0));
+            layeredPanel.add(background, Integer.valueOf(layerNumber));
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -106,7 +106,7 @@ public class BasePanel extends JPanel implements ActionListener {
 
 
         // ボタンをJLayeredPaneの最下層に配置
-        layeredPanel.add(button, Integer.valueOf(1));
+        layeredPanel.add(button, Integer.valueOf(2));
 
         // ボタンにアクションリスナーを追加
         button.addActionListener(this);
