@@ -4,31 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TimerPanel extends JPanel {
-    private static final int TOTAL_SEC = 3600;
-    private int remainTime = TOTAL_SEC;
     private JLabel timerLabel;
-
-    public TimerPanel() {
-        this.setLayout(new GridLayout(1, 1));
-        this.setPreferredSize(new Dimension(200, 100));
-
-        timerLabel = new JLabel(formatTime(remainTime), JLabel.CENTER);
-        timerLabel.setFont(new Font("Monospaced", Font.BOLD, 50));
+    public TimerPanel(int remainSeconds) {
+        this.setLayout(null); //絶対位置指定レイアウトへ
+        this.setSize(new Dimension(200, 100));//TODO 保守性が最悪
+        timerLabel = new JLabel(formatTime(remainSeconds)); //残り時間の指定
+        timerLabel.setBounds(0,0,200,100);
+        timerLabel.setFont(new Font("Monospaced", Font.BOLD, 20)); //フォントの指定
         this.add(timerLabel);
-
-        new Timer(1000, e -> updateTime()).start(); // 1秒ごとに時間更新
     }
 
     private String formatTime(int seconds) {
         int min = seconds / 60;
         int sec = seconds % 60;
-        return String.format("%02d:%02d", min, sec);
+        return String.format("%02d分%02d秒", min, sec);
     }
 
-    private void updateTime() {
-        if (remainTime > 0) {
-            remainTime--;
-            timerLabel.setText(formatTime(remainTime));
-        }
+    public void updateTime(int time) { //時間の更新
+        timerLabel.setText(formatTime(time));
     }
 }
