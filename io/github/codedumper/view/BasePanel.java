@@ -42,7 +42,7 @@ public class BasePanel extends JPanel implements ActionListener {
      */
     public BasePanel(GameController controller) {
         this.setLayout(null); // BasePanelのレイアウトを絶対位置指定レイアウトに
-        this.setSize(600, 800); //BasePanelのサイズを横800×縦600に
+        this.setSize(600, 800); //BasePanelのサイズを横600×縦800に
         this.controller = controller;
 
         layeredPanel = new JLayeredPane();
