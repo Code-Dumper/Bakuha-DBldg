@@ -14,16 +14,19 @@ public class GameViewPanel extends JPanel implements Observer {
     private GameController controller;
 
     public GameViewPanel(GameModel model, GameController controller) {
+        this.setLayout(null);
         this.model = model;
         this.controller = controller;
         model.addObserver(this); // Observerに登録
 
+        //TODO 仮の設計として、タイマーは50*800のJLabelとなっている。ここを本来のパネルに変えるべき。
         timerLabel = new JLabel("残り時間: " + model.getTimeRemaining() + "秒");
-        add(timerLabel, "North"); // ラベルを北側に配置
+        timerLabel.setBounds(0, 0, 50, 800);
+        this.add(timerLabel); // ラベルを北側に配置
 
         currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
-        System.out.println("" + model.getCurrentState());
-        add(currentPanel, "Center");
+        currentPanel.setBounds(0,0,550,800);
+        this.add(currentPanel);
     }
 
     @Override
@@ -37,7 +40,8 @@ public class GameViewPanel extends JPanel implements Observer {
                 // 状態に応じてパネルを切り替え
                 remove(currentPanel);
                 currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
-                add(currentPanel, "Center");
+                currentPanel.setBounds(0,50,550,800);
+                add(currentPanel);
                 revalidate();
                 repaint();
             }
