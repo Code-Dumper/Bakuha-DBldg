@@ -42,12 +42,12 @@ public class BasePanel extends JPanel implements ActionListener {
      */
     public BasePanel(GameController controller) {
         this.setLayout(null); // BasePanelのレイアウトを絶対位置指定レイアウトに
-        this.setSize(800, 600); //BasePanelのサイズを横800×縦600に
+        this.setSize(600, 800); //BasePanelのサイズを横800×縦600に
         this.controller = controller;
 
         layeredPanel = new JLayeredPane();
         layeredPanel.setLayout(null); // LayeredPaneのレイアウトを絶対位置指定レイアウトに
-        layeredPanel.setSize(800, 600); // パネルのサイズをBasePanelと同じ大きさにする
+        layeredPanel.setSize(600, 800); // パネルのサイズをBasePanelと同じ大きさにする
         layeredPanel.setVisible(true); //パネルを可視化する
 
         this.add(layeredPanel); // BasePanelにJLayeredPaneを追加
@@ -69,7 +69,7 @@ public class BasePanel extends JPanel implements ActionListener {
             JLabel background = new JLabel(imageIcon);
 
             // 背景画像のサイズと位置を設定
-            background.setBounds(0, 0, 800, 600);
+            background.setBounds(0, 0, 600, 800);
 
             // 背景をマウスイベント対象外に設定
             background.addMouseListener(new java.awt.event.MouseAdapter() {});
