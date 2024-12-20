@@ -14,9 +14,12 @@ import io.github.codedumper.model.Event;
  */
 class PanelFactory{
     public static JPanel createPanel(Event event, GameController controller){
+        JPanel productPanel;
         switch(event){
             case STATE_TITLE:
-                return new TitlePanel(controller);
+                productPanel = new TitlePanel(controller);
+                productPanel.setBounds(0,100,600,700);
+                return productPanel;
             case STATE_LOBBY:
                 return new LobbyPanel(controller);
             /*
