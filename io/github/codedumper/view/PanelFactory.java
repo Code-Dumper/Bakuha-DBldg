@@ -18,10 +18,8 @@ class PanelFactory{
         switch(event){
             case STATE_TITLE:
                 productPanel = new TitlePanel(controller);
-                productPanel.setBounds(0,0,600,800);
-                return productPanel;
             case STATE_LOBBY:
-                return new LobbyPanel(controller);
+                productPanel = new LobbyPanel(controller);
             /*
             case STATE_END:
                 return new EndPanel(controller);
@@ -37,7 +35,9 @@ class PanelFactory{
                 return new GameOverPanel(controller);
             */
             default:
-                return new TitlePanel(controller);
+                productPanel = new TitlePanel(controller);
         }
+        productPanel.setBounds(0,0,600,800);
+        return productPanel;
     }
 }
