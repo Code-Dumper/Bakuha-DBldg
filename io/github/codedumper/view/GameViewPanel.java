@@ -8,25 +8,30 @@ import java.util.Observable;
 
 @SuppressWarnings("deprecation")
 public class GameViewPanel extends JPanel implements Observer {
-    private JLabel timerLabel;
+    private TimerPanel timerPanel;
     private JPanel currentPanel;
     private GameModel model;
     private GameController controller;
 
     public GameViewPanel(GameModel model, GameController controller) {
         this.setLayout(null);
+        this.setSize(600, 800);
         this.model = model;
         this.controller = controller;
-        model.addObserver(this); // Observerに登録
+        this.model.addObserver(this); // Observerに登録
 
-        //TODO 仮の設計として、タイマーは50*800のJLabelとなっている。ここを本来のパネルに変えるべき。
-        timerLabel = new JLabel("残り時間: " + model.getTimeRemaining() + "秒");
-        timerLabel.setBounds(0, 0, 50, 800);
-        this.add(timerLabel); // ラベルを北側に配置
-
-        currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
-        currentPanel.setBounds(0,0,550,800);
+        //タイマーの下にパネルを画面いっぱいに表示する。
+        this.currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
         this.add(currentPanel);
+
+        //TODO タイマーパネルの位置指定を直接書いているので保守性が低いかもしれない
+        //タイマーパネルを左上に追加する
+        this.timerPanel = new TimerPanel(this.model.getTimeRemaining());
+        this.timerPanel.setBounds(0,0,200,100);
+        this.add(timerPanel);
+
+        
+        System.out.println("GameViewPanelのコンストラクタの実行が終了しました");
     }
 
     @Override
@@ -35,12 +40,15 @@ public class GameViewPanel extends JPanel implements Observer {
         if (o instanceof GameModel) {
             // 残り時間を更新
             if("TIME_CHANGE".equals(arg)){
-                timerLabel.setText("残り時間: " + model.getTimeRemaining() + "秒");
+                if(this.timerPanel == null){
+                    this.timerPanel = new TimerPanel(this.model.getTimeRemaining());
+                }else{
+                    this.timerPanel.updateTime(this.model.getTimeRemaining());
+                }
             }else if("STATE_CHANGE".equals(arg)){
                 // 状態に応じてパネルを切り替え
                 remove(currentPanel);
                 currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
-                currentPanel.setBounds(0,50,550,800);
                 add(currentPanel);
                 revalidate();
                 repaint();
