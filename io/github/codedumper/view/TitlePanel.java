@@ -11,7 +11,8 @@ public class TitlePanel extends BasePanel{
     public TitlePanel(GameController controller) {
         super(controller);
         //背景画像をset
-        this.setBackground("io/github/codedumper/view/TitlePicture.png");
+        this.setBackground("io/github/codedumper/view/d.jpg", 0);
+        this.setBackground("io/github/codedumper/view/title.jpg", 1);
         //ボタンをset
         this.createButton(Event.STATE_TITLE, new ButtonProperties(200, 400, 200, 100));
         this.createButton(Event.STATE_END, new ButtonProperties(200, 600, 200, 100));
