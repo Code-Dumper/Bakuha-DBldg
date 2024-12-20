@@ -26,7 +26,7 @@ public class BasePanel extends JPanel implements ActionListener {
      * JLayeredPaneは、コンポーネントを階層的に管理するパネルです。
      * 背景やボタンの重なりを制御するために使用されます。
      */
-    private JLayeredPane panel;
+    private JLayeredPane layeredPanel;
 
     /**
      * 状態遷移を管理するGameController。
@@ -41,15 +41,16 @@ public class BasePanel extends JPanel implements ActionListener {
      * @param controller ボタンの状態遷移を管理するためのGameController。
      */
     public BasePanel(GameController controller) {
-        this.setLayout(null); // 親パネルのレイアウトを無効化
+        this.setLayout(null); // BasePanelのレイアウトを絶対位置指定レイアウトに
+        this.setSize(600, 800); //BasePanelのサイズを横600×縦800に
         this.controller = controller;
 
-        panel = new JLayeredPane();
-        panel.setLayout(null); // 子要素の自由配置を可能に
-        panel.setSize(600, 800); // パネルのサイズを指定
-        panel.setVisible(true);
+        layeredPanel = new JLayeredPane();
+        layeredPanel.setLayout(null); // LayeredPaneのレイアウトを絶対位置指定レイアウトに
+        layeredPanel.setSize(600, 800); // パネルのサイズをBasePanelと同じ大きさにする
+        layeredPanel.setVisible(true); //パネルを可視化する
 
-        this.add(panel); // BasePanelにJLayeredPaneを追加
+        this.add(layeredPanel); // BasePanelにJLayeredPaneを追加
     }
 
     /**
@@ -62,20 +63,23 @@ public class BasePanel extends JPanel implements ActionListener {
      * 
      */
     public void setBackground(String path) {
-        // リソースから画像を取得
-        ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(path));
-        JLabel background = new JLabel(imageIcon);
+        try{
+            // リソースから画像を取得
+            ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(path));
+            JLabel background = new JLabel(imageIcon);
 
-        // 背景画像のサイズと位置を設定
-        background.setBounds(0, 0, 600, 800);
+            // 背景画像のサイズと位置を設定
+            background.setBounds(0, 0, 600, 800);
 
-        // 背景をマウスイベント対象外に設定
-        background.addMouseListener(new java.awt.event.MouseAdapter() {});
+            // 背景をマウスイベント対象外に設定
+            background.addMouseListener(new java.awt.event.MouseAdapter() {});
 
-        // 背景をJLayeredPaneの最上層に配置
-        panel.add(background, Integer.valueOf(1));
+            // 背景をJLayeredPaneの最上層に配置
+            layeredPanel.add(background, Integer.valueOf(0));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
-
     /**
      * ボタンを指定された位置とサイズで作成し、
      * クリック時の遷移先を指定します。
@@ -96,9 +100,13 @@ public class BasePanel extends JPanel implements ActionListener {
 
         // 状態遷移先を文字列として設定
         button.setActionCommand(event.toString());
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+
 
         // ボタンをJLayeredPaneの最下層に配置
-        panel.add(button, Integer.valueOf(0));
+        layeredPanel.add(button, Integer.valueOf(1));
 
         // ボタンにアクションリスナーを追加
         button.addActionListener(this);
@@ -115,6 +123,7 @@ public class BasePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // アクションコマンド（状態名）を取得
         String state = e.getActionCommand();
+        System.out.println("state");
 
         // アクションコマンドをEventに変換
         Event destination = Event.valueOf(state);

@@ -32,7 +32,6 @@ public class GameViewPanel extends JPanel implements Observer {
 
         
         System.out.println("GameViewPanelのコンストラクタの実行が終了しました");
-        
     }
 
     @Override
