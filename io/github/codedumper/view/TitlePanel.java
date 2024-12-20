@@ -13,8 +13,8 @@ public class TitlePanel extends BasePanel{
         //背景画像をset
         this.setBackground("io/github/codedumper/view/TitlePicture.png");
         //ボタンをset
-        createButton(Event.STATE_TITLE, new ButtonProperties(0, 0, 100, 100));
-        createButton(Event.STATE_END, new ButtonProperties(0, 50, 100, 100));
+        this.createButton(Event.STATE_TITLE, new ButtonProperties(0, 0, 25, 50));
+        this.createButton(Event.STATE_END, new ButtonProperties(0, 50, 100, 100));
     }
 
     @Override
