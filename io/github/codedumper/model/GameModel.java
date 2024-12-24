@@ -6,6 +6,7 @@ import io.github.codedumper.model.bomb.BombManager;
 import io.github.codedumper.model.planarity.*;
 
 import java.util.*;
+import java.awt.Point;
 
 
 
@@ -97,6 +98,11 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
     public void onTimeOut(){
         setCurrentState(Event.STATE_GAMEOVER);
     }
+
+    public List<Point> getNodes(){
+        return graphManager.getNodes();
+    }
+    
 
     //Observerへ時間変化の通知
     private void notifyTimeChange(){
