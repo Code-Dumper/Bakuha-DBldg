@@ -1,6 +1,10 @@
 package io.github.codedumper.model;
 
 import javax.swing.*;
+
+import io.github.codedumper.model.bomb.BombManager;
+import io.github.codedumper.model.planarity.*;
+
 import java.util.*;
 
 
@@ -39,6 +43,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
     private int remainTime; //残り時間
     private BombManager bombManager;
     private StateMachine stateMachine;
+    private GraphManager graphManager;
 
     /**
      * コンストラクタ。初期状態としてタイトル画面を設定。残り時間を初期化し、タイマーを開始する。
@@ -49,6 +54,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
         timer = new GameTimer(INITIAL_TIME, this);
         bombManager = new BombManager();
         stateMachine = new StateMachine();
+        graphManager = new GraphManager(this);
 
         timer.start();
     }
