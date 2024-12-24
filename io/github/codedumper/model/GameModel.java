@@ -102,6 +102,10 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
     public List<Point> getNodes(){
         return graphManager.getNodes();
     }
+
+    public void moveNode(int index, Point newPosition){
+        graphManager.moveNode(index, newPosition);
+    }
     
 
     //Observerへ時間変化の通知

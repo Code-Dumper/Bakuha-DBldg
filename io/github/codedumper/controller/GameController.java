@@ -47,4 +47,17 @@ public class GameController extends MouseAdapter{
             selectedNodeIndex = -1;
         }
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // ノードの移動
+        if (selectedNodeIndex != -1) {
+            model.moveNode(selectedNodeIndex, e.getPoint());
+            view.repaint();
+        }
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        selectedNodeIndex = -1;
+    }
 }
