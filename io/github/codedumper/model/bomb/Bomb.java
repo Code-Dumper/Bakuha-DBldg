@@ -1,40 +1,26 @@
-package io.github.codedumper.model;
+package io.github.codedumper.model.bomb;
 
-/*
- * 爆弾解除の解除戦略を定義するインターフェース
- */
-interface DisarmStrategy {
-    /**
-     * 爆弾を解除する試みを行う。
-     * @return 解除に成功した場合はtrue、失敗した場合はfalse。
-     */
-    boolean tryToDisarm(String s);
-}
+import io.github.codedumper.model.GameModel;
 
-/**
- * 爆弾の性質を定義するクラス。
- * 爆弾は解除されたかどうか、どのように解除されるかの二つの情報を持つ。
- */
 public class Bomb {
-    private boolean isDefused;
-    private DisarmStrategy disarmStrategy;
-    
-    //コンストラクタ
-    public Bomb(CodeDisarmStrategy disarmStrategy){
-        this.isDefused = false;
+    private final DisarmStrategy disarmStrategy;
+    private boolean disarmed;
+
+    public Bomb(GameModel model, DisarmStrategy disarmStrategy) {
         this.disarmStrategy = disarmStrategy;
+        this.disarmed = false;
     }
 
-    //爆弾を解除できるか判定し、解除できるならisDefusedをtrueにする
-    public void defuse(String input){
-        if(disarmStrategy.tryToDisarm(input)){
-            isDefused = true;
+    public boolean disarm(Object input) {
+        if (disarmStrategy.canDisarm(this, input)) {
+            disarmed = true;
+            return true;
+        } else {
+            return false;
         }
     }
 
-    //爆弾が解除されてるかを教える
-    public boolean isDefused(){
-        return isDefused;
+    public boolean isDisarmed() {
+        return disarmed;
     }
 }
-

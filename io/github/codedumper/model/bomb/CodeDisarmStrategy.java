@@ -1,14 +1,17 @@
-package io.github.codedumper.model;
+package io.github.codedumper.model.bomb;
 
+//暗号入力を鍵とした爆弾解除戦略クラス
 public class CodeDisarmStrategy implements DisarmStrategy{
-    private String correctCode;
+    private final String correctCode;
 
-    //コンストラクタ
+
     public CodeDisarmStrategy(String correctCode){
         this.correctCode = correctCode;
     }
-    //inputCodeがcorrectCodeと等しいかどうかで解除を決める
-    public boolean tryToDisarm(String inputCode){
-        return inputCode.equals(correctCode);
+
+    @Override
+    public boolean canDisarm(Bomb bomb, Object input){
+        if(!(input instanceof String)) return false;
+        return correctCode.equals(input);
     }
 }
