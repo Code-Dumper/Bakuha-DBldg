@@ -108,6 +108,21 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
         graphManager.recreatePuzzle();
     }
 
+    public List<Edge> getEdges(){
+        return graphManager.getEdges();
+    }
+
+    public List<Edge> getIntersectingEdges(){
+        return graphManager.getIntersectingEdges();
+    }
+
+    //TODO ここの仕様はcaseだとあまり良くない
+    public void disarmBomb(Event e){
+        switch(e){
+            case STATE_MINIGAME: bombManager.disarmBomb(2, "NoObject");
+            default: bombManager.disarmBomb(1, "AddKeyHere");
+        }
+    }
     //Observerへ時間変化の通知
     private void notifyTimeChange(){
         //ラムダ式を使っている
