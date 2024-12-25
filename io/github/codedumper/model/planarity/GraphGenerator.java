@@ -1,20 +1,26 @@
 package io.github.codedumper.model.planarity;
 import java.util.Random;
 import java.awt.*;
+
+//グラフの作成のみを扱うクラス。
 public class GraphGenerator {
     final int NUM_NODES = 7;
     final int MAX_EDGES = 4;
-    GraphManager model;
+    GraphManager manager;
 
-    public GraphGenerator(GraphManager model){
-        this.model = model;
+    //コンストラクタ
+    public GraphGenerator(GraphManager manager){
+        this.manager = manager;
+        //パズルの作成を行う
+        generateRandomGraph();
     }
+    //ランダムグラフを作成する関数
     public void generateRandomGraph() {
         // ノードの追加
         for (int i = 0; i < NUM_NODES; i++) {
             int x = new Random().nextInt(400) + 50; // ランダムにX座標を生成 (50-450)
             int y = new Random().nextInt(400) + 50; // ランダムにY座標を生成 (50-450)
-            model.addNode(new Point(x, y));
+            manager.addNode(new Point(x, y));
         }
         // エッジの追加
         for (int i = 0; i < NUM_NODES; i++) {
@@ -22,7 +28,7 @@ public class GraphGenerator {
             for (int j = 0; j < numEdges; j++) {
                 int targetNode = new Random().nextInt(NUM_NODES);
                 if (i != targetNode) {  // 同じノードにエッジを追加しない
-                    model.addEdge(i, targetNode);
+                    manager.addEdge(i, targetNode);
                 }
             }
         }

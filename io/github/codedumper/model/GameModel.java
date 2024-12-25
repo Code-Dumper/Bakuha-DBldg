@@ -29,6 +29,7 @@ import java.awt.Point;
  *   <li>初期状態としてタイトル画面を設定</li>
  *   <li>残り時間を3600秒（1時間）に設定</li>
  *   <li>{@link GameTimer}インスタンスの生成およびタイマーの開始</li>
+ *   <li>{@link GraphManager}インスタンスの生成</li>
  * </ul>
  * <p>
  * GameModelは、時間や状態の変化を監視するObserverに通知する機能を提供します。
@@ -42,9 +43,9 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
     private Event currentState; //現在のゲーム状態
     private GameTimer timer; //ゲームで共通のタイマー
     private int remainTime; //残り時間
-    private BombManager bombManager;
-    private StateMachine stateMachine;
-    private GraphManager graphManager;
+    private BombManager bombManager; //爆弾管理
+    private StateMachine stateMachine; //状態管理
+    private GraphManager graphManager; //ミニゲームのグラフ管理
 
     /**
      * コンストラクタ。初期状態としてタイトル画面を設定。残り時間を初期化し、タイマーを開始する。
@@ -53,20 +54,11 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
         currentState = Event.STATE_TITLE;
         remainTime = INITIAL_TIME;
         timer = new GameTimer(INITIAL_TIME, this);
-        bombManager = new BombManager();
+        bombManager = new BombManager(this);
         stateMachine = new StateMachine();
         graphManager = new GraphManager(this);
 
         timer.start();
-    }
-
-    public void defuseBomb( int index, String inputcode ){
-        boolean success = bombManager.defuseBomb(index, inputcode);
-        notifyBombResultState(success);
-        if(bombManager.areAllBombsDefused()){
-            setCurrentState(Event.STATE_GAMECLEAR);
-            notifyStateChange();
-        }
     }
 
     //残り時間の通知
@@ -99,6 +91,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
         setCurrentState(Event.STATE_GAMEOVER);
     }
 
+
     public List<Point> getNodes(){
         return graphManager.getNodes();
     }
@@ -107,6 +100,13 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
         graphManager.moveNode(index, newPosition);
     }
     
+    public boolean isPuzzleSolved(){
+        return graphManager.isGameSolved();
+    }
+
+    public void recreatePuzzle(){
+        graphManager.recreatePuzzle();
+    }
 
     //Observerへ時間変化の通知
     private void notifyTimeChange(){
