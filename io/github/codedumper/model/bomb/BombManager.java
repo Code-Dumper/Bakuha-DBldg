@@ -18,10 +18,10 @@ public class BombManager {
     public BombManager(GameModel model){
         this.model = model;
         bombs = new ArrayList<Bomb>();
-        addBomb(model, new CodeDisarmStrategy(Constant.oneFloorBombCode));
-        addBomb(model, new CodeDisarmStrategy(Constant.twoFloorBombCode));
-        addBomb(model, new CodeDisarmStrategy(Constant.threeFloorBombCode));
-        addBomb(model, new CodeDisarmStrategy(Constant.fourFloorBombCode));
+        addBomb(model, new CodeDisarmStrategy(model, Constant.oneFloorBombCode));
+        addBomb(model, new CodeDisarmStrategy(model, Constant.twoFloorBombCode));
+        addBomb(model, new CodeDisarmStrategy(model, Constant.threeFloorBombCode));
+        addBomb(model, new CodeDisarmStrategy(model, Constant.fourFloorBombCode));
     }
 
     public void addBomb(GameModel model, BaseDisarmStrategy disarmStrategy){
