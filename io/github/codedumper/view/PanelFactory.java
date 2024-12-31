@@ -3,6 +3,7 @@ import javax.swing.*;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
+import io.github.codedumper.model.GameModel;
 
 
 /**
@@ -13,7 +14,7 @@ import io.github.codedumper.model.Event;
  * ...
  */
 class PanelFactory{
-    public static JPanel createPanel(Event event, GameController controller){
+    public static JPanel createPanel(Event event, GameModel model, GameController controller){
         JPanel productPanel;
         switch(event){
             case STATE_TITLE:
@@ -34,6 +35,8 @@ class PanelFactory{
             case STATE_GAMEOVER:
                 return new GameOverPanel(controller);
             */
+            case STATE_MINIGAME:
+                productPanel = new PlanarityPanel(model, controller);
             default:
                 productPanel = new TitlePanel(controller);
         }

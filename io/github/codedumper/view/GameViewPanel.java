@@ -21,7 +21,7 @@ public class GameViewPanel extends JPanel implements Observer {
         this.model.addObserver(this); // Observerに登録
 
         //タイマーの下にパネルを画面いっぱいに表示する。
-        this.currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
+        this.currentPanel = PanelFactory.createPanel(model.getCurrentState(), model, controller);
         this.add(currentPanel);
 
         //TODO タイマーパネルの位置指定を直接書いているので保守性が低いかもしれない
@@ -48,7 +48,7 @@ public class GameViewPanel extends JPanel implements Observer {
             }else if("STATE_CHANGE".equals(arg)){
                 // 状態に応じてパネルを切り替え
                 remove(currentPanel);
-                currentPanel = PanelFactory.createPanel(model.getCurrentState(), controller);
+                currentPanel = PanelFactory.createPanel(model.getCurrentState(), model, controller);
                 add(currentPanel);
                 revalidate();
                 repaint();
