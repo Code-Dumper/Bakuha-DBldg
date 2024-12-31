@@ -28,12 +28,12 @@ public class BombManager {
         bombs.add(new Bomb(model, disarmStrategy));
     }
     
-    public void disarmBomb(int index, Object input){
+    public boolean disarmBomb(int index, Object input){
         if(index < 0 || bombs.size() <= index){
             throw new IllegalArgumentException();
         }
         Bomb bombToDisarm = bombs.get(index);
-        bombToDisarm.disarm(input);
+        return bombToDisarm.disarm(input);
     }
 
     public boolean areAllBombsDisarmed(){
