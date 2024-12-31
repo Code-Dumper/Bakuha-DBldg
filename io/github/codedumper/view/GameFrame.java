@@ -11,8 +11,9 @@ class GameFrame extends JFrame {
     GameViewPanel view;
     public GameFrame() {
         model = new GameModel();
-        controller = new GameController(model, view);
+        controller = new GameController(model);
         view = new GameViewPanel(model, controller);
+        controller.addView(view);
         this.setSize(600, 800);
         this.add(view);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

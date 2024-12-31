@@ -13,13 +13,15 @@ public class GameController extends MouseAdapter{
     //動かすノードのインデックス
     private int selectedNodeIndex = -1;
     
-    public GameController(GameModel model, GameViewPanel view) {
+    public GameController(GameModel model) {
         this.model = model;
+    }
+
+    public void addView(GameViewPanel view){
         this.view = view;
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
     }
-
     public void transition(Event event) {
         model.setCurrentState(event);
     }
