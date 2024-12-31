@@ -4,6 +4,8 @@ package io.github.codedumper.model.bomb;
 public class CodeDisarmStrategy implements DisarmStrategy{
     private final int correctCode;
 
+//暗号入力を鍵とした爆弾解除戦略クラス
+public class CodeDisarmStrategy extends BaseDisarmStrategy{
 
     public CodeDisarmStrategy(int correctCode){
         this.correctCode = correctCode;

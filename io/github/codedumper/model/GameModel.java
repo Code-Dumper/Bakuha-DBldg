@@ -16,7 +16,7 @@ import java.awt.Point;
  * ゲームの現在の状態を{@link StateMachine}を用いたイベント遷移で管理し、
  * ゲーム内のタイマーや爆弾の状態を統括します。
  * <p>
- * このクラスの主な機能は以下の通りです：
+ * publicであるメソッドは{@link IGameModel}に記載されています。このクラスの主な機能は以下の通りです：
  * <ul>
  *   <li>ゲームの残り時間の管理および取得</li>
  *   <li>ゲーム状態の遷移および確認</li>
@@ -37,7 +37,7 @@ import java.awt.Point;
 
 
 @SuppressWarnings("deprecation")
-public class GameModel extends Observable implements GameTimer.TimerListener{
+public class GameModel extends Observable implements GameTimer.TimerListener, IGameModel{
     private static final int INITIAL_TIME = 3600;
     
     private Event currentState; //現在のゲーム状態
