@@ -14,5 +14,6 @@ public enum Event {
     STATE_2F_ROOM,
     STATE_3F_ROOM,
     STATE_4F_ROOM,
-    STATE_HIDDEN_ROOM
+    STATE_HIDDEN_ROOM,
+    STATE_MINIGAME
 }
