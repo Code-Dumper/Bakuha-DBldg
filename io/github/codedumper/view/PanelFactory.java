@@ -4,6 +4,9 @@ import javax.swing.*;
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
 import io.github.codedumper.model.GameModel;
+import io.github.codedumper.view.panel.LobbyPanel;
+import io.github.codedumper.view.panel.PlanarityPanel;
+import io.github.codedumper.view.panel.TitlePanel;
 
 
 /**
@@ -13,7 +16,7 @@ import io.github.codedumper.model.GameModel;
  * currentPanel = PanelFactory.createPanel(model.getCurrentState());
  * ...
  */
-class PanelFactory{
+public class PanelFactory{
     public static JPanel createPanel(Event event, GameModel model, GameController controller){
         JPanel productPanel;
         switch(event){
