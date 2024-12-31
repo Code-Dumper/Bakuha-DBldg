@@ -36,7 +36,6 @@ public class GameViewPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //modelが時間変化、状態変化で送るメッセージ区別しているのでそこを区別して書く
         if (o instanceof GameModel) {
             // 残り時間を更新
             if("TIME_CHANGE".equals(arg)){
@@ -47,6 +46,11 @@ public class GameViewPanel extends JPanel implements Observer {
                 }
             }else if("STATE_CHANGE".equals(arg)){
                 // 状態に応じてパネルを切り替え
+
+                if(model.getCurrentState() == Event.STATE_END){
+                    System.exit(0);
+                }
+
                 remove(currentPanel);
                 currentPanel = PanelFactory.createPanel(model.getCurrentState(), model, controller);
                 add(currentPanel);

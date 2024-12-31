@@ -19,11 +19,11 @@ class PanelFactory{
         switch(event){
             case STATE_TITLE:
                 productPanel = new TitlePanel(controller);
+                break;
             case STATE_LOBBY:
                 productPanel = new LobbyPanel(controller);
+                break;
             /*
-            case STATE_END:
-                return new EndPanel(controller);
             case STATE_1F:
                 return new FloorOnePanel(controller);
             case STATE_2F:
