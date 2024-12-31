@@ -15,7 +15,7 @@ import java.util.TimerTask;
  * </p>
  */
 public class GameTimer {
-    private int remainTime; // 残り時間
+    private double remainTime; // 残り時間
     private Timer timer; // タイマー
     private TimerListener listener; // リスナー（通知先）
 
@@ -28,7 +28,7 @@ public class GameTimer {
          * 残り時間が変更されたときに呼び出されます。
          * @param newTime 新しい残り時間（秒）
          */
-        void onTimeChange(int newTime);
+        void onTimeChange(double newTime);
 
         /**
          * 残り時間が0になったときに呼び出されます。
@@ -59,7 +59,7 @@ public class GameTimer {
                 @Override
                 public void run() {
                     if (remainTime > 0) {
-                        remainTime--;
+                        remainTime = remainTime - 0.087;
                         if (listener != null) {
                             listener.onTimeChange(remainTime); // 残り時間を通知
                         }
@@ -71,7 +71,7 @@ public class GameTimer {
                     }
                 }
             },
-            0, 1000 // 初回遅延0ms、1秒ごとに実行
+            0, 87 // 初回遅延0ms、0.085秒ごとに実行
         );
     }
 
@@ -90,7 +90,7 @@ public class GameTimer {
      * 現在の残り時間を取得します。
      * @return 現在の残り時間（秒）
      */
-    public int getRemainingTime() {
+    public double getRemainingTime() {
         return remainTime;
     }
 
@@ -98,7 +98,7 @@ public class GameTimer {
      * 残り時間を設定します（リセットや強制変更用）。
      * @param time 新しい残り時間（秒）
      */
-    public void setRemainingTime(int time) {
+    public void setRemainingTime(double time) {
         this.remainTime = time;
     }
 }
