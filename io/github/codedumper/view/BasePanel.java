@@ -65,7 +65,7 @@ public class BasePanel extends JPanel implements ActionListener {
     public void setBackground(String path, int layerNumber) {
         try{
             // リソースから画像を取得
-            ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(path));
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(path));
             JLabel background = new JLabel(imageIcon);
 
             // 背景画像のサイズと位置を設定
