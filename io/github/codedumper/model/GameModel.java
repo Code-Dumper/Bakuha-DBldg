@@ -183,23 +183,23 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     }
 
     //eに合わせて爆弾を取得し、その解除を試みる
-    public void disarmBomb(Event e){
-        switch(e){
+    public boolean disarmBomb(){
+        switch(currentState){
             case STATE_1F_BOMB: 
-                bombManager.disarmBomb(1, key[1]);
-                break;
+                return bombManager.disarmBomb(1, key[1]);
             case STATE_2F_BOMB: 
-                bombManager.disarmBomb(2, key[2]);
-                break;
+                return bombManager.disarmBomb(2, key[2]);
             case STATE_3F_BOMB:
-                bombManager.disarmBomb(3,key[3]);
-                break;
+                return bombManager.disarmBomb(3,key[3]);
             case STATE_4F_BOMB:
-                bombManager.disarmBomb(4,key[4]);
-                break;
+                return bombManager.disarmBomb(4,key[4]);
             default:
+                return false;
+            }
+    }
 
-        }
+    public boolean areAllBombsDisarmed(){
+        return bombManager.areAllBombsDisarmed();
     }
     //通知系の処理
     //Observerへ時間変化の通知
