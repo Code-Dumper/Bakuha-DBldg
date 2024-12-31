@@ -4,7 +4,7 @@ import javax.swing.*;
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
 import io.github.codedumper.model.GameModel;
-import io.github.codedumper.view.panel.*;
+
 
 /**
  * 状態に対応するPanelを作成するUtilのclass.
@@ -13,7 +13,7 @@ import io.github.codedumper.view.panel.*;
  * currentPanel = PanelFactory.createPanel(model.getCurrentState());
  * ...
  */
-public class PanelFactory{
+class PanelFactory{
     public static JPanel createPanel(Event event, GameModel model, GameController controller){
         JPanel productPanel;
         switch(event){
