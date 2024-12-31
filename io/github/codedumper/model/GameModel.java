@@ -42,14 +42,13 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     
     private Event currentState; //現在のゲーム状態
     private GameTimer timer; //ゲームで共通のタイマー
-    private int remainTime; //残り時間
+    private double remainTime; //残り時間
     private BombManager bombManager; //爆弾管理
     private StateMachine stateMachine; //状態管理
     private GraphManager graphManager; //ミニゲームのグラフ管理
+    private int key[]; //ユーザの入力した爆弾解除のコード
 
-    /**
-     * コンストラクタ。初期状態としてタイトル画面を設定。残り時間を初期化し、タイマーを開始する。
-     */
+    //残り時間をINITIAL_TIME(3600s)、初期状態をタイトル状態
     public GameModel(){
         currentState = Event.STATE_TITLE;
         remainTime = INITIAL_TIME;
@@ -57,34 +56,17 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
         bombManager = new BombManager(this);
         stateMachine = new StateMachine();
         graphManager = new GraphManager(this);
-
+        key = new int[5];
         timer.start();
     }
 
     //残り時間の通知
-    public synchronized int getTimeRemaining(){
+    public synchronized double getTimeRemaining(){
         return remainTime;
-    }
-
-    //状態遷移
-    public synchronized void setCurrentState(Event event){
-        if(event == Event.STATE_END){
-            System.exit(0);
-        }
-        Event nextState = stateMachine.getNextState(currentState, event);
-        if(nextState != currentState){
-            this.currentState = nextState;
-            //状態が変わったことをObserverに知らせる。
-            notifyStateChange();
-        }
-    }
-    //現状態の取得
-     public synchronized Event getCurrentState(){
-        return currentState;
     }
     //時間変化時の更新処理
     @Override
-    public void onTimeChange(int newTime){
+    public void onTimeChange(double newTime){
         remainTime = newTime;
         notifyTimeChange();
     }
@@ -94,7 +76,20 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
         setCurrentState(Event.STATE_GAMEOVER);
     }
 
+    //状態遷移
+    public synchronized void setCurrentState(Event event){
+        if(event == Event.STATE_END){
+            System.exit(0);
+        }
+        currentState = stateMachine.getNextState(currentState, event);
+        notifyStateChange();
+    }
 
+    //現状態の取得
+     public synchronized Event getCurrentState(){
+        return currentState;
+    }
+    //グラフ操作系の処理
     public List<Point> getNodes(){
         return graphManager.getNodes();
     }
@@ -118,14 +113,95 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     public List<Edge> getIntersectingEdges(){
         return graphManager.getIntersectingEdges();
     }
+    //爆弾のコード入力用の処理
+    public void inputCode(int input){
+        int keyIndex;
+        switch(currentState){
+            case STATE_1F_BOMB:
+                keyIndex = 1;
+                break;
+            case STATE_2F_BOMB:
+                keyIndex = 2;
+                break;
+            case STATE_3F_BOMB:
+                keyIndex = 3;
+                break;
+            case STATE_4F_BOMB:
+                keyIndex = 4;
+                break;
+            default:
+                keyIndex = 0;
+        }
+        //4桁以上入力されていたら以降の入力は破棄する
+        if(key[keyIndex] >= 9000) return;
+        //何らかの要因で予定していた状態以外から入力が入ったら破棄する
+        if(keyIndex == 0) return;
+        key[keyIndex] = key[keyIndex] * 10 + input;
+        
+    }
 
-    //TODO ここの仕様はcaseだとあまり良くない
+    public void resetCode(){
+        int keyIndex;
+        switch(currentState){
+            case STATE_1F_BOMB:
+                keyIndex = 1;
+                break;
+            case STATE_2F_BOMB:
+                keyIndex = 2;
+                break;
+            case STATE_3F_BOMB:
+                keyIndex = 3;
+                break;
+            case STATE_4F_BOMB:
+                keyIndex = 4;
+                break;
+            default:
+                keyIndex = 0;
+        }
+        key[keyIndex] = 0;
+    }
+
+    public int getcurrentCode(){
+        int keyIndex;
+        switch(currentState){
+            case STATE_1F_BOMB:
+                keyIndex = 1;
+                break;
+            case STATE_2F_BOMB:
+                keyIndex = 2;
+                break;
+            case STATE_3F_BOMB:
+                keyIndex = 3;
+                break;
+            case STATE_4F_BOMB:
+                keyIndex = 4;
+                break;
+            default:
+                keyIndex = 0;
+        }
+        return key[keyIndex];
+    }
+
+    //eに合わせて爆弾を取得し、その解除を試みる
     public void disarmBomb(Event e){
         switch(e){
-            case STATE_MINIGAME: bombManager.disarmBomb(2, "NoObject");
-            default: bombManager.disarmBomb(1, "AddKeyHere");
+            case STATE_1F_BOMB: 
+                bombManager.disarmBomb(1, key[1]);
+                break;
+            case STATE_2F_BOMB: 
+                bombManager.disarmBomb(2, key[2]);
+                break;
+            case STATE_3F_BOMB:
+                bombManager.disarmBomb(3,key[3]);
+                break;
+            case STATE_4F_BOMB:
+                bombManager.disarmBomb(4,key[4]);
+                break;
+            default:
+
         }
     }
+    //通知系の処理
     //Observerへ時間変化の通知
     private void notifyTimeChange(){
         //ラムダ式を使っている
@@ -141,16 +217,6 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
                 setChanged(); 
                 notifyObservers("STATE_CHANGE");
             });
-    }
-    private void notifyBombResultState(boolean isDefused){
-        SwingUtilities.invokeLater(() ->{
-            setChanged();
-            if(isDefused == true){
-                notifyObservers("BOMB_DEFUSED");
-            }else{
-                notifyObservers("BOMB_IS_NOT_DEFUSED");
-            }
-        });
     }
 }
 

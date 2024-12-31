@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class TimerPanel extends JPanel {
     private JLabel timerLabel;
-    public TimerPanel(int remainSeconds) {
+    public TimerPanel(double remainSeconds) {
         this.setLayout(null); //絶対位置指定レイアウトへ
         this.setSize(new Dimension(100, 50));//TODO 保守性が最悪
         this.setBackground(Color.WHITE);
@@ -13,17 +13,18 @@ public class TimerPanel extends JPanel {
         timerLabel.setBounds(0,0,100,50);
         timerLabel.setHorizontalAlignment(JLabel.CENTER);
         timerLabel.setVerticalAlignment(JLabel.CENTER);
-        timerLabel.setFont(new Font("Monospaced", Font.BOLD, 20)); //フォントの指定
+        timerLabel.setFont(new Font("Monospaced", Font.BOLD, 12)); //フォントの指定
         this.add(timerLabel);
     }
 
-    private String formatTime(int seconds) {
-        int min = seconds / 60;
-        int sec = seconds % 60;
-        return String.format("%02d分%02d秒", min, sec);
+    private String formatTime(double seconds) {
+        int min = (int)seconds / 60;
+        int sec = (int)seconds % 60;
+        int milsec = (int)((seconds - min * 60 - sec) * 100);
+        return String.format("%02d分%02d秒%02d", min, sec,milsec);
     }
 
-    public void updateTime(int time) { //時間の更新
+    public void updateTime(double time) { //時間の更新
         timerLabel.setText(formatTime(time));
     }
 }
