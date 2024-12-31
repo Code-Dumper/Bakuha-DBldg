@@ -4,10 +4,7 @@ import javax.swing.*;
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
 import io.github.codedumper.model.GameModel;
-import io.github.codedumper.view.panel.LobbyPanel;
-import io.github.codedumper.view.panel.PlanarityPanel;
-import io.github.codedumper.view.panel.TitlePanel;
-
+import io.github.codedumper.view.panel.*;
 
 /**
  * 状態に対応するPanelを作成するUtilのclass.
