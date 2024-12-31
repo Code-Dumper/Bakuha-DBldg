@@ -29,6 +29,18 @@ https://docs.github.com/ja/desktop/making-changes-in-a-branch/committing-and-rev
 https://qiita.com/obscure723/items/5265556d1b89e77c456b
 を読んでください
 
+## jarファイルの作成
+
+jarファイルを作って実行したい場合、基本的なjar作成のコマンドをまとめたシェルファイルが用意されています。build_win.shかbuild_mac.shを叩いて実行するか、コマンド上で実行してください。
+```
+./build_mac.sh
+```
+```
+sudo Set-ExecutionPolicy RemoteSigned #必要なら
+.\build-win.sh
+```
+winの場合実行できるかは検証していないので、できなかったら頑張ってください。
+
 # ファイル名の指定
 各classファイルはアッパーキャメルケース(ThisApplePenなど、各単語の先頭を大文字にする)で運用  
 各画像ファイルはアッパーキャメルケースで、pngが望ましい  
