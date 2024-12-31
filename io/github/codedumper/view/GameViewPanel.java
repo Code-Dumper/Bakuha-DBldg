@@ -46,11 +46,6 @@ public class GameViewPanel extends JPanel implements Observer {
                 }
             }else if("STATE_CHANGE".equals(arg)){
                 // 状態に応じてパネルを切り替え
-
-                if(model.getCurrentState() == Event.STATE_END){
-                    System.exit(0);
-                }
-
                 remove(currentPanel);
                 currentPanel = PanelFactory.createPanel(model.getCurrentState(), model, controller);
                 add(currentPanel);

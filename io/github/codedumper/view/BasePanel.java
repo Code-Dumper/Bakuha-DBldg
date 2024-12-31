@@ -124,7 +124,7 @@ public class BasePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // アクションコマンド（状態名）を取得
         String state = e.getActionCommand();
-        System.out.println("state");
+        System.out.println(state);
 
         // アクションコマンドをEventに変換
         Event destination = Event.valueOf(state);

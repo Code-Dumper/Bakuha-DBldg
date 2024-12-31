@@ -68,6 +68,9 @@ public class GameModel extends Observable implements GameTimer.TimerListener{
 
     //状態遷移
     public synchronized void setCurrentState(Event event){
+        if(event == Event.STATE_END){
+            System.exit(0);
+        }
         Event nextState = stateMachine.getNextState(currentState, event);
         if(nextState != currentState){
             this.currentState = nextState;
