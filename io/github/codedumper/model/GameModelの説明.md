@@ -1,17 +1,42 @@
-# GameModelの役割
-GameModelは、ゲーム内での操作に必要な情報である
-- ゲームの残り時間 
-- 現在どこにいるのかを管理する状態
-- 爆弾の解除状況(オープンにされているのは、全ての爆弾が解除されたかどうかであり、ViewやController側には各爆弾の解除状態はオープンにされていない)(オープンにすることは可能だが、必要がなければ実装はしない)
-- 爆弾に入力されているコード(番号で、整数4桁)の状態
-- Planarity実装用のグラフのノードとエッジ
-を管理し、その情報全てを提供するクラス。この情報の管理は全てGameModel側で処理されるのではなく、bombパッケージ内のBombManagerやplanarityパッケージ内のGraphManagerが補助的に用いられることで処理されている。  
-コンストラクタが実行されると、残り時間3600s、初期状態STATE_TITLEが設定され、ゲームの残り時間を管理するタイマーとPlanarityのグラフを管理するためマネージャのインスタンスが作成される。  
-View、ManagerはこのGameModelにアクセスすることで、直感的な規則に従って必ず残り時間や現在の状態を取得、変更ができると仮定して良い。(1Fから2Fの移動はできるが、1Fから4Fの部屋に行くことはできない、というようなのが直感的な規則ととらえてここでは記載している)  
-ゲームの残り時間はdouble型、現在どこにいるのかはenumのEvent型、爆弾の解除状況はboolean型、爆弾に入力されているコードはint型で提供される。
-その他の詳細な設計についてはGameModelを確認してほしい。  
 
-# メソッドの説明
+目次  
+* [GameModelの役割とは？](GameModelの役割とは？)  
+* [GameModelのメソッドの説明](メソッドの説明)  
+
+
+# GameModelの役割とは？
+## ◆GameModelの提供する情報
+GameModelは、ゲーム内での操作に必要な情報を管理し、その情報を提供するクラス。具体的には
+- ゲームの残り時間(currentTime)
+- 現在どこにいるのかを管理する状態(currentState)
+- 爆弾の解除状況(オープンにされているのは、全ての爆弾が解除されたかどうかであり、ViewやController側には各爆弾の解除状態はオープンにされていない)(オープンにすることは可能だが、必要がなければ実装はしない)
+- 爆弾に入力されているコード(番号で、整数4桁)の状態(key)
+- Planarity実装用のグラフのノードとエッジ
+
+を管理し、その情報を提供する。
+
+
+## ◆内部的な都合の話
+情報の管理はGameModelだけで行われておらず、GameModelでない別クラスにより一部管理されている。 したがって、GameModel.javaだけを見ても処理の全貌を把握することは困難である。
+具体的には、bombパッケージ内のBombManagerやplanarityパッケージ内のGraphManagerが補助的に用いられることで情報は処理されている。ViewやControllerからGameModelを使用するという状況に限れば、ViewやControllerはGameModel内部の仕様を知る必要はなく、GameModelだけにアクセスすれば良い。  
+注意：この仕様だとGameModelは依存ズブズブで疎結合の観点からあまり適切ではない可能性がある。
+## ◆コンストラクタが呼ばれて実行される処理の説明
+GameModelのコンストラクタが実行されると、残り時間3600s、初期状態STATE_TITLEが設定され、ゲームの残り時間を管理するタイマーとPlanarityのグラフを管理するためのマネージャのインスタンスが作成される。 
+## ◆View, ControllerがGameModelを使ってできること
+View、ControllerはこのGameModelにアクセスすることで、直感的な規則に従って必ず残り時間や現在の状態の取得と変更ができる。
+## ◆ゲームの情報の型
+```java
+private Event currentState; //現在のゲーム状態
+private GameTimer timer; //ゲームで共通のタイマー
+private double remainTime; //残り時間
+private BombManager bombManager; //爆弾管理
+private StateMachine stateMachine; //状態管理
+private GraphManager graphManager; //ミニゲームのグラフ管理
+private int key[]; //ユーザの入力した爆弾解除のコード
+```
+最新の設計についてはGameModelを確認してほしい。  
+
+# GameModelのメソッドの説明
 
 ## コンストラクタ
 ```java
@@ -79,7 +104,28 @@ public void inputCode(int input)
 ```
 (ボタンに対応した)入力1桁を受け取り、状態に適した保存場所(内部的にはint配列)に数字を保存する。保存される数字は最大で4桁で、それ以上の入力は無視される。注意：GameModel内部の状態が爆弾解除可能な場面かどうかを参照し処理している。  
 例：
-初期化後のmodelから適切な操作で状態を1Fの爆弾にしたとする。この時、model.inputCode(3)が実行されるとkey[1]が0の状態から3に変更される。さらに、この状態でmodel.inputCode(2)を実行すると、key[1]は32になる。
+初期化後のmodelから適切な操作で状態を1Fの爆弾にしたとする。この時、
+model.inputCode(3)が実行されるとkey[1]が0の状態から3に変更される。さらに、この状態でmodel.inputCode(2)を実行すると、key[1]は32になる。
+```
+初期状態：
+currentState = STATE_1F_BOMB
+処理によるkey[1]の動き：
+0
+↓ model.inputCode(3)
+3
+↓ model.inputCode(2)
+32
+↓ model.inputCode(5)
+325
+↓ model.inputCode(2)
+3252
+↓ model.inputCode(2)
+3252
+↓ model.inputCode(2)
+3252
+↓ model.resetCode()
+0
+```
 ```java
 public void resetCode()
 ```
