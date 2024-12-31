@@ -27,7 +27,7 @@ public class GameViewPanel extends JPanel implements Observer {
         //TODO タイマーパネルの位置指定を直接書いているので保守性が低いかもしれない
         //タイマーパネルを左上に追加する
         this.timerPanel = new TimerPanel(this.model.getTimeRemaining());
-        this.timerPanel.setBounds(0,0,200,100);
+        this.timerPanel.setBounds(0,0,100,50);
         this.add(timerPanel);
 
         
