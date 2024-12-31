@@ -23,15 +23,19 @@ class PanelFactory{
             case STATE_LOBBY:
                 productPanel = new LobbyPanel(controller);
                 break;
-            /*
             case STATE_1F:
-                return new FloorOnePanel(controller);
+                productPanel = new FloorOnePanel(controller);
+                break;
             case STATE_2F:
-                return new FloorTwoPanel(controller);
+                productPanel = new FloorTwoPanel(controller);
+                break;
             case STATE_3F:
-                return new FloorThreePanel(controller);
+                productPanel = new FloorThreePanel(controller);
+                break;
             case STATE_4F:
-                return new FloorFourPanel(controller);
+                productPanel = new FloorFourPanel(controller);
+                break;
+            /*
             case STATE_GAMEOVER:
                 return new GameOverPanel(controller);
             */
