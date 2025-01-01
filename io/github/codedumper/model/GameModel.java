@@ -161,7 +161,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
         key[keyIndex] = 0;
     }
 
-    public int getcurrentCode(){
+    public int getCurrentCode(){
         int keyIndex;
         switch(currentState){
             case STATE_1F_BOMB:

@@ -18,5 +18,5 @@ public interface IGameModel {
     public void recreatePuzzle();
     public List<Edge> getEdges();
     public List<Edge> getIntersectingEdges();
-    public boolean disarmBomb(Event e);
+    public boolean disarmBomb();
 }
