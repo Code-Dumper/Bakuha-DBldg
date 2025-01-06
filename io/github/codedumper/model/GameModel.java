@@ -113,9 +113,9 @@ public class GameModel extends Observable implements IGameModel{
         
     }
 
-    public final void resetCode(){
+    public final void resetCode(Event event){
         int keyIndex;
-        switch(currentState){
+        switch(event){
             case STATE_1F_BOMB:
                 keyIndex = 1;
                 break;
@@ -134,9 +134,9 @@ public class GameModel extends Observable implements IGameModel{
         key[keyIndex] = 0;
     }
 
-    public final int getCurrentCode(){
+    public final int getCurrentCode(Event event){
         int keyIndex;
-        switch(currentState){
+        switch(event){
             case STATE_1F_BOMB:
                 keyIndex = 1;
                 break;
@@ -156,8 +156,8 @@ public class GameModel extends Observable implements IGameModel{
     }
 
     //eに合わせて爆弾を取得し、その解除を試みる
-    public final boolean disarmBomb(){
-        switch(currentState){
+    public final boolean disarmBomb(Event event){
+        switch(event){
             case STATE_1F_BOMB: 
                 return bombManager.disarmBomb(1, key[1]);
             case STATE_2F_BOMB: 
