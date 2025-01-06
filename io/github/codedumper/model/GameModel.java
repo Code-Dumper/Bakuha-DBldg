@@ -9,6 +9,9 @@ import java.util.*;
 import java.awt.Point;
 
 //IGameModelを具体的に実装するクラス
+//爆弾の数は4つ
+//状態についてはEvent.javaに記載
+//解除コードはConstant.javaに記載
 @SuppressWarnings("deprecation")
 public class GameModel extends Observable implements IGameModel{
     private static final int INITIAL_TIME = 3600;
