@@ -8,36 +8,9 @@ import io.github.codedumper.model.planarity.*;
 import java.util.*;
 import java.awt.Point;
 
-
-
-
-/**
- * GameModelは、MVCアーキテクチャにおけるModelの役割を担うクラスです。
- * ゲームの現在の状態を{@link StateMachine}を用いたイベント遷移で管理し、
- * ゲーム内のタイマーや爆弾の状態を統括します。
- * <p>
- * publicであるメソッドは{@link IGameModel}に記載されています。このクラスの主な機能は以下の通りです：
- * <ul>
- *   <li>ゲームの残り時間の管理および取得</li>
- *   <li>ゲーム状態の遷移および確認</li>
- *   <li>爆弾解除の処理</li>
- * </ul>
- * <p>
- * このクラスが生成されると、以下の初期化が行われます：
- * <ul>
- *   <li>{@link BombManager}および{@link StateMachine}のインスタンス生成</li>
- *   <li>初期状態としてタイトル画面を設定</li>
- *   <li>残り時間を3600秒（1時間）に設定</li>
- *   <li>{@link GameTimer}インスタンスの生成およびタイマーの開始</li>
- *   <li>{@link GraphManager}インスタンスの生成</li>
- * </ul>
- * <p>
- * GameModelは、時間や状態の変化を監視するObserverに通知する機能を提供します。
- */
-
-
+//IGameModelを具体的に実装するクラス
 @SuppressWarnings("deprecation")
-public class GameModel extends Observable implements GameTimer.TimerListener, IGameModel{
+public class GameModel extends Observable implements IGameModel{
     private static final int INITIAL_TIME = 3600;
     
     private Event currentState; //現在のゲーム状態
@@ -61,23 +34,23 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     }
 
     //残り時間の通知
-    public synchronized double getTimeRemaining(){
+    public final synchronized double getTimeRemaining(){
         return remainTime;
     }
     //時間変化時の更新処理
     @Override
-    public void onTimeChange(double newTime){
+    public final void onTimeChange(double newTime){
         remainTime = newTime;
         notifyTimeChange();
     }
     //時間切れの時の処理
     @Override
-    public void onTimeOut(){
+    public final void onTimeOut(){
         setCurrentState(Event.STATE_GAMEOVER);
     }
 
     //状態遷移
-    public synchronized void setCurrentState(Event event){
+    public final synchronized void setCurrentState(Event event){
         if(event == Event.STATE_END){
             System.exit(0);
         }
@@ -86,37 +59,37 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     }
 
     //現状態の取得
-     public synchronized Event getCurrentState(){
+     public final synchronized Event getCurrentState(){
         return currentState;
     }
     //グラフ操作系の処理
-    public List<Point> getNodes(){
+    public final List<Point> getNodes(){
         return graphManager.getNodes();
     }
 
-    public void moveNode(int index, Point newPosition){
+    public final void moveNode(int index, Point newPosition){
         graphManager.moveNode(index, newPosition);
     }
     
-    public boolean isPuzzleSolved(){
+    public final boolean isPuzzleSolved(){
         return graphManager.isGameSolved();
     }
 
-    public void recreatePuzzle(){
+    public final void recreatePuzzle(){
         graphManager.recreatePuzzle();
     }
 
-    public List<Edge> getEdges(){
+    public final List<Edge> getEdges(){
         return graphManager.getEdges();
     }
 
-    public List<Edge> getIntersectingEdges(){
+    public final List<Edge> getIntersectingEdges(){
         return graphManager.getIntersectingEdges();
     }
     //爆弾のコード入力用の処理
-    public void inputCode(int input){
+    public final void inputCode(Event event, int input){
         int keyIndex;
-        switch(currentState){
+        switch(event){
             case STATE_1F_BOMB:
                 keyIndex = 1;
                 break;
@@ -140,7 +113,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
         
     }
 
-    public void resetCode(){
+    public final void resetCode(){
         int keyIndex;
         switch(currentState){
             case STATE_1F_BOMB:
@@ -161,7 +134,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
         key[keyIndex] = 0;
     }
 
-    public int getCurrentCode(){
+    public final int getCurrentCode(){
         int keyIndex;
         switch(currentState){
             case STATE_1F_BOMB:
@@ -183,7 +156,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     }
 
     //eに合わせて爆弾を取得し、その解除を試みる
-    public boolean disarmBomb(){
+    public final boolean disarmBomb(){
         switch(currentState){
             case STATE_1F_BOMB: 
                 return bombManager.disarmBomb(1, key[1]);
@@ -198,7 +171,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
             }
     }
 
-    public boolean areAllBombsDisarmed(){
+    public final boolean areAllBombsDisarmed(){
         return bombManager.areAllBombsDisarmed();
     }
     //通知系の処理
@@ -212,7 +185,7 @@ public class GameModel extends Observable implements GameTimer.TimerListener, IG
     }
 
     //Observerへ状態変化の通知
-    private void notifyStateChange(){
+    private final void notifyStateChange(){
         SwingUtilities.invokeLater(() ->{
                 setChanged(); 
                 notifyObservers("STATE_CHANGE");
