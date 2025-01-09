@@ -6,16 +6,16 @@ import java.awt.event.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
-public class TitlePanel extends BasePanel{
+public class FloorFourPanel extends BasePanel{
 
-    public TitlePanel(GameController controller) {
+    public FloorFourPanel(GameController controller) {
         super(controller);
         //背景画像をset
-        this.setBackground("io/github/codedumper/view/d.jpg", 0);
-        this.setBackground("io/github/codedumper/view/title.jpg", 1);
+        this.setBackground("io/github/codedumper/view/floorFourPicture.png", 1);
+
         //ボタンをset
-        this.createButton(Event.STATE_LOBBY, new ButtonProperties(200, 300, 200, 100));
-        this.createButton(Event.STATE_END, new ButtonProperties(200, 500, 200, 100));
+        createButton(Event.STATE_LOBBY, new ButtonProperties(300, 100, 300, 600));
+        
     }
 
     @Override
