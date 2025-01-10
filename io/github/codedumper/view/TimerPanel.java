@@ -4,31 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TimerPanel extends JPanel {
-    private static final int TOTAL_SEC = 3600;
-    private int remainTime = TOTAL_SEC;
     private JLabel timerLabel;
-
-    public TimerPanel() {
-        this.setLayout(new GridLayout(1, 1));
-        this.setPreferredSize(new Dimension(200, 100));
-
-        timerLabel = new JLabel(formatTime(remainTime), JLabel.CENTER);
-        timerLabel.setFont(new Font("Monospaced", Font.BOLD, 50));
+    public TimerPanel(double remainSeconds) {
+        this.setLayout(null); //絶対位置指定レイアウトへ
+        this.setSize(new Dimension(100, 50));//TODO 保守性が最悪
+        this.setBackground(Color.WHITE);
+        timerLabel = new JLabel(formatTime(remainSeconds)); //残り時間の指定
+        timerLabel.setBounds(0,0,100,50);
+        timerLabel.setHorizontalAlignment(JLabel.CENTER);
+        timerLabel.setVerticalAlignment(JLabel.CENTER);
+        timerLabel.setFont(new Font("Monospaced", Font.BOLD, 12)); //フォントの指定
         this.add(timerLabel);
-
-        new Timer(1000, e -> updateTime()).start(); // 1秒ごとに時間更新
     }
 
-    private String formatTime(int seconds) {
-        int min = seconds / 60;
-        int sec = seconds % 60;
-        return String.format("%02d:%02d", min, sec);
+    private String formatTime(double seconds) {
+        int min = (int)seconds / 60;
+        int sec = (int)seconds % 60;
+        int milsec = (int)((seconds - min * 60 - sec) * 100);
+        return String.format("%02d分%02d秒%02d", min, sec,milsec);
     }
 
-    private void updateTime() {
-        if (remainTime > 0) {
-            remainTime--;
-            timerLabel.setText(formatTime(remainTime));
-        }
+    public void updateTime(double time) { //時間の更新
+        timerLabel.setText(formatTime(time));
     }
 }

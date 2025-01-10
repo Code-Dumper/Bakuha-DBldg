@@ -3,6 +3,7 @@ import javax.swing.*;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
+import io.github.codedumper.model.GameModel;
 
 
 /**
@@ -13,28 +14,37 @@ import io.github.codedumper.model.Event;
  * ...
  */
 class PanelFactory{
-    public static JPanel createPanel(Event event, GameController controller){
+    public static JPanel createPanel(Event event, GameModel model, GameController controller){
+        JPanel productPanel;
         switch(event){
             case STATE_TITLE:
-                return new TitlePanel(controller);
+                productPanel = new TitlePanel(controller);
+                break;
             case STATE_LOBBY:
-                return new LobbyPanel(controller);
-            /*
-            case STATE_END:
-                return new EndPanel(controller);
+                productPanel = new LobbyPanel(controller);
+                break;
             case STATE_1F:
-                return new FloorOnePanel(controller);
+                productPanel = new FloorOnePanel(controller);
+                break;
             case STATE_2F:
-                return new FloorTwoPanel(controller);
+                productPanel = new FloorTwoPanel(controller);
+                break;
             case STATE_3F:
-                return new FloorThreePanel(controller);
+                productPanel = new FloorThreePanel(controller);
+                break;
             case STATE_4F:
-                return new FloorFourPanel(controller);
+                productPanel = new FloorFourPanel(controller);
+                break;
+            /*
             case STATE_GAMEOVER:
                 return new GameOverPanel(controller);
             */
+            case STATE_MINIGAME:
+                productPanel = new PlanarityPanel(model, controller);
             default:
-                return new TitlePanel(controller);
+                productPanel = new TitlePanel(controller);
         }
+        productPanel.setBounds(0,0,600,800);
+        return productPanel;
     }
 }

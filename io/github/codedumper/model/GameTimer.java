@@ -1,54 +1,25 @@
 package io.github.codedumper.model;
 import java.util.Timer;
 import java.util.TimerTask;
-/**
- * ゲーム内で使用する汎用タイマークラス。
- * 残り時間を管理し、時間変更やタイムアウト時にリスナーへ通知します。
- * <p>
- * 主な機能:
- * <ul>
- *   <li>残り時間のカウントダウン</li>
- *   <li>残り時間変更時の通知</li>
- *   <li>時間切れ時の通知</li>
- *   <li>残り時間の取得と設定</li>
- * </ul>
- * </p>
- */
+
 public class GameTimer {
-    private int remainTime; // 残り時間
+    private double remainTime; // 残り時間
     private Timer timer; // タイマー
-    private TimerListener listener; // リスナー（通知先）
-
-    /**
-     * タイマーリスナーのインターフェース。
-     * 時間変更やタイムアウト時に通知を行います。
-     */
-    public interface TimerListener {
-        /**
-         * 残り時間が変更されたときに呼び出されます。
-         * @param newTime 新しい残り時間（秒）
-         */
-        void onTimeChange(int newTime);
-
-        /**
-         * 残り時間が0になったときに呼び出されます。
-         */
-        void onTimeOut();
-    }
+    private ITimerListener listener; // リスナー（通知先)
 
     /**
      * コンストラクタ。
      * @param initialTime 初期残り時間（秒）
      * @param listener    タイマーイベントを受け取るリスナー
      */
-    public GameTimer(int initialTime, TimerListener listener) {
+    public GameTimer(int initialTime, ITimerListener listener) {
         this.remainTime = initialTime;
         this.listener = listener;
     }
 
     /**
      * タイマーを開始します。
-     * 残り時間が1秒ごとに減少し、変更が通知されます。
+     * 残り時間が減少し、変更が通知されます。
      * 残り時間が0になると、タイムアウト通知が行われます。
      */
     public void start() {
@@ -59,7 +30,7 @@ public class GameTimer {
                 @Override
                 public void run() {
                     if (remainTime > 0) {
-                        remainTime--;
+                        remainTime = remainTime - 0.087;
                         if (listener != null) {
                             listener.onTimeChange(remainTime); // 残り時間を通知
                         }
@@ -71,7 +42,7 @@ public class GameTimer {
                     }
                 }
             },
-            0, 1000 // 初回遅延0ms、1秒ごとに実行
+            0, 87 // 初回遅延0ms、0.085秒ごとに実行
         );
     }
 
@@ -90,7 +61,7 @@ public class GameTimer {
      * 現在の残り時間を取得します。
      * @return 現在の残り時間（秒）
      */
-    public int getRemainingTime() {
+    public double getRemainingTime() {
         return remainTime;
     }
 
@@ -98,7 +69,7 @@ public class GameTimer {
      * 残り時間を設定します（リセットや強制変更用）。
      * @param time 新しい残り時間（秒）
      */
-    public void setRemainingTime(int time) {
+    public void setRemainingTime(double time) {
         this.remainTime = time;
     }
 }
