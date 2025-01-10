@@ -8,7 +8,7 @@ import io.github.codedumper.controller.GameController;
 public class FloorFourPanel extends BasePanel{
     public FloorFourPanel(GameController controller){
         super(controller);
-        this.setBackground("io/github/codedumper/view/Fourfloorroby.jpg");
+        this.setBackground("io/github/codedumper/view/Fourfloorroby.jpg",0);
     }
     @Override
     public void actionPerformed(ActionEvent e) {

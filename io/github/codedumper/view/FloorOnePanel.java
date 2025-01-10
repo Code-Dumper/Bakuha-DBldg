@@ -10,7 +10,7 @@ import io.github.codedumper.controller.GameController;
 public class FloorOnePanel extends BasePanel{
     public FloorOnePanel(GameController controller){
         super(controller);
-        this.setBackground("io/github/codedumper/view/Onefloorroby.jpg");
+        this.setBackground("io/github/codedumper/view/Onefloorroby.jpg",0);
     }
 
     @Override

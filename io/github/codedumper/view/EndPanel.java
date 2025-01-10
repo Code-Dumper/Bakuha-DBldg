@@ -8,7 +8,7 @@ import io.github.codedumper.controller.GameController;
 public class EndPanel extends BasePanel{
     public EndPanel(GameController controller){
         super(controller);
-        this.setBackground("io/github/codedumper/view/EndPicture.jpg");
+        this.setBackground("io/github/codedumper/view/EndPicture.jpg",0);
         createButton(Event.STATE_TITLE,new ButtonProperties(200,600, 100, 100));
     }
 
