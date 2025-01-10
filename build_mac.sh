@@ -17,7 +17,7 @@ javac $(find io/github/codedumper/ -name "*.java")
 
 # jarファイルを作成
 echo "JARファイルを作成中..."
-jar cfm ${JARNAME}.jar Manifest.mf $(find io/github/codedumper/ -name "*.class") $(find io/github/codedumper/view/ -name "*.jpg")
+jar cfm ${JARNAME}.jar Manifest.mf $(find io/github/codedumper/ -name "*.class" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.png")
 
 # 実行ディレクトリを表示
 pwd

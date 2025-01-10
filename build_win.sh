@@ -22,7 +22,7 @@ javac $javaFiles.FullName
 # jarファイルを作成
 Write-Host "JARファイルを作成中..."
 $classFiles = Get-ChildItem -Recurse -Filter "*.class" -Path "io/github/codedumper/"
-$imageFiles = Get-ChildItem -Recurse -Filter "*.jpg" -Path "io/github/codedumper/view/"
+$imageFiles = Get-ChildItem -Recurse -Include "*.jpg", "*.jpeg", "*.png" -Path "io/github/codedumper/view/"
 $filesToJar = $classFiles.FullName + $imageFiles.FullName
 jar cfm "$JARNAME.jar" "Manifest.mf" $filesToJar
 
