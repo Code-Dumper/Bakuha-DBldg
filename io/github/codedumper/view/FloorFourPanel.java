@@ -1,15 +1,23 @@
 package io.github.codedumper.view;
-import java.awt.event.ActionEvent;
 
-import io.github.codedumper.controller.GameController;
+import io.github.codedumper.controller.*;
 import io.github.codedumper.model.Event;
+import java.awt.event.*;
+
+/* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
 public class FloorFourPanel extends BasePanel{
-    public FloorFourPanel(GameController controller){
+
+    public FloorFourPanel(GameController controller) {
         super(controller);
-        this.createButton(Event.STATE_4F_BOMB, new ButtonProperties(100, 100, 100, 100));
-        this.createButton(Event.STATE_4F_ROOM, new ButtonProperties(200, 200, 100, 100));
+        //背景画像をset
+        this.setBackground("io/github/codedumper/view/floorFourPicture.png", 1);
+
+        //ボタンをset
+        createButton(Event.STATE_LOBBY, new ButtonProperties(300, 100, 300, 600));
+        
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
