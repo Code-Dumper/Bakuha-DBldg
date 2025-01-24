@@ -10,6 +10,8 @@ public class FloorTwoPanel extends BasePanel{
     public FloorTwoPanel(GameController controller){
         super(controller);
         this.setBackground("io/github/codedumper/view/TwoFloorroby.jpg",0);
+
+        this.createButton(Event.STATE_2F_ROOM, new ButtonProperties(250, 100, 200, 600));
     }
 
     @Override
