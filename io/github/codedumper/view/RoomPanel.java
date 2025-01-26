@@ -5,17 +5,17 @@ import io.github.codedumper.model.Event;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class RoomPanel extends FandamentalPanel {
+public class RoomPanel extends FundamentalPanel {
 
     protected GameController controller;
 
-    private FandamentalPanel RoomlayeredPanel;
+    private FundamentalPanel RoomlayeredPanel;
 
     private int layerNumber;
 
 
     public RoomPanel() {
-        RoomlayeredPanel = new FandamentalPanel();
+        RoomlayeredPanel = new FundamentalPanel();
         this.add(RoomlayeredPanel);
     }
     /**

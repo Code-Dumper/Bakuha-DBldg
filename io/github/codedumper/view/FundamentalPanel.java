@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * FandamentalPanelは、作成される全てのパネルが持つ性質をまとめた
+ * FundamentalPanelは、作成される全てのパネルが持つ性質をまとめた
  * クラスです。
  * このクラスは、背景画像のセットアップやボタンの作成の仕組みを
  * 提供します。
@@ -19,7 +19,7 @@ import javax.swing.*;
  * <p>このクラスは直接使用されることは想定されておらず、
  * サブクラス化されて特定の画面（状態）を構成するために利用されます。
  */
-public class FandamentalPanel extends JPanel implements ActionListener {
+public class FundamentalPanel extends JPanel implements ActionListener {
 
     /**
      * JLayeredPaneは、コンポーネントを階層的に管理するパネルです。
@@ -41,7 +41,7 @@ public class FandamentalPanel extends JPanel implements ActionListener {
      * 
      * 
      */
-    public FandamentalPanel() {
+    public FundamentalPanel() {
         this.setLayout(null); // FandamentalPanelのレイアウトを絶対位置指定レイアウトに
         this.setSize(600, 800); //FandamentalPanelのサイズを横600×縦800に
 
