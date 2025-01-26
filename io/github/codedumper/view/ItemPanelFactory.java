@@ -6,6 +6,9 @@ class ItemPanelFactory {
     public static JPanel createItemPanel(String item) {
         JPanel currentItemPanel;
         switch(item) {
+            case "2F_ROOM":
+                currentItemPanel = new RoomTwoPanel();
+                break;
             case "eatora":
                 currentItemPanel = new eatoraPanel();
                 break;
