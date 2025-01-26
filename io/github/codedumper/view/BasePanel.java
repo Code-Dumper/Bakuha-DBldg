@@ -16,7 +16,7 @@ import java.awt.event.*;
  * <p>このクラスは直接使用されることは想定されておらず、
  * サブクラス化されて特定の画面（状態）を構成するために利用されます。
  */
-public class BasePanel extends FandamentalPanel {
+public class BasePanel extends FundamentalPanel {
 
     /**
      * 状態遷移を管理するGameController。
