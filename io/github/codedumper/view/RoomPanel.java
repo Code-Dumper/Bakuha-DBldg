@@ -7,13 +7,8 @@ import javax.swing.*;
 
 public class RoomPanel extends FundamentalPanel {
 
-    protected GameController controller;
-
-    private FundamentalPanel RoomlayeredPanel;
-
-    public RoomPanel() {
-        RoomlayeredPanel = new FundamentalPanel();
-        this.add(RoomlayeredPanel);
+    public RoomPanel(GameController controller) {
+        super(controller);
     }
     /**
      * 小道具を表示している現在のPanelを削除する。
@@ -32,26 +27,15 @@ public class RoomPanel extends FundamentalPanel {
                 break;
 
             case "delete":
-                JLayeredPane RemovelayeredPanel = (JLayeredPane) this.getParent();
-                RemovelayeredPanel.remove(this);
-                RemovelayeredPanel.revalidate();
-                RemovelayeredPanel.repaint();
+                this.deleteTopPanelOf(this);
                 break;
 
             default:
-                JPanel currentItemPanel = ItemPanelFactory.createItemPanel(item);
+                JPanel currentItemPanel = ItemPanelFactory.createItemPanel(item, controller);
                 if(currentItemPanel != null) {
-                    layerNumber = super.layerNumber;
-
-                    //デバック用
-                    System.out.println("追加したPanel の層: " + layerNumber);
-
-                    // 新しく作成したパネルをRoomlayeredPanelに追加
-                    RoomlayeredPanel.add(currentItemPanel, Integer.valueOf(layerNumber++));
-                    // 再描画
-                    RoomlayeredPanel.revalidate();
-                    RoomlayeredPanel.repaint();
+                    this.stackPanel(currentItemPanel);            
                 }
+                break;
         }
     }
 }
