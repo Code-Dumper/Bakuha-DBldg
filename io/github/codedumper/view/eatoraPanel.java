@@ -2,11 +2,14 @@ package io.github.codedumper.view;
 
 import java.awt.event.*;
 
+import io.github.codedumper.controller.GameController;
+
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
 public class eatoraPanel extends RoomPanel {
 
-    public eatoraPanel() {
+    public eatoraPanel(GameController controller) {
+        super(controller);
         //背景画像をset
         this.setBackground("io/github/codedumper/view/Twoeatora.jpg");
         //削除ボタンをset
