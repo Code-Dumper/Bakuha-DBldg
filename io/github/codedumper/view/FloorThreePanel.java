@@ -6,8 +6,7 @@ import java.awt.event.*;
 
 public class FloorThreePanel extends RoomPanel{
     public FloorThreePanel(GameController controller){
-        
-        this.controller = controller;
+        super(controller);
 
         this.setBackground("io/github/codedumper/view/Threefloorroby.jpg");
 

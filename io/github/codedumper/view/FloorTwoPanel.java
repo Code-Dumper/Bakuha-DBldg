@@ -5,11 +5,8 @@ import java.awt.event.*;
 
 public class FloorTwoPanel extends RoomPanel{
     public FloorTwoPanel(GameController controller){
-
-        this.controller = controller;
-
+        super(controller);
         this.setBackground("io/github/codedumper/view/TwoFloorroby.jpg");
-
         this.createItemButton("2F_ROOM", new ButtonProperties(250, 100, 200, 500));
         this.createToLobbyButton();
     }
