@@ -19,17 +19,11 @@ import java.awt.event.*;
 public class BasePanel extends FundamentalPanel {
 
     /**
-     * 状態遷移を管理するGameController。
-     * BasePanelの動作は、このコントローラと連携します。
-     */
-    protected GameController controller;
-
-    /**
      * 
      * @param controller ボタンの状態遷移を管理するためのGameController。
      */
     public BasePanel(GameController controller) {
-        this.controller = controller;
+        super(controller);
     }
    
     /**
