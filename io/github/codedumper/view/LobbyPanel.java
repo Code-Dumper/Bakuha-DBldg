@@ -12,7 +12,7 @@ public class LobbyPanel extends BasePanel{
         super(controller);
         //背景画像をset
         this.setBackground("io/github/codedumper/view/Onefloorroby.jpg");
-        this.setBackground("io/github/codedumper/view/information.jpg");
+        this.setBackground("io/github/codedumper/view/Information.jpg");
 
         //ボタンをset
         createButton(Event.STATE_4F, new ButtonProperties(200, 360, 200, 40));
