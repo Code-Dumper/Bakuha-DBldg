@@ -1,14 +1,18 @@
 package io.github.codedumper.view;
-import io.github.codedumper.controller.*;
-import io.github.codedumper.model.Event;
-import java.awt.event.*;
+
 import io.github.codedumper.controller.GameController;
+import java.awt.event.*;
 
 
-public class FloorThreePanel extends BasePanel{
+public class FloorThreePanel extends RoomPanel{
     public FloorThreePanel(GameController controller){
-        super(controller);
-        this.setBackground("io/github/codedumper/view/Threefloorroby.jpg",0);
+        
+        this.controller = controller;
+
+        this.setBackground("io/github/codedumper/view/Threefloorroby.jpg");
+
+        //this.createItemButton("3F_ROOM", new ButtonProperties(250, 100, 200, 600));
+        this.createToLobbyButton();
     }
 
     @Override

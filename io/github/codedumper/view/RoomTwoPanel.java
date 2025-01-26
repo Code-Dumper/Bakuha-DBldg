@@ -4,13 +4,15 @@ import java.awt.event.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
-public class RoomTwoPanel extends ItemPanel {
+public class RoomTwoPanel extends RoomPanel {
 
     public RoomTwoPanel() {
         //背景画像をset
-        this.setItemBackground("io/github/codedumper/view/Twofloor1.jpg", 1);
+        this.setBackground("io/github/codedumper/view/Twofloor1.jpg");
 
         this.createItemButton("eatora", new ButtonProperties(150, 20, 100, 150));
+        this.createDeleteButton();
+
     }
 
     @Override

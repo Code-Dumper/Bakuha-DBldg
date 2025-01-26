@@ -4,11 +4,11 @@ import java.awt.event.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
 
-public class eatoraPanel extends ItemPanel {
+public class eatoraPanel extends RoomPanel {
 
     public eatoraPanel() {
         //背景画像をset
-        this.setItemBackground("io/github/codedumper/view/Twoeatora.jpg", 1);
+        this.setBackground("io/github/codedumper/view/Twoeatora.jpg");
         //削除ボタンをset
         this.createDeleteButton();
 
