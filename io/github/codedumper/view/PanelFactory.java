@@ -36,7 +36,7 @@ class PanelFactory{
                 productPanel = new FloorFourPanel(controller);
                 break;
             case STATE_2F_ROOM:
-                productPanel = new RoomTwoPanel();
+                productPanel = new RoomTwoPanel(controller);
                 break;
             /*
             case STATE_GAMEOVER:
