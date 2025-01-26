@@ -11,9 +11,6 @@ public class RoomPanel extends FundamentalPanel {
 
     private FundamentalPanel RoomlayeredPanel;
 
-    private int layerNumber;
-
-
     public RoomPanel() {
         RoomlayeredPanel = new FundamentalPanel();
         this.add(RoomlayeredPanel);
