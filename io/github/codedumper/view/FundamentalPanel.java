@@ -1,61 +1,49 @@
 package io.github.codedumper.view;
 
+import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.Event;
+
+import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * FundamentalPanelは、作成される全てのパネルが持つ性質をまとめた
- * クラスです。
+ * FundamentalPanelは、作成される全てのパネルが持つ性質をまとめたJPanelを継承する
+ * クラスであり、RoomPanelおよびBasePanelの親クラスです。
  * このクラスは、背景画像のセットアップやボタンの作成の仕組みを
- * 提供します。
- * 
- * <p>特に以下の特徴があります:
- * <ul>
- *   <li>JLayeredPaneを用いた背景とボタンの重なり管理</li>
- *   <li>背景画像がボタンの動作を妨げないような工夫</li>
- * </ul>
- * 
- * <p>このクラスは直接使用されることは想定されておらず、
- * サブクラス化されて特定の画面（状態）を構成するために利用されます。
+ * 提供します。このパネル上にはJLayeredPaneのコンポーネントが追加されており、この「上」に各要素が表示されます。
+ * このクラスはサブクラス化されて特定の画面（状態）を構成するために利用されます。
  */
 public class FundamentalPanel extends JPanel implements ActionListener {
 
-    /**
-     * JLayeredPaneは、コンポーネントを階層的に管理するパネルです。
-     * 背景やボタンの重なりを制御するために使用されます。
-     */
-    private JLayeredPane layeredPanel;
+    //パネルの重ね合わせを表現するための変数
+    protected JLayeredPane layeredPanel;
 
     /**
-     * それぞれのパネルに配置するコンポーネントの階層を指定する。
+     * それぞれのパネルに配置するコンポーネントの階層を指定するための変数。0以上の値をとる
      * 背景をsetする際にそのメソッド内でインクリメントして1階層ずつ
      * 上層に配置する。
      * 全てのボタンは同じ層に配置される。
      */
-    protected int layerNumber = 0;
+    protected int layerNumber;
+    protected GameController controller;
 
-    /**
-     * コンストラクタ。
-     * JLayeredPaneを初期化してFandamentalPanelに追加します。
-     * 
-     * 
-     */
-    public FundamentalPanel() {
-        this.setLayout(null); // FandamentalPanelのレイアウトを絶対位置指定レイアウトに
-        this.setSize(600, 800); //FandamentalPanelのサイズを横600×縦800に
 
+    public FundamentalPanel(GameController controller) {
+        
+        //このPanelを絶対位置指定レイアウトとし、サイズをw600h800にする
+        this.setLayout(null);
+        this.setSize(600, 800);
         layeredPanel = new JLayeredPane();
         layeredPanel.setLayout(null); // LayeredPaneのレイアウトを絶対位置指定レイアウトに
         layeredPanel.setSize(600, 800); // パネルのサイズをFandamentalPanelと同じ大きさにする
         layeredPanel.setVisible(true); //パネルを可視化する
 
         this.add(layeredPanel); // FandamentalPanelにJLayeredPaneを追加
-
-        /**複数のパネル間でlayerNumberの値が引き継がれないようにコンストラクタ
-         * を呼び出したときに初期化
-         */
-        layerNumber = 0 ;
+        this.addMouseListener(new MouseAdapter(){});
+        this.addMouseMotionListener(new MouseMotionAdapter() {});
+        this.controller = controller;
+        layerNumber = 1;
     }
 
     /**
@@ -76,10 +64,8 @@ public class FundamentalPanel extends JPanel implements ActionListener {
             // 背景画像のサイズと位置を設定
             background.setBounds(0, 0, 600, 800);
 
-            // 背景をマウスイベント対象外に設定
-            background.addMouseListener(new java.awt.event.MouseAdapter() {});
-
             // 背景をJLayeredPane内でボタンより下層に配置
+            System.out.println("glayer;"+layerNumber);
             layeredPanel.add(background, Integer.valueOf(layerNumber++));
         }catch(Exception e){
             e.printStackTrace();
@@ -94,6 +80,7 @@ public class FundamentalPanel extends JPanel implements ActionListener {
      * @param layout ボタンの位置とサイズを指定するButtonProperties。
      */
     public void createButton(Event event, ButtonProperties layout) {
+        System.out.println("blayer:"+layerNumber);
         JButton button = new JButton();
 
         // ボタンの位置とサイズを設定
@@ -133,7 +120,7 @@ public class FundamentalPanel extends JPanel implements ActionListener {
      */
     public void createItemButton(String item, ButtonProperties layout) {
         JButton button = new JButton();
-
+        System.out.println("blayer;"+layerNumber);
         // ボタンの位置とサイズを設定
         button.setBounds(
             layout.getX(),
@@ -159,6 +146,7 @@ public class FundamentalPanel extends JPanel implements ActionListener {
      * パネル自身を削除するためのボタンを作成する。
      */
     public void createDeleteButton() {
+        System.out.println("blayer:"+layerNumber);
         JButton button = new JButton("戻る");
         // 自身を削除するためのボタンを右上に配置
         button.setBounds(0, 600, 600, 200);
@@ -183,12 +171,29 @@ public class FundamentalPanel extends JPanel implements ActionListener {
         // ボタンにアクションリスナーを追加
         button.addActionListener(this);
     }
+    //引数に指定したpanelToStackをLayeredPaneの最上層に追加する関数
+    public void stackPanel(JPanel panelToStack){
+        System.out.println("Hash:"+panelToStack.hashCode());
+        layeredPanel.add(panelToStack, Integer.valueOf(++layerNumber));
+        layeredPanel.revalidate();
+        layeredPanel.repaint();
+    }
+    //最上層に存在するパネルを削除する関数
+    public void deleteTopPanelOf(JPanel jpanel) {
+        if (layerNumber > 0) {
+            jpanel.getParent().remove(this);
 
+            }
+            layerNumber--; // レイヤー番号を更新
+            layeredPanel.revalidate();
+            layeredPanel.repaint();
+    }
+    
     /**
      * ボタンがクリックされた際に呼び出されるメソッド。
      * 
      * @param e ボタンのアクションイベント。
      */
     @Override
-    public void actionPerformed(ActionEvent e) {};
+    public void actionPerformed(ActionEvent e){};
 }
