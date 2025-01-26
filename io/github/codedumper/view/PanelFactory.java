@@ -14,8 +14,8 @@ import io.github.codedumper.model.GameModel;
  * ...
  */
 class PanelFactory{
-    public static JPanel createPanel(Event event, GameModel model, GameController controller){
-        JPanel productPanel;
+    public static FandamentalPanel createPanel(Event event, GameModel model, GameController controller){
+        FandamentalPanel productPanel;
         switch(event){
             case STATE_TITLE:
                 productPanel = new TitlePanel(controller);
