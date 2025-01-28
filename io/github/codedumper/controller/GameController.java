@@ -22,14 +22,14 @@ public class GameController extends MouseAdapter{
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
     }
-    public void transition(Event event) {
+    public void transition(State event) {
         model.setCurrentState(event);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         //ミニゲームでなければマウスの処理は必要ないので処理終了する
-        if(model.getCurrentState() != Event.STATE_MINIGAME){
+        if(model.getCurrentState() != State.STATE_MINIGAME){
             return;
         }
         double minDistance = Double.MAX_VALUE;

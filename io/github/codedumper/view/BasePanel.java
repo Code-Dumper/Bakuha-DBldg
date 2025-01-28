@@ -1,7 +1,7 @@
 package io.github.codedumper.view;
 
 import io.github.codedumper.controller.*;
-import io.github.codedumper.model.Event;
+import io.github.codedumper.model.State;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -87,7 +87,7 @@ public class BasePanel extends JPanel implements ActionListener {
      * @param event クリックされた際の状態遷移先を表すEvent。
      * @param layout ボタンの位置とサイズを指定するButtonProperties。
      */
-    public void createButton(Event event, ButtonProperties layout) {
+    public void createButton(State event, ButtonProperties layout) {
         JButton button = new JButton();
 
         // ボタンの位置とサイズを設定
@@ -127,7 +127,7 @@ public class BasePanel extends JPanel implements ActionListener {
         System.out.println(state);
 
         // アクションコマンドをEventに変換
-        Event destination = Event.valueOf(state);
+        State destination = State.valueOf(state);
 
         // GameControllerに遷移先を通知
         controller.transition(destination);

@@ -1,7 +1,7 @@
 package io.github.codedumper.view;
 
 import io.github.codedumper.controller.*;
-import io.github.codedumper.model.Event;
+import io.github.codedumper.model.State;
 import java.awt.event.*;
 
 /* 背景画像の指定、ボタンの名前とサイズと位置指定*/
@@ -15,10 +15,10 @@ public class LobbyPanel extends BasePanel{
 
         //ボタンをset
         //TODO この実装だと同じ位置にボタンを追加している。
-        createButton(Event.STATE_1F, new ButtonProperties(0, 0, 100, 100));
-        createButton(Event.STATE_2F, new ButtonProperties(0, 0, 100, 200));
-        createButton(Event.STATE_3F, new ButtonProperties(0, 0, 100, 300));
-        createButton(Event.STATE_4F, new ButtonProperties(0, 0, 100, 400));
+        createButton(State.STATE_1F, new ButtonProperties(0, 0, 100, 100));
+        createButton(State.STATE_2F, new ButtonProperties(0, 0, 100, 200));
+        createButton(State.STATE_3F, new ButtonProperties(0, 0, 100, 300));
+        createButton(State.STATE_4F, new ButtonProperties(0, 0, 100, 400));
         
     }
 
