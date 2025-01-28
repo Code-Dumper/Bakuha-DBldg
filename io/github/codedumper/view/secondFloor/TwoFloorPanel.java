@@ -24,10 +24,13 @@ public class TwoFloorPanel extends FundamentalPanel{
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
             case SUBSTATE_AIRTRACK:
+            //TODO エアトラの場面でのボタンの状態と画像を追加する
             break;
             case SUBSTATE_ROOM:
+            //TODO 部屋の状態と画像を追加する
             break;
             case SUBSTATE_RADIATION:
+            //TODO 放射線の部屋の状態と画像を追加する
             break;
             default:
                 buttonToFront = createDirectionalButton(SUBSTATE_AIRTRACK,"FRONT");
