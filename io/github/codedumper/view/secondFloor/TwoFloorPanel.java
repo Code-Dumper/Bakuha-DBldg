@@ -33,6 +33,7 @@ public class TwoFloorPanel extends FundamentalPanel{
             //TODO 放射線の部屋の状態と画像を追加する
             break;
             default:
+                //画像の貼り付けと矢印ボタンの作成と追加
                 buttonToFront = createDirectionalButton(SUBSTATE_AIRTRACK,"FRONT");
                 buttonToLeft = createDirectionalButton(SUBSTATE_ROOM,"LEFT");
                 buttonToRight = createDirectionalButton(SUBSTATE_RADIATION,"RIGHT");
