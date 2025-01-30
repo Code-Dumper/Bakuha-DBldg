@@ -73,6 +73,13 @@ public class TwoFloorPanel extends FundamentalPanel{
                 layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);
                 layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);
                 layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);
+
+            //光電の時、右に放射、左に部屋
+            case SUBSTATE_PHOTOELECTRIC:
+                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
+                buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
+                buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
         }
 
