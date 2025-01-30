@@ -26,7 +26,6 @@ public class TwoFloorPanel extends FundamentalPanel{
         layeredPane.removeAll();
         this.revalidate();
         this.repaint();
-
         JLabel imageLabel;
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
@@ -62,17 +61,6 @@ public class TwoFloorPanel extends FundamentalPanel{
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
-            default:
-                //画像の貼り付けと矢印ボタンの作成と追加
-                buttonToFront = createDirectionalButton(SUBSTATE_AIRTRACK,"FRONT");
-                buttonToLeft = createDirectionalButton(SUBSTATE_ROOM,"LEFT");
-                buttonToRight = createDirectionalButton(SUBSTATE_RADIATION,"RIGHT");
-                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY,"REAR");
-                layeredPane.add(createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800), LAYER_FIGURE_FIRST);
-                layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);
-                layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);
-                layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);
-                layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);
 
             //光電の時、右に放射、左に部屋
             case SUBSTATE_PHOTOELECTRIC:
