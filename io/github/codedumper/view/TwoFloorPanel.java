@@ -1,10 +1,9 @@
-package io.github.codedumper.view.secondFloor;
+package io.github.codedumper.view;
 
 import javax.swing.JLabel;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
-import io.github.codedumper.view.FundamentalPanel;
 
 
 //このクラスは2Fの中での状態遷移と2Fの画像とボタンの表示を担うクラスです。
@@ -24,6 +23,7 @@ public class TwoFloorPanel extends FundamentalPanel{
 
     public TwoFloorPanel(GameController controller){
         super(controller);
+        changeSubState(currentSubState);
     }
 
     @Override
@@ -40,6 +40,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "FRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "REAR");
+                updateButton();
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
@@ -87,6 +88,8 @@ public class TwoFloorPanel extends FundamentalPanel{
             default:
                 throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
         }
-
+        System.out.println("Succenssfully change substate to " + subState);
+        this.revalidate();
+        this.repaint();
     }
 }
