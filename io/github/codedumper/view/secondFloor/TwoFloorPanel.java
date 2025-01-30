@@ -38,8 +38,13 @@ public class TwoFloorPanel extends FundamentalPanel{
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
+            //エアトラックの時、右に放射、左に等電位
             case SUBSTATE_AIRTRACK:
-            //TODO エアトラの場面でのボタンの状態と画像を追加する
+                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
+                buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
+                buttonToLeft = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "LEFT");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
+                
             break;
             case SUBSTATE_ROOM:
             //TODO 部屋の状態と画像を追加する
