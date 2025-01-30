@@ -6,18 +6,18 @@ public interface IBombManager {
      * @param event 爆弾に対応したイベント
      * @param input 入力するコード
      */
-    void inputCode(Event event, int input);
+    void inputCode(State event, int input);
 
     /**
      * @param event 爆弾に対応したイベント
      */
-    void resetCode(Event event);
+    void resetCode(State event);
 
     /**
      * @param event 解除したい爆弾のイベント名
      * @return 爆弾解除の結果のboolean
      */
-    boolean disarmBomb(Event event);
+    boolean disarmBomb(State event);
 
     /**
      * 

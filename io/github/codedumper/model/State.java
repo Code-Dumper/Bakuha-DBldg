@@ -1,6 +1,6 @@
 package io.github.codedumper.model;
 
-public enum Event {
+public enum State {
     STATE_TITLE,
     STATE_LOBBY,
     STATE_END,

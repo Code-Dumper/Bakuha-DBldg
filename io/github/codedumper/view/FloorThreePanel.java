@@ -1,6 +1,6 @@
 package io.github.codedumper.view;
 import io.github.codedumper.controller.*;
-import io.github.codedumper.model.Event;
+import io.github.codedumper.model.State;
 import java.awt.event.*;
 import io.github.codedumper.controller.GameController;
 

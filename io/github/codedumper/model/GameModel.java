@@ -16,7 +16,7 @@ import java.awt.Point;
 public class GameModel extends Observable implements IGameModel{
     private static final int INITIAL_TIME = 3600;
     
-    private Event currentState; //現在のゲーム状態
+    private State currentState; //現在のゲーム状態
     private GameTimer timer; //ゲームで共通のタイマー
     private double remainTime; //残り時間
     private BombManager bombManager; //爆弾管理
@@ -26,7 +26,7 @@ public class GameModel extends Observable implements IGameModel{
 
     //残り時間をINITIAL_TIME(3600s)、初期状態をタイトル状態
     public GameModel(){
-        currentState = Event.STATE_TITLE;
+        currentState = State.STATE_TITLE;
         remainTime = INITIAL_TIME;
         timer = new GameTimer(INITIAL_TIME, this);
         bombManager = new BombManager(this);
@@ -49,12 +49,12 @@ public class GameModel extends Observable implements IGameModel{
     //時間切れの時の処理
     @Override
     public final void onTimeOut(){
-        setCurrentState(Event.STATE_GAMEOVER);
+        setCurrentState(State.STATE_GAMEOVER);
     }
 
     //状態遷移
-    public final synchronized void setCurrentState(Event event){
-        if(event == Event.STATE_END){
+    public final synchronized void setCurrentState(State event){
+        if(event == State.STATE_END){
             System.exit(0);
         }
         currentState = stateMachine.getNextState(currentState, event);
@@ -62,7 +62,7 @@ public class GameModel extends Observable implements IGameModel{
     }
 
     //現状態の取得
-     public final synchronized Event getCurrentState(){
+     public final synchronized State getCurrentState(){
         return currentState;
     }
     //グラフ操作系の処理
@@ -90,7 +90,7 @@ public class GameModel extends Observable implements IGameModel{
         return graphManager.getIntersectingEdges();
     }
     //爆弾のコード入力用の処理
-    public final void inputCode(Event event, int input){
+    public final void inputCode(State event, int input){
         int keyIndex;
         switch(event){
             case STATE_1F_BOMB:
@@ -116,7 +116,7 @@ public class GameModel extends Observable implements IGameModel{
         
     }
 
-    public final void resetCode(Event event){
+    public final void resetCode(State event){
         int keyIndex;
         switch(event){
             case STATE_1F_BOMB:
@@ -137,7 +137,7 @@ public class GameModel extends Observable implements IGameModel{
         key[keyIndex] = 0;
     }
 
-    public final int getCurrentCode(Event event){
+    public final int getCurrentCode(State event){
         int keyIndex;
         switch(event){
             case STATE_1F_BOMB:
@@ -159,7 +159,7 @@ public class GameModel extends Observable implements IGameModel{
     }
 
     //eに合わせて爆弾を取得し、その解除を試みる
-    public final boolean disarmBomb(Event event){
+    public final boolean disarmBomb(State event){
         switch(event){
             case STATE_1F_BOMB: 
                 return bombManager.disarmBomb(1, key[1]);
