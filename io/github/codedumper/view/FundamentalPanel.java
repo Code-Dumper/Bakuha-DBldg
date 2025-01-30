@@ -21,25 +21,25 @@ import io.github.codedumper.model.State;
 //swing自体がスレッドセーフでないためこのクラスはスレッドセーフではない。
 public abstract class FundamentalPanel extends JPanel implements ActionListener{
     //追加するレイヤー。
-    protected final int LAYER_FIGURE_FIRST = 1;
-    protected final int LAYER_FIGURE_SECOND = 2;
-    protected final int LAYER_FIGURE_THIRD = 3;
-    protected final int LAYER_FIGURE_FOURTH = 4;
-    protected final int LAYER_FIGURE_FIFTH = 5;
-    protected final int LAYER_UTIL_FIRST = 6;
-    protected final int LAYER_UTIL_SECOND = 7;
-    protected final int LAYER_UTIL_THIRD = 8;
-    protected final int LAYER_UTIL_FOURTH = 9;
-    protected final int LAYER_UTIL_FIFTH = 10;
+    protected final Integer LAYER_FIGURE_FIRST = 1;
+    protected final Integer LAYER_FIGURE_SECOND = 2;
+    protected final Integer LAYER_FIGURE_THIRD = 3;
+    protected final Integer LAYER_FIGURE_FOURTH = 4;
+    protected final Integer LAYER_FIGURE_FIFTH = 5;
+    protected final Integer LAYER_UTIL_FIRST = 6;
+    protected final Integer LAYER_UTIL_SECOND = 7;
+    protected final Integer LAYER_UTIL_THIRD = 8;
+    protected final Integer LAYER_UTIL_FOURTH = 9;
+    protected final Integer LAYER_UTIL_FIFTH = 10;
 
     //パネルの中で管理する状態。
     protected final int SUBSTATE_INITIAL = 1;
     
     //矢印ボタンの位置座標。x,y,width,heightの順。
-    protected final Integer[] INFO_LEFT_BUTTON = {400, 600, 100, 100};
-    protected final Integer[] INFO_RIGHT_BUTTON = {600, 600, 100, 100};
-    protected final Integer[] INFO_FRONT_BUTTON = {500, 500, 100, 100};
-    protected final Integer[] INFO_REAR_BUTTON = {500, 700, 100, 100};
+    protected final Integer[] INFO_LEFT_BUTTON = {300, 500, 100, 100};
+    protected final Integer[] INFO_RIGHT_BUTTON = {600, 500, 100, 100};
+    protected final Integer[] INFO_FRONT_BUTTON = {0, 300, 100, 100};
+    protected final Integer[] INFO_REAR_BUTTON = {300, 600, 100, 100};
 
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
@@ -58,38 +58,29 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         this.setSize(600, 800);
         layeredPane = new JLayeredPane();
         layeredPane.setLayout(null);
+        layeredPane.setBounds(0,0,600,800);
         layeredPane.setVisible(true);
-        this.add(layeredPane);
         this.controller = controller;
         this.currentSubState = SUBSTATE_INITIAL;
         changeSubState(currentSubState);
+        System.out.println("Successfully initialize FundamentalPanel.");
+        this.add(layeredPane);
+        updateButton();
     }
 
     protected void changeSubState(int subState){
-        //layeredPane上のコンポーネントを全て削除する
-        layeredPane.removeAll();
-        this.revalidate();
-        this.repaint();
+    }
 
-        //subStateに対応したボタンと画像を読み込む
-        switch(subState){
-            default:
-                buttonToFront = createDirectionalButton(SUBSTATE_INITIAL,"FRONT");
-                buttonToLeft = createDirectionalButton(SUBSTATE_INITIAL,"LEFT");
-                buttonToRight = createDirectionalButton(SUBSTATE_INITIAL,"RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL,"REAR");
-                layeredPane.add(createJLabelWithImage("title.jpg",0,0,600,800), LAYER_FIGURE_FIRST);
-                layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);
-                layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);
-                layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);
-                layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);
-            break;
-        }
-
+    protected void updateButton(){
+        if(buttonToFront != null){layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);}
+        if(buttonToLeft != null){layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);}
+        if(buttonToRear != null){layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);}
+        if(buttonToRight != null){layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);}
+        layeredPane.revalidate();
+        layeredPane.repaint();
     }
 
     //矢印ボタンを作成する
-
     protected JButton createDirectionalButton(Integer subState, String direction){
         JButton directionalButton;
         switch(direction){
@@ -129,6 +120,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             default:
             throw new IllegalArgumentException();
         }
+        System.out.println("button");
         return directionalButton;
     }
 
@@ -145,6 +137,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         JButton buttonWithoutImage = new JButton();
         buttonWithoutImage.setBounds(x, y, width, height);
         buttonWithoutImage.setActionCommand(state.toString());
+        buttonWithoutImage.addActionListener(this);
         return buttonWithoutImage;
 
     }
@@ -156,6 +149,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         JButton buttonWithImage = new JButton();
         buttonWithImage.setBounds(x,y,width,height);
         buttonWithImage.setActionCommand(Integer.toString(subState));
+        buttonWithImage.addActionListener(this);
         try{
             ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
             buttonWithImage.setIcon(imageIcon);
@@ -169,13 +163,15 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     
     protected JLabel createJLabelWithImage(String imagePath, int x, int y, int width, int height){
         JLabel jLabelWithImage = new JLabel();
+        System.out.println(this.getClass().getClassLoader().getResource(CLASSPATH + imagePath));
         try{
             // リソースから画像を取得
-            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(imagePath));
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH + imagePath));
             jLabelWithImage.setIcon(imageIcon);
             jLabelWithImage.setBounds(x,y,width,height);
             return jLabelWithImage;
         }catch(Exception e){
+            System.out.println("No such file exists or file path may be wrong.");
             e.printStackTrace();
             return jLabelWithImage;
         }
@@ -184,6 +180,8 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     protected void addLabel(JLabel labelToAdd, int layer){
         layeredPane.add(labelToAdd, layer);
+        layeredPane.revalidate();
+        layeredPane.repaint();
     }
 
     @Override
