@@ -54,8 +54,13 @@ public class TwoFloorPanel extends FundamentalPanel{
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
+
+            //放射の時、右に光電、下にエアトラ
             case SUBSTATE_RADIATION:
-            //TODO 放射線の部屋の状態と画像を追加する
+                imageLabel = createJLabelWithImage("image-TwoFloor-Radiation.jpg",0,0,600,800);
+                buttonToRight = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "RIGHT");
+                buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
             default:
                 //画像の貼り付けと矢印ボタンの作成と追加
