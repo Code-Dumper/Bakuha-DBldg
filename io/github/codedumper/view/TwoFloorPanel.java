@@ -40,6 +40,7 @@ public class TwoFloorPanel extends FundamentalPanel{
         buttonToFront = buttonToLeft = buttonToRear = buttonToRight = null;
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
+
             //初期状態の時、上に部屋、下に全体ロビー
             case SUBSTATE_INITIAL:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
@@ -48,6 +49,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
+
             //エアトラックの時、右に放射、左に等電位
             case SUBSTATE_AIRTRACK:
                 imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
@@ -56,6 +58,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
+            
             //部屋の時、上に等電位、右に光電、下にロビー(INITIAL)
             case SUBSTATE_ROOM:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Room.jpg", 0,0,600,800);
