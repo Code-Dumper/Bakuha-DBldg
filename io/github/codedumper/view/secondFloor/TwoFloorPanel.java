@@ -6,6 +6,13 @@ import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
 import io.github.codedumper.view.FundamentalPanel;
 
+
+//このクラスは2Fの中での状態遷移と2Fの画像とボタンの表示を担うクラスです。
+//このクラスはFundamentalPanelを継承し、changeSubStateをオーバーライドしています。
+//2Fには6つの状態が定義されており、ロビー、ロビーから入った場所、エアトラック、放射線、光電効果、等電位の部屋に対応します。
+//SUBSTATEはFundamentalPanelの実装に合わせ、int型として定義しており、この実装は2025/01/30時点での仕様に準拠しています。
+//画像ファイルはviewパッケージの下に位置していることが仮定されています。
+//このクラスはスレッドセーフではありません。
 public class TwoFloorPanel extends FundamentalPanel{
 
     //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
