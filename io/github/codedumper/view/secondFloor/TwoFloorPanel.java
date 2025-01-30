@@ -46,8 +46,13 @@ public class TwoFloorPanel extends FundamentalPanel{
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
+            //部屋の時、上に等電位、右に光電、下にロビー(INITIAL)
             case SUBSTATE_ROOM:
-            //TODO 部屋の状態と画像を追加する
+                imageLabel = createJLabelWithImage("image-TwoFloor-Room.jpg", 0,0,600,800);
+                buttonToFront = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "FRONT");
+                buttonToRight = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "RIGHT");
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
             case SUBSTATE_RADIATION:
             //TODO 放射線の部屋の状態と画像を追加する
