@@ -5,10 +5,10 @@ public interface IGameStateManager {
     /**
      * @param event セットする状態
      */
-    void setCurrentState(Event event);
+    void setCurrentState(State event);
     
     /**
      * @return 現在の状態を表すEvent型
      */
-    Event getCurrentState();
+    State getCurrentState();
 }
