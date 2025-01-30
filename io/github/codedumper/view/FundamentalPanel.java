@@ -193,6 +193,12 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         layeredPane.repaint();
     }
 
+    protected void addButton(JButton buttonToAdd, int layer){
+        layeredPane.add(buttonToAdd, layer);
+        layeredPane.revalidate();
+        layeredPane.repaint();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
