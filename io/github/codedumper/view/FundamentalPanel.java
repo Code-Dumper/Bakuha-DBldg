@@ -56,21 +56,25 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     public FundamentalPanel(GameController controller){
         this.setLayout(null);
         this.setSize(600, 800);
+        //layeredPaneの設定
         layeredPane = new JLayeredPane();
         layeredPane.setLayout(null);
         layeredPane.setBounds(0,0,600,800);
         layeredPane.setVisible(true);
+        //FundamentalClassの変数の設定
         this.controller = controller;
         this.currentSubState = SUBSTATE_INITIAL;
+        //画面描画
         changeSubState(currentSubState);
         System.out.println("Successfully initialize FundamentalPanel.");
         this.add(layeredPane);
+        //ボタンの反映
         updateButton();
     }
+    //このクラスはパネルのサブ状態を反映させるように実装する
+    abstract protected void changeSubState(int subState);
 
-    protected void changeSubState(int subState){
-    }
-
+    //ボタンを更新する
     protected void updateButton(){
         if(buttonToFront != null){
             layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);}
