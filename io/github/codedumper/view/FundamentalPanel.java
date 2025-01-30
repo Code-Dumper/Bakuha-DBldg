@@ -182,6 +182,10 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     }
 
+    protected void addLabel(JLabel labelToAdd, int layer){
+        layeredPane.add(labelToAdd, layer);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
