@@ -1,6 +1,6 @@
 package io.github.codedumper.view;
 import javax.swing.*;
-
+import io.github.codedumper.view.secondFloor.*;
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
 import io.github.codedumper.model.GameModel;
@@ -27,7 +27,7 @@ class PanelFactory{
                 productPanel = new FloorOnePanel(controller);
                 break;
             case STATE_2F:
-                productPanel = new FloorTwoPanel(controller);
+                productPanel = new TwoFloorPanel(controller);
                 break;
             case STATE_3F:
                 productPanel = new FloorThreePanel(controller);
