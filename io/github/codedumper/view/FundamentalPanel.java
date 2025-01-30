@@ -36,10 +36,10 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final int SUBSTATE_INITIAL = 1;
     
     //矢印ボタンの位置座標。x,y,width,heightの順。
-    protected final Integer[] INFO_LEFT_BUTTON = {300, 500, 100, 100};
-    protected final Integer[] INFO_RIGHT_BUTTON = {600, 500, 100, 100};
-    protected final Integer[] INFO_FRONT_BUTTON = {0, 300, 100, 100};
-    protected final Integer[] INFO_REAR_BUTTON = {300, 600, 100, 100};
+    protected final Integer[] INFO_LEFT_BUTTON = {100, 500, 100, 100};
+    protected final Integer[] INFO_RIGHT_BUTTON = {400, 500, 100, 100};
+    protected final Integer[] INFO_FRONT_BUTTON = {250, 400, 100, 100};
+    protected final Integer[] INFO_REAR_BUTTON = {250, 600, 100, 100};
 
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
@@ -72,10 +72,14 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     }
 
     protected void updateButton(){
-        if(buttonToFront != null){layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);}
-        if(buttonToLeft != null){layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);}
-        if(buttonToRear != null){layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);}
-        if(buttonToRight != null){layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);}
+        if(buttonToFront != null){
+            layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);}
+        if(buttonToLeft != null){
+            layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);}
+        if(buttonToRear != null){
+            layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);}
+        if(buttonToRight != null){
+            layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);}
         layeredPane.revalidate();
         layeredPane.repaint();
     }
@@ -129,6 +133,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         JButton buttonWithoutImage = new JButton();
         buttonWithoutImage.setBounds(x, y, width, height);
         buttonWithoutImage.setActionCommand(Integer.toString(subState));
+        buttonWithoutImage.addActionListener(this);
         return buttonWithoutImage;
 
     }
