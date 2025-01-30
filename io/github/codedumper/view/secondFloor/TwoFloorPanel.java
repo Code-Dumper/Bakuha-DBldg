@@ -8,9 +8,6 @@ import io.github.codedumper.view.FundamentalPanel;
 
 public class TwoFloorPanel extends FundamentalPanel{
 
-    private final int SUBSTATE_ROOM = 2;
-    private final int SUBSTATE_AIRTRACK = 3;
-    private final int SUBSTATE_RADIATION = 4;
     //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
     private final int SUBSTATE_ROOM = 2; //ドア入ったとこ
     private final int SUBSTATE_AIRTRACK = 3; //エアトラックの部屋
