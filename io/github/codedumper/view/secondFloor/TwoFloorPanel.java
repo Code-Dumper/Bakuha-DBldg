@@ -81,6 +81,17 @@ public class TwoFloorPanel extends FundamentalPanel{
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
+
+            //等電位のとき、右にエアトラ、下に部屋
+            case SUBSTATE_EQUIPOTENTIAL:
+                imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential.jpg", 0,0,600,800);
+                buttonToRight = createDirectionalButton(SUBSTATE_AIRTRACK, "RIGHT");
+                buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
+            break;
+
+            default:
+                throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
         }
 
     }
