@@ -1,5 +1,7 @@
 package io.github.codedumper.view.secondFloor;
 
+import javax.swing.JLabel;
+
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
 import io.github.codedumper.view.FundamentalPanel;
