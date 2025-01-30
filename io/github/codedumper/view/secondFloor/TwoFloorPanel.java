@@ -9,6 +9,12 @@ public class TwoFloorPanel extends FundamentalPanel{
     private final int SUBSTATE_ROOM = 2;
     private final int SUBSTATE_AIRTRACK = 3;
     private final int SUBSTATE_RADIATION = 4;
+    //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
+    private final int SUBSTATE_ROOM = 2; //ドア入ったとこ
+    private final int SUBSTATE_AIRTRACK = 3; //エアトラックの部屋
+    private final int SUBSTATE_RADIATION = 4; //放射線の部屋
+    private final int SUBSTATE_PHOTOELECTRIC = 5; //光電効果の部屋
+    private final int SUBSTATE_EQUIPOTENTIAL = 6; //等電位
 
     public TwoFloorPanel(GameController controller){
         super(controller);
