@@ -1,5 +1,7 @@
 package io.github.codedumper.view;
 
+import java.awt.event.ActionEvent;
+
 import javax.swing.JLabel;
 
 import io.github.codedumper.controller.GameController;
@@ -32,7 +34,10 @@ public class TwoFloorPanel extends FundamentalPanel{
         layeredPane.removeAll();
         this.revalidate();
         this.repaint();
+        this.currentSubState = subState;
         JLabel imageLabel;
+        //TODO 禁忌的なnull手法
+        buttonToFront = buttonToLeft = buttonToRear = buttonToRight = null;
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
             //初期状態の時、上に部屋、下に全体ロビー
@@ -40,7 +45,6 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "FRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "REAR");
-                updateButton();
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
@@ -89,7 +93,43 @@ public class TwoFloorPanel extends FundamentalPanel{
                 throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
         }
         System.out.println("Succenssfully change substate to " + subState);
+        updateButton();
         this.revalidate();
         this.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        String actionCommand = e.getActionCommand();
+        System.out.println("Event is" + e);
+        switch(actionCommand){
+            case "1":
+                changeSubState(SUBSTATE_INITIAL);
+            break;
+
+            case "2": //SUBSTATE_ROOM
+                changeSubState(SUBSTATE_ROOM);
+            break;
+
+            case "3": //SUBSTATE_AIRTRACK
+                changeSubState(SUBSTATE_AIRTRACK);
+            break;
+
+            case "4": //SUBSTATE_RADIATION
+                changeSubState(SUBSTATE_RADIATION);
+            break;
+
+            case "5": //SUBSTATE_PHOTOELECTRIC
+                changeSubState(SUBSTATE_PHOTOELECTRIC);
+            break;
+
+            case "6": //SUBSTATE_EQUIPOTENTIAL
+                changeSubState(SUBSTATE_EQUIPOTENTIAL);
+            break;
+
+            case "STATE_LOBBY":
+                controller.transition(State.STATE_LOBBY);
+            break;
+        }
     }
 }
