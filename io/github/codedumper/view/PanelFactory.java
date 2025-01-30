@@ -1,6 +1,5 @@
 package io.github.codedumper.view;
 import javax.swing.*;
-import io.github.codedumper.view.secondFloor.*;
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
 import io.github.codedumper.model.GameModel;
