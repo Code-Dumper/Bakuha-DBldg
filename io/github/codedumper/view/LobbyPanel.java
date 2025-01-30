@@ -11,10 +11,10 @@ public class LobbyPanel extends BasePanel{
     public LobbyPanel(GameController controller) {
         super(controller);
         //背景画像をset
+        this.setBackground("io/github/codedumper/view/image-OneFloor-Lobby.jpg",0);
         this.setBackground("io/github/codedumper/view/image-Information.jpg", 1);
 
         //ボタンをset
-        //TODO この実装だと同じ位置にボタンを追加している。
         createButton(State.STATE_4F, new ButtonProperties(200, 370, 200, 30));
         createButton(State.STATE_3F, new ButtonProperties(200, 420, 200, 30));
         createButton(State.STATE_2F, new ButtonProperties(200, 490, 200, 30));
