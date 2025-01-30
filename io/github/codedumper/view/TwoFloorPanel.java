@@ -2,6 +2,7 @@ package io.github.codedumper.view;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import io.github.codedumper.controller.GameController;
@@ -22,6 +23,7 @@ public class TwoFloorPanel extends FundamentalPanel{
     private final int SUBSTATE_RADIATION = 4; //放射線の部屋
     private final int SUBSTATE_PHOTOELECTRIC = 5; //光電効果の部屋
     private final int SUBSTATE_EQUIPOTENTIAL = 6; //等電位
+    private final int SUBSTATE_2FBOMB = 7;
 
     public TwoFloorPanel(GameController controller){
         super(controller);
@@ -46,6 +48,8 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "FRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "REAR");
+                JButton bumbButton = createButtonWithImage(SUBSTATE_2FBOMB, "image-Bumb.jpg", 25, 400, 200, 200);
+                addButton(bumbButton, LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
@@ -58,7 +62,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
-            
+
             //部屋の時、上に等電位、右に光電、下にロビー(INITIAL)
             case SUBSTATE_ROOM:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Room.jpg", 0,0,600,800);
@@ -90,6 +94,12 @@ public class TwoFloorPanel extends FundamentalPanel{
                 buttonToRight = createDirectionalButton(SUBSTATE_AIRTRACK, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
+            break;
+            //TODO 完成してない
+            case SUBSTATE_2FBOMB:
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
+                //番号確認、番号入力用のコンポーネントを表示
+                //
             break;
 
             default:
@@ -128,6 +138,10 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case "6": //SUBSTATE_EQUIPOTENTIAL
                 changeSubState(SUBSTATE_EQUIPOTENTIAL);
+            break;
+            
+            case "7":
+                changeSubState(SUBSTATE_2FBOMB);
             break;
 
             case "STATE_LOBBY":
