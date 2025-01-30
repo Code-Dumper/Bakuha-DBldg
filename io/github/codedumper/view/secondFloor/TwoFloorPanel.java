@@ -27,8 +27,17 @@ public class TwoFloorPanel extends FundamentalPanel{
         this.revalidate();
         this.repaint();
 
+        JLabel imageLabel;
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
+            //初期状態の時、上に部屋、下に全体ロビー
+            case SUBSTATE_INITIAL:
+                imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
+                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "FRONT");
+                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "REAR");
+                this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
+                
+            break;
             case SUBSTATE_AIRTRACK:
             //TODO エアトラの場面でのボタンの状態と画像を追加する
             break;
