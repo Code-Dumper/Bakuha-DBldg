@@ -32,8 +32,11 @@ public class GameTimer {
                 @Override
                 public void run() {
                     if (remainTime > 0) {
-                        remainTime = remainTime - 0.087;
+                        if(!model.getCurrentState().equals(State.STATE_TITLE)){
+                            remainTime = remainTime - 0.01;
+                        }
                         if (listener != null) {
+
                             listener.onTimeChange(remainTime); // 残り時間を通知
                         }
                     } else {
