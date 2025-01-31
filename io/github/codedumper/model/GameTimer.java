@@ -6,15 +6,17 @@ public class GameTimer {
     private double remainTime; // 残り時間
     private Timer timer; // タイマー
     private ITimerListener listener; // リスナー（通知先)
+    private GameModel model;
 
     /**
      * コンストラクタ。
      * @param initialTime 初期残り時間（秒）
      * @param listener    タイマーイベントを受け取るリスナー
      */
-    public GameTimer(int initialTime, ITimerListener listener) {
+    public GameTimer(int initialTime, ITimerListener listener, GameModel model) {
         this.remainTime = initialTime;
         this.listener = listener;
+        this.model = model;
     }
 
     /**
@@ -42,7 +44,7 @@ public class GameTimer {
                     }
                 }
             },
-            0, 87 // 初回遅延0ms、0.085秒ごとに実行
+            0, 10 // 初回遅延0ms、0.008秒ごとに実行
         );
     }
 
