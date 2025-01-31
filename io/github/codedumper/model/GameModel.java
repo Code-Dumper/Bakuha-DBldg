@@ -28,7 +28,7 @@ public class GameModel extends Observable implements IGameModel{
     public GameModel(){
         currentState = State.STATE_TITLE;
         remainTime = INITIAL_TIME;
-        timer = new GameTimer(INITIAL_TIME, this);
+        timer = new GameTimer(INITIAL_TIME, this, this);
         bombManager = new BombManager(this);
         stateMachine = new StateMachine();
         graphManager = new GraphManager(this);
