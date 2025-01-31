@@ -97,9 +97,13 @@ public class TwoFloorPanel extends FundamentalPanel{
             break;
             //TODO 完成してない
             case SUBSTATE_2FBOMB:
+                imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg", 0, 0, 600, 800);
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
                 //番号確認、番号入力用のコンポーネントを表示
                 //
+                createNumberDisplayLabel();
+                createNumberButtonPanel();
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
             default:
@@ -146,6 +150,19 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
+            break;
+
+            //爆弾解除の数字入力ボタンからの呼び出し
+            case "8":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(8);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Clear":
+                inputNumbers.setLength(0);
+                displayLabel.setText("");
             break;
         }
     }

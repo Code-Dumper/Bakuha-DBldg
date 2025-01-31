@@ -1,10 +1,16 @@
 package io.github.codedumper.view;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.GridLayout;
+import java.awt.Font;
+import java.awt.Color;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import io.github.codedumper.controller.GameController;
@@ -51,6 +57,15 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected JButton buttonToRight;
     protected JButton buttonToLeft;
     protected JButton buttonToRear;
+
+
+    //入力した文字を4つまで表示する
+    protected JLabel displayLabel;
+    //入力した文字を4つまで格納する
+    protected StringBuilder inputNumbers;
+    //ボタンを12個配置するパネル
+    protected JPanel NumberButtonPanel;
+
 
     //コンストラクタ
     public FundamentalPanel(GameController controller){
@@ -197,6 +212,54 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         layeredPane.add(buttonToAdd, layer);
         layeredPane.revalidate();
         layeredPane.repaint();
+    }
+
+    //数字入力を表示するラベル
+    protected JLabel createNumberDisplayLabel() {
+        inputNumbers = new StringBuilder();
+        displayLabel = new JLabel("", SwingConstants.CENTER);
+        displayLabel.setBounds(50, 100, 500, 100);
+        displayLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        displayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+        layeredPane.add(displayLabel, LAYER_UTIL_SECOND);
+        return displayLabel;
+    }
+
+    //数字入力用のボタンを配置するパネル
+    protected JPanel createNumberButtonPanel() {
+        // パネルにボタンを配置 
+        NumberButtonPanel = new JPanel();
+        NumberButtonPanel.setLayout(new GridLayout(4, 3));
+        NumberButtonPanel.setBounds(50, 200, 500, 500);
+
+        //ボタンに数字またはEnter,Clearを与えて作成
+        createNumberButton(String.valueOf(7));
+        createNumberButton(String.valueOf(8));
+        createNumberButton(String.valueOf(9));
+        createNumberButton(String.valueOf(4));
+        createNumberButton(String.valueOf(5));
+        createNumberButton(String.valueOf(6));
+        createNumberButton(String.valueOf(1));
+        createNumberButton(String.valueOf(2));
+        createNumberButton(String.valueOf(3));
+        createNumberButton("Enter");
+        createNumberButton(String.valueOf(0));
+        createNumberButton("Clear");
+
+        layeredPane.add(NumberButtonPanel, LAYER_UTIL_FIRST);
+        layeredPane.revalidate();
+        layeredPane.repaint();
+
+        return NumberButtonPanel;
+    }
+
+    //数字入力用のボタンを作成、NumberButtonPanelに貼り付け
+    public void createNumberButton(String number) {
+        JButton numberButton = new JButton();
+        numberButton.setSize(100, 100);
+        numberButton.setActionCommand(number);
+        numberButton.addActionListener(this);
+        NumberButtonPanel.add(numberButton);
     }
     
     @Override
