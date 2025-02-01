@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Color;
 
 import java.awt.event.ActionListener;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
@@ -42,11 +43,13 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final int SUBSTATE_INITIAL = 1;
     
     //矢印ボタンの位置座標。x,y,width,heightの順。
-    protected final Integer[] INFO_LEFT_BUTTON = {100, 500, 100, 100};
-    protected final Integer[] INFO_RIGHT_BUTTON = {400, 500, 100, 100};
-    protected final Integer[] INFO_FRONT_BUTTON = {250, 400, 100, 100};
-    protected final Integer[] INFO_REAR_BUTTON = {250, 600, 100, 100};
-
+    protected final Integer[] INFO_LEFT_BUTTON = {0, 375, 50, 50};
+    protected final Integer[] INFO_RIGHT_BUTTON = {100, 375, 50, 50};
+    protected final Integer[] INFO_FRONT_BUTTON = {50, 325, 50, 50};
+    protected final Integer[] INFO_REAR_BUTTON = {50, 425, 50, 50};
+    protected final Integer[] BUMB_REAR_BUTOON = {550,0,50,50};
+    protected final Integer[] ROBBY_REAR_BUTOON = {325,650,50,50};
+    protected final Integer[] ROBBY_FRONT_BUTOON = {325,550,50,50};
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
 
@@ -106,45 +109,128 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     //矢印ボタンを作成する
     protected JButton createDirectionalButton(Integer subState, String direction){
         JButton directionalButton;
+        String imagePath;
         switch(direction){
             case "FRONT":
-            directionalButton = createButtonWithoutImage(subState, INFO_FRONT_BUTTON[0], INFO_FRONT_BUTTON[1], INFO_FRONT_BUTTON[2], INFO_FRONT_BUTTON[3]);
+            imagePath = "image-Direction-Front.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath, INFO_FRONT_BUTTON[0], INFO_FRONT_BUTTON[1], INFO_FRONT_BUTTON[2], INFO_FRONT_BUTTON[3]);
             break;
             case "LEFT":
-            directionalButton = createButtonWithoutImage(subState, INFO_LEFT_BUTTON[0], INFO_LEFT_BUTTON[1], INFO_LEFT_BUTTON[2], INFO_LEFT_BUTTON[3]);
+            imagePath = "image-Direction-Left.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath,INFO_LEFT_BUTTON[0], INFO_LEFT_BUTTON[1], INFO_LEFT_BUTTON[2], INFO_LEFT_BUTTON[3]);
             break;
             case "RIGHT":
-            directionalButton = createButtonWithoutImage(subState, INFO_RIGHT_BUTTON[0], INFO_RIGHT_BUTTON[1], INFO_RIGHT_BUTTON[2], INFO_RIGHT_BUTTON[3]);
+            imagePath = "image-Direction-Right.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath, INFO_RIGHT_BUTTON[0], INFO_RIGHT_BUTTON[1], INFO_RIGHT_BUTTON[2], INFO_RIGHT_BUTTON[3]);
             break;
             case "REAR":
-            directionalButton = createButtonWithoutImage(subState, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
+            break;
+            case "BUMBREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            break;
+            case"ROBBYFRONT":
+            imagePath = "image-Direction-Front.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            break;
+            case"ROBBYREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
             break;
             default:
             throw new IllegalArgumentException();
         }
+        directionalButton.setOpaque(false);
+        directionalButton.setContentAreaFilled(false);
+        directionalButton.setBorderPainted(false);
         return directionalButton;
     }
     //状態を変える矢印ボタンを作成する
     protected JButton createStateChangeDirectionalButton(State state, String direction){
         JButton directionalButton;
+        String imagePath;
         switch(direction){
             case "FRONT":
-            directionalButton = createButtonWithoutImage(state, INFO_FRONT_BUTTON[0], INFO_FRONT_BUTTON[1], INFO_FRONT_BUTTON[2], INFO_FRONT_BUTTON[3]);
+            imagePath = "image-Direction-Front.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, INFO_FRONT_BUTTON[0], INFO_FRONT_BUTTON[1], INFO_FRONT_BUTTON[2], INFO_FRONT_BUTTON[3]);
             break;
             case "LEFT":
-            directionalButton = createButtonWithoutImage(state, INFO_LEFT_BUTTON[0], INFO_LEFT_BUTTON[1], INFO_LEFT_BUTTON[2], INFO_LEFT_BUTTON[3]);
+            imagePath = "image-Direction-Left.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(),imagePath, INFO_LEFT_BUTTON[0], INFO_LEFT_BUTTON[1], INFO_LEFT_BUTTON[2], INFO_LEFT_BUTTON[3]);
             break;
             case "RIGHT":
-            directionalButton = createButtonWithoutImage(state, INFO_RIGHT_BUTTON[0], INFO_RIGHT_BUTTON[1], INFO_RIGHT_BUTTON[2], INFO_RIGHT_BUTTON[3]);
+            imagePath = "image-Direction-Right.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(),imagePath, INFO_RIGHT_BUTTON[0], INFO_RIGHT_BUTTON[1], INFO_RIGHT_BUTTON[2], INFO_RIGHT_BUTTON[3]);
             break;
             case "REAR":
-            directionalButton = createButtonWithoutImage(state, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(),imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
+            break;
+            case "BUMBREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            break;
+            case"ROBBYFRONT":
+            imagePath = "image-Direction-Front.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            break;
+            case"ROBBYREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
             break;
             default:
             throw new IllegalArgumentException();
         }
         System.out.println("button");
+        directionalButton.setOpaque(false);
+        directionalButton.setContentAreaFilled(false);
+        directionalButton.setBorderPainted(false);
+
         return directionalButton;
+    }
+
+    //アイテム用のボタン
+    protected JButton ItemButton(Integer subState, String direction){
+        JButton itemButton;
+        String imagePath;
+        switch(direction){
+            case "FRONT":
+            imagePath = "image-Direction-Front.jpg";
+            itemButton = createButtonWithImage(subState, imagePath, INFO_FRONT_BUTTON[0], INFO_FRONT_BUTTON[1], INFO_FRONT_BUTTON[2], INFO_FRONT_BUTTON[3]);
+            break;
+            case "LEFT":
+            imagePath = "image-Direction-Left.jpg";
+            itemButton = createButtonWithImage(subState, imagePath,INFO_LEFT_BUTTON[0], INFO_LEFT_BUTTON[1], INFO_LEFT_BUTTON[2], INFO_LEFT_BUTTON[3]);
+            break;
+            case "RIGHT":
+            imagePath = "image-Direction-Right.jpg";
+            itemButton = createButtonWithImage(subState, imagePath, INFO_RIGHT_BUTTON[0], INFO_RIGHT_BUTTON[1], INFO_RIGHT_BUTTON[2], INFO_RIGHT_BUTTON[3]);
+            break;
+            case "REAR":
+            imagePath = "image-Direction-Rear.jpg";
+            itemButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
+            break;
+            case "BUMBREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            itemButton = createButtonWithImage(subState, imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            break;
+            case"ROBBYFRONT":
+            imagePath = "image-Direction-Front.jpg";
+            itemButton = createButtonWithImage(subState, imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            break;
+            case"ROBBYREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            itemButton = createButtonWithImage(subState, imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            break;
+            default:
+            throw new IllegalArgumentException();
+        }
+        itemButton.setOpaque(false);
+        itemButton.setContentAreaFilled(false);
+        itemButton.setBorderPainted(false);
+        return itemButton;
     }
 
     //位置x,y大きさwidth,height、subStateを内包したJButtonを作成する。
@@ -153,6 +239,8 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         buttonWithoutImage.setBounds(x, y, width, height);
         buttonWithoutImage.setActionCommand(Integer.toString(subState));
         buttonWithoutImage.addActionListener(this);
+
+        
         return buttonWithoutImage;
 
     }
@@ -176,6 +264,8 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         buttonWithImage.addActionListener(this);
         try{
             ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
+            imageIcon = new ImageIcon(scaledIcon); 
             buttonWithImage.setIcon(imageIcon);
             return buttonWithImage;
         }catch(Exception e){
@@ -184,7 +274,25 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         }
 
     }
-    
+
+    protected JButton BumbcreateButtonWithImage(Integer subState, String imagePath, int x, int y, int width, int height){
+        JButton buttonWithImage = new JButton();
+        buttonWithImage.setBounds(x,y,width,height);
+        buttonWithImage.setActionCommand(Integer.toString(subState));
+        buttonWithImage.addActionListener(this);
+        try{
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(150,100,Image.SCALE_DEFAULT);
+            imageIcon = new ImageIcon(scaledIcon); 
+            buttonWithImage.setIcon(imageIcon);
+            return buttonWithImage;
+        }catch(Exception e){
+            e.printStackTrace();
+            return new JButton("Failed to load image");
+        }
+
+    }
+
     protected JLabel createJLabelWithImage(String imagePath, int x, int y, int width, int height){
         JLabel jLabelWithImage = new JLabel();
         System.out.println(this.getClass().getClassLoader().getResource(CLASSPATH + imagePath));
@@ -272,6 +380,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             case "STATE_LOBBY":
                 controller.transition(State.valueOf(actionCommand));
             break;
+
         }
     }
 }   
