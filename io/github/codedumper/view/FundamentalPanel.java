@@ -334,26 +334,32 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     }
 
     //数字入力用のボタンを配置するパネル
-    protected JPanel createNumberButtonPanel() {
+    protected JPanel createNumberButtonPanel(String imagePath) {
         // パネルにボタンを配置 
         NumberButtonPanel = new JPanel();
-        NumberButtonPanel.setLayout(new GridLayout(4, 3));
-        NumberButtonPanel.setBounds(50, 200, 500, 500);
-
+        NumberButtonPanel.setBounds(0,0,600,800);
+        NumberButtonPanel.setLayout(null);
+        
+        JLabel bomb = createJLabelWithImage(imagePath, 0, 0, 600, 800);
+        NumberButtonPanel.add(bomb);
+        createNumberDisplayLabel();
+        
         //ボタンに数字またはEnter,Clearを与えて作成
-        createNumberButton(String.valueOf(7));
-        createNumberButton(String.valueOf(8));
-        createNumberButton(String.valueOf(9));
-        createNumberButton(String.valueOf(4));
-        createNumberButton(String.valueOf(5));
-        createNumberButton(String.valueOf(6));
-        createNumberButton(String.valueOf(1));
-        createNumberButton(String.valueOf(2));
-        createNumberButton(String.valueOf(3));
-        createNumberButton("Enter");
-        createNumberButton(String.valueOf(0));
-        createNumberButton("Clear");
+        createNumberButton(String.valueOf(1),33,197,177,118);
+        createNumberButton(String.valueOf(2),210,197,187,118);
+        createNumberButton(String.valueOf(3),397,197,170,118);
+        createNumberButton(String.valueOf(4),33,315,177,128);
+        createNumberButton(String.valueOf(5),210,315,187,128);
+        createNumberButton(String.valueOf(6),397,315,170,128);
+        createNumberButton(String.valueOf(7),33,443,177,147);
+        createNumberButton(String.valueOf(8),210,443,187,147);
+        createNumberButton(String.valueOf(9),397,443,170,147);
+        createNumberButton("Enter",33,590,177,130);
+        createNumberButton(String.valueOf(0),210,590,187,130);
+        createNumberButton("Clear",397,590,170,130);
 
+        
+        
         layeredPane.add(NumberButtonPanel, LAYER_UTIL_FIRST);
         layeredPane.revalidate();
         layeredPane.repaint();
@@ -362,11 +368,14 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     }
 
     //数字入力用のボタンを作成、NumberButtonPanelに貼り付け
-    public void createNumberButton(String number) {
+    public void createNumberButton(String number,int x,int y, int width, int height) {
         JButton numberButton = new JButton();
-        numberButton.setSize(100, 100);
+        numberButton.setBounds(x,y,width,height);
         numberButton.setActionCommand(number);
         numberButton.addActionListener(this);
+        numberButton.setOpaque(false);
+        numberButton.setContentAreaFilled(false);
+        numberButton.setBorderPainted(false);
         NumberButtonPanel.add(numberButton);
     }
     
