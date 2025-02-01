@@ -152,18 +152,6 @@ public class TwoFloorPanel extends FundamentalPanel{
                 controller.transition(State.STATE_LOBBY);
             break;
 
-            //爆弾解除の数字入力ボタンからの呼び出し
-            case "8":
-                if (inputNumbers.length() < 4) {
-                    inputNumbers.append(8);
-                    displayLabel.setText(inputNumbers.toString());
-                }
-            break;
-
-            case "Clear":
-                inputNumbers.setLength(0);
-                displayLabel.setText("");
-            break;
         }
     }
 }
