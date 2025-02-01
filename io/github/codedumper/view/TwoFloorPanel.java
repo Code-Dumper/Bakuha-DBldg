@@ -113,14 +113,9 @@ public class TwoFloorPanel extends FundamentalPanel{
             break;
             //TODO 完成してない
             case SUBSTATE_2FBOMB:
-<<<<<<< Updated upstream
-                imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg", 0, 0, 600, 800);
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-=======
                 imageLabel = createJLabelWithImage("image-Bumb-Detail.jpg", 0,0,600,800);
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
->>>>>>> Stashed changes
                 //番号確認、番号入力用のコンポーネントを表示
                 //
                 createNumberDisplayLabel();
@@ -255,18 +250,6 @@ public class TwoFloorPanel extends FundamentalPanel{
                 controller.transition(State.STATE_LOBBY);
             break;
 
-            //爆弾解除の数字入力ボタンからの呼び出し
-            case "8":
-                if (inputNumbers.length() < 4) {
-                    inputNumbers.append(8);
-                    displayLabel.setText(inputNumbers.toString());
-                }
-            break;
-
-            case "Clear":
-                inputNumbers.setLength(0);
-                displayLabel.setText("");
-            break;
         }
     }
 }
