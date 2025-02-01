@@ -22,13 +22,13 @@ public class GameViewPanel extends JPanel implements Observer {
 
         //タイマーの下にパネルを画面いっぱいに表示する。
         this.currentPanel = PanelFactory.createPanel(model.getCurrentState(), model, controller);
-        this.add(currentPanel);
 
         //TODO タイマーパネルの位置指定を直接書いているので保守性が低いかもしれない
         //タイマーパネルを左上に追加する
         this.timerPanel = new TimerPanel(this.model.getTimeRemaining());
         this.timerPanel.setBounds(0,0,100,50);
         this.add(timerPanel);
+        this.add(currentPanel);
 
         
         System.out.println("GameViewPanelのコンストラクタの実行が終了しました");
