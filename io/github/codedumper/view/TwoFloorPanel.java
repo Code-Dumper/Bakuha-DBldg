@@ -113,14 +113,9 @@ public class TwoFloorPanel extends FundamentalPanel{
             break;
             //TODO 完成してない
             case SUBSTATE_2FBOMB:
-<<<<<<< Updated upstream
-                imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg", 0, 0, 600, 800);
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-=======
                 imageLabel = createJLabelWithImage("image-Bumb-Detail.jpg", 0,0,600,800);
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
->>>>>>> Stashed changes
                 //番号確認、番号入力用のコンポーネントを表示
                 //
                 createNumberDisplayLabel();
