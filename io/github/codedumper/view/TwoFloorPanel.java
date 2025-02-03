@@ -24,7 +24,15 @@ public class TwoFloorPanel extends FundamentalPanel{
     private final int SUBSTATE_PHOTOELECTRIC = 5; //光電効果の部屋
     private final int SUBSTATE_EQUIPOTENTIAL = 6; //等電位
     private final int SUBSTATE_2FBOMB = 7;
-
+    private final int SUBSTATE_AIRTRACK_NOTE = 8; //エアトラノート
+    private final int SUBSTATE_AIRTRACK_WHITEBOARD = 9; //エアトラホワイトボード
+    private final int SUBSTATE_EQUIPOTENTIAL_NOTE = 10; //等電位線ノート
+    private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
+    private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
+    private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
+    private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
+    private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+    
     public TwoFloorPanel(GameController controller){
         super(controller);
         changeSubState(currentSubState);
@@ -46,20 +54,11 @@ public class TwoFloorPanel extends FundamentalPanel{
             //初期状態の時、上に部屋、下に全体ロビー
             case SUBSTATE_INITIAL:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "FRONT");
-                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "REAR");
-                JButton bumbButton = createButtonWithImage(SUBSTATE_2FBOMB, "image-Bumb.jpg", 25, 400, 200, 200);
+                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "ROBBYFRONT");
+                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "ROBBYREAR");
+                JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB, "image-Bumb.jpg", 50, 490, 150, 100);
                 addButton(bumbButton, LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
-                
-            break;
-
-            //エアトラックの時、右に放射、左に等電位
-            case SUBSTATE_AIRTRACK:
-                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
-                buttonToLeft = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "LEFT");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
 
@@ -72,11 +71,24 @@ public class TwoFloorPanel extends FundamentalPanel{
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
+            //エアトラックの時、右に放射、左に等電位
+            case SUBSTATE_AIRTRACK:
+                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
+                buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
+                buttonToLeft = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "LEFT");
+                //this.createButton(State.SUBSTATE_AIRTRACK_NOTE,new ButtonProperties(5,700,300,100));
+                //this.createButton(State.SUBSTATE_AIRTRACK_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
+                
+            break;
+            
             //放射の時、右に光電、下にエアトラ
             case SUBSTATE_RADIATION:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Radiation.jpg",0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+                //this.createButton(State.SUBSTATE_RADIATION_NOTE,new ButtonProperties(5,700,300,100));
+                //this.createButton(State.SUBSTATE_RADIATION_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
@@ -84,7 +96,9 @@ public class TwoFloorPanel extends FundamentalPanel{
             case SUBSTATE_PHOTOELECTRIC:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "LEFT");
+                //this.createButton(State.SUBSTATE_PHOTOELECTRIC_NOTE,new ButtonProperties(5,700,300,100));
+                //this.createButton(State.SUBSTATE_PHOTOELECTRIC_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
@@ -93,13 +107,64 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_AIRTRACK, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
+                //this.createButton(State.SUBSTATE_EQUIPOTENTIAL_NOTE,new ButtonProperties(5,700,300,100));
+                //this.createButton(State.SUBSTATE_EQUIPOTENTIAL_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
             //TODO 完成してない
             case SUBSTATE_2FBOMB:
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
                 //番号確認、番号入力用のコンポーネントを表示
-                //
+                createNumberButtonPanel("image-Bumb-Detail2.jpg");
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
+                
+            break;
+
+            case SUBSTATE_AIRTRACK_NOTE:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_AIRTRACK_WHITEBOARD:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_RADIATION_NOTE:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_RADIATION_WHITEBOARD:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_PHOTOELECTRIC_NOTE:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_PHOTOELECTRIC_WHITEBOARD:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_EQUIPOTENTIAL_NOTE:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_EQUIPOTENTIAL_WHITEBOARD:
+            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
+            addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             default:
@@ -111,6 +176,7 @@ public class TwoFloorPanel extends FundamentalPanel{
         this.repaint();
     }
 
+    
     @Override
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
@@ -144,9 +210,42 @@ public class TwoFloorPanel extends FundamentalPanel{
                 changeSubState(SUBSTATE_2FBOMB);
             break;
 
+            case "8":
+                changeSubState(SUBSTATE_AIRTRACK_NOTE);
+            break;
+
+            case "9":
+                changeSubState(SUBSTATE_AIRTRACK_WHITEBOARD);
+            break;
+
+            case "10":
+                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
+            break;
+
+            case "11":
+                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
+            break;
+
+            case "12":
+                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
+            break;
+
+            case "13":
+                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
+            break;
+
+            case "14":
+                changeSubState(SUBSTATE_RADIATION_NOTE);
+            break;
+
+            case "15":
+                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
+            break;
+
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
+
         }
     }
 }
