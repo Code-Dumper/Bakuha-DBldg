@@ -49,7 +49,7 @@ public class PlanarityPanel extends BasePanel implements Observer{
     @Override
     public void update(Observable o, Object arg){
         if(model.isPuzzleSolved()){
-            model.disarmBomb(model.getCurrentState());
+            model.disarmBomb();
             repaint();
         }else{
             repaint();
