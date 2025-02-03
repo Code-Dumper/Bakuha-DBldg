@@ -246,6 +246,86 @@ public class TwoFloorPanel extends FundamentalPanel{
                 controller.transition(State.STATE_LOBBY);
             break;
 
+            //爆弾解除のためのボタン入力
+            case "Number_1":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(1);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_2":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(2);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_3":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(3);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_4":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(4);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_5":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(5);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_6":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(6);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_7":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(7);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_8":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(8);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_9":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(9);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Number_0":
+                if (inputNumbers.length() < 4) {
+                    inputNumbers.append(0);
+                    displayLabel.setText(inputNumbers.toString());
+                }
+            break;
+
+            case "Clear":
+                inputNumbers.setLength(0);
+                displayLabel.setText("");
+            break;
+
+            case "Enter":
+                
+            break;
+
         }
     }
 }

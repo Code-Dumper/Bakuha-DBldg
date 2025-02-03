@@ -345,17 +345,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         createNumberDisplayLabel();
         
         //ボタンに数字またはEnter,Clearを与えて作成
-        createNumberButton(String.valueOf(1),33,197,177,118);
-        createNumberButton(String.valueOf(2),210,197,187,118);
-        createNumberButton(String.valueOf(3),397,197,170,118);
-        createNumberButton(String.valueOf(4),33,315,177,128);
-        createNumberButton(String.valueOf(5),210,315,187,128);
-        createNumberButton(String.valueOf(6),397,315,170,128);
-        createNumberButton(String.valueOf(7),33,443,177,147);
-        createNumberButton(String.valueOf(8),210,443,187,147);
-        createNumberButton(String.valueOf(9),397,443,170,147);
+        createNumberButton("Number_7",33,197,177,118);
+        createNumberButton("Number_8",210,197,187,118);
+        createNumberButton("Number_9",397,197,170,118);
+        createNumberButton("Number_4",33,315,177,128);
+        createNumberButton("Number_5",210,315,187,128);
+        createNumberButton("Number_6",397,315,170,128);
+        createNumberButton("Number_1",33,443,177,147);
+        createNumberButton("Number_2",210,443,187,147);
+        createNumberButton("Number_3",397,443,170,147);
         createNumberButton("Enter",33,590,177,130);
-        createNumberButton(String.valueOf(0),210,590,187,130);
+        createNumberButton("Number_0",210,590,187,130);
         createNumberButton("Clear",397,590,170,130);
 
         
