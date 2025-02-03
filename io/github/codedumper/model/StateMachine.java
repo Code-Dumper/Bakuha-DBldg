@@ -30,36 +30,19 @@ public class StateMachine {
         // 状態「STATE_1F」の遷移リスト
         transitions.put(State.STATE_1F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_1F_ROOM,
-                                        State.STATE_1F_BOMB));
+                                        State.STATE_1F_ROOM));
         // 状態「STATE_2F」の遷移リスト
         transitions.put(State.STATE_2F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_2F_ROOM,
-                                        State.STATE_2F_BOMB));
+                                        State.STATE_2F_ROOM));
         // 状態「STATE_3F」の遷移リスト
         transitions.put(State.STATE_3F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_3F_ROOM,
-                                        State.STATE_3F_BOMB));
+                                        State.STATE_3F_ROOM));
         // 状態「STATE_4F」の遷移リスト
         transitions.put(State.STATE_4F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_4F_ROOM,
-                                        State.STATE_4F_BOMB));
-        // 状態「STATE_1F_BOMB」
-        transitions.put(State.STATE_1F_BOMB,
-                        Arrays.asList(  State.STATE_1F));
-        // 状態「STATE_2F_BOMB」
-        transitions.put(State.STATE_2F_BOMB,
-                        Arrays.asList(  State.STATE_2F));
-        // 状態「STATE_3F_BOMB」
-        transitions.put(State.STATE_3F_BOMB,
-                        Arrays.asList(  State.STATE_3F));
-        // 状態「STATE_4F_BOMB」
-        transitions.put(State.STATE_2F_BOMB,
-                        Arrays.asList(  State.STATE_4F));  
-                                     
+                                        State.STATE_4F_ROOM));
         // 状態「STATE_GAMEOVER」の遷移リスト
         transitions.put(State.STATE_GAMEOVER, 
                         Arrays.asList(  State.STATE_TITLE, 
