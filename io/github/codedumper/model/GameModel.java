@@ -90,19 +90,19 @@ public class GameModel extends Observable implements IGameModel{
         return graphManager.getIntersectingEdges();
     }
     //爆弾のコード入力用の処理
-    public final void inputCode(State event, int input){
+    public final void inputCode(int input){
         int keyIndex;
-        switch(event){
-            case STATE_1F_BOMB:
+        switch(currentState){
+            case STATE_1F:
                 keyIndex = 1;
                 break;
-            case STATE_2F_BOMB:
+            case STATE_2F:
                 keyIndex = 2;
                 break;
-            case STATE_3F_BOMB:
+            case STATE_3F:
                 keyIndex = 3;
                 break;
-            case STATE_4F_BOMB:
+            case STATE_4F:
                 keyIndex = 4;
                 break;
             default:
@@ -116,19 +116,19 @@ public class GameModel extends Observable implements IGameModel{
         
     }
 
-    public final void resetCode(State event){
+    public final void resetCode(){
         int keyIndex;
-        switch(event){
-            case STATE_1F_BOMB:
+        switch(currentState){
+            case STATE_1F:
                 keyIndex = 1;
                 break;
-            case STATE_2F_BOMB:
+            case STATE_2F:
                 keyIndex = 2;
                 break;
-            case STATE_3F_BOMB:
+            case STATE_3F:
                 keyIndex = 3;
                 break;
-            case STATE_4F_BOMB:
+            case STATE_4F:
                 keyIndex = 4;
                 break;
             default:
@@ -137,19 +137,19 @@ public class GameModel extends Observable implements IGameModel{
         key[keyIndex] = 0;
     }
 
-    public final int getCurrentCode(State event){
+    public final int getCurrentCode(){
         int keyIndex;
-        switch(event){
-            case STATE_1F_BOMB:
+        switch(currentState){
+            case STATE_1F:
                 keyIndex = 1;
                 break;
-            case STATE_2F_BOMB:
+            case STATE_2F:
                 keyIndex = 2;
                 break;
-            case STATE_3F_BOMB:
+            case STATE_3F:
                 keyIndex = 3;
                 break;
-            case STATE_4F_BOMB:
+            case STATE_4F:
                 keyIndex = 4;
                 break;
             default:
@@ -159,15 +159,15 @@ public class GameModel extends Observable implements IGameModel{
     }
 
     //eに合わせて爆弾を取得し、その解除を試みる
-    public final boolean disarmBomb(State event){
-        switch(event){
-            case STATE_1F_BOMB: 
+    public final boolean disarmBomb(){
+        switch(currentState){
+            case STATE_1F: 
                 return bombManager.disarmBomb(1, key[1]);
-            case STATE_2F_BOMB: 
+            case STATE_2F: 
                 return bombManager.disarmBomb(2, key[2]);
-            case STATE_3F_BOMB:
+            case STATE_3F:
                 return bombManager.disarmBomb(3,key[3]);
-            case STATE_4F_BOMB:
+            case STATE_4F:
                 return bombManager.disarmBomb(4,key[4]);
             default:
                 return false;
