@@ -2,6 +2,8 @@ package io.github.codedumper.view;
 
 import io.github.codedumper.controller.*;
 import io.github.codedumper.model.State;
+
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -113,6 +115,14 @@ public class BasePanel extends JPanel implements ActionListener {
         button.addActionListener(this);
     }
 
+    public void addLabel(String message, int x, int y, int width, int height, Color color){
+        JLabel label = new JLabel(message);
+        label.setFont(controller.getFont("MaruMonica.TTF", 20));
+        label.setSize(width, height);
+        label.setLocation(x, y);
+        label.setForeground(color);
+        layeredPanel.add(label, Integer.valueOf(5));
+    }
     /**
      * ボタンがクリックされた際に呼び出されるメソッド。
      * アクションコマンドから状態を取得し、
