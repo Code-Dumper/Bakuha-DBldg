@@ -329,7 +329,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         inputNumbers = new StringBuilder();
         displayLabel = new JLabel("", SwingConstants.CENTER);
         displayLabel.setBounds(33, 75, 532, 122);
-        displayLabel.setFont(new Font("Arial", Font.BOLD, 90));
+        displayLabel.setFont(new Font(controller.getFont("DS-DIGI.TTF"),  90));
         displayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         layeredPane.add(displayLabel, LAYER_UTIL_SECOND);
         return displayLabel;
