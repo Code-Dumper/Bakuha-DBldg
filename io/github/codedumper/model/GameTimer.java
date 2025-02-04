@@ -40,6 +40,7 @@ public class GameTimer {
                             listener.onTimeChange(remainTime); // 残り時間を通知
                         }
                     } else {
+                        System.out.println("Timer stopped.");
                         stop(); // タイマー停止
                         if (listener != null) {
                             listener.onTimeOut(); // タイムアウト通知
