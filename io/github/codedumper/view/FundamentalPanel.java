@@ -84,7 +84,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         this.currentSubState = SUBSTATE_INITIAL;
         //画面描画
         changeSubState(currentSubState);
-        System.out.println("Successfully initialize FundamentalPanel.");
+        System.out.println("Successfully initializing FundamentalPanel.");
         this.add(layeredPane);
         //ボタンの反映
         updateButton();

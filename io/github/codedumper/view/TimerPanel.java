@@ -2,17 +2,22 @@ package io.github.codedumper.view;
 
 
 import javax.swing.*;
+
+import io.github.codedumper.controller.GameController;
+
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class TimerPanel extends JPanel {
     private JLabel timerLabel;
+    private GameController controller;
     int min, sec, milsec;
-    public TimerPanel(double remainSeconds) {
+    public TimerPanel(double remainSeconds, GameController controller) {
         this.setLayout(null); //絶対位置指定レイアウトへ
         this.setSize(new Dimension(100, 50));//TODO 保守性が最悪
         this.setBackground(Color.BLACK);
+        this.controller = controller;
         timerLabel = new JLabel(formatTime(remainSeconds)); //残り時間の指定
         min = 60;
         sec = 0;
@@ -20,7 +25,7 @@ public class TimerPanel extends JPanel {
         timerLabel.setBounds(0,0,100,50);
         timerLabel.setHorizontalAlignment(JLabel.CENTER);
         timerLabel.setVerticalAlignment(JLabel.CENTER);
-        timerLabel.setFont(createFont("DS-DIGI.TTF", 26)); //フォントの指定 
+        timerLabel.setFont(controller.getFont("DS-DIGI.TTF", 30));
         timerLabel.setForeground(Color.RED);
         this.add(timerLabel);
     }
@@ -41,23 +46,5 @@ public class TimerPanel extends JPanel {
             timerLabel.setForeground(Color.RED);
         }
         timerLabel.setText(formatTime(time));
-    }
-
-    //ここにいるべきではないかもしれない
-    public Font createFont(String filename, float size){
-        Font font = null;
-        InputStream is = null;
-        try{
-            is = getClass().getResourceAsStream("DS-DIGI.TTF");
-            font = Font.createFont(Font.TRUETYPE_FONT,is);
-            font = font.deriveFont(size);
-            is.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }catch(FontFormatException e){
-            e.printStackTrace();
-        }
-        return font;
-        
     }
 }
