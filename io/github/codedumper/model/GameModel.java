@@ -16,19 +16,21 @@ import java.awt.Point;
 public class GameModel extends Observable implements IGameModel{
     private static final int INITIAL_TIME = 3600;
     
-    private State currentState; //現在のゲーム状態
-    private GameTimer timer; //ゲームで共通のタイマー
-    private double remainTime; //残り時間
-    private BombManager bombManager; //爆弾管理
-    private StateMachine stateMachine; //状態管理
-    private GraphManager graphManager; //ミニゲームのグラフ管理
-    private int key[]; //ユーザの入力した爆弾解除のコード
+    private       State currentState; //現在のゲーム状態
+    private final GameTimer timer; //ゲームで共通のタイマー
+    private       double remainTime; //残り時間
+    private final BombManager bombManager; //爆弾管理
+    private final StateMachine stateMachine; //状態管理
+    private final GraphManager graphManager; //ミニゲームのグラフ管理
+    public  final DataManager dataManager;
+    private final int key[]; //ユーザの入力した爆弾解除のコード
 
     //残り時間をINITIAL_TIME(3600s)、初期状態をタイトル状態
     public GameModel(){
         currentState = State.STATE_TITLE;
         remainTime = INITIAL_TIME;
         timer = new GameTimer(INITIAL_TIME, this, this);
+        dataManager = new DataManager(60);
         bombManager = new BombManager(this);
         stateMachine = new StateMachine();
         graphManager = new GraphManager(this);
@@ -119,20 +121,11 @@ public class GameModel extends Observable implements IGameModel{
     public final void resetCode(){
         int keyIndex;
         switch(currentState){
-            case STATE_1F:
-                keyIndex = 1;
-                break;
-            case STATE_2F:
-                keyIndex = 2;
-                break;
-            case STATE_3F:
-                keyIndex = 3;
-                break;
-            case STATE_4F:
-                keyIndex = 4;
-                break;
-            default:
-                keyIndex = 0;
+            case STATE_1F:  keyIndex = 1;   break;
+            case STATE_2F:  keyIndex = 2;   break;
+            case STATE_3F:  keyIndex = 3;   break;
+            case STATE_4F:  keyIndex = 4;   break;
+            default:        keyIndex = 0;
         }
         key[keyIndex] = 0;
     }
@@ -140,20 +133,11 @@ public class GameModel extends Observable implements IGameModel{
     public final int getCurrentCode(){
         int keyIndex;
         switch(currentState){
-            case STATE_1F:
-                keyIndex = 1;
-                break;
-            case STATE_2F:
-                keyIndex = 2;
-                break;
-            case STATE_3F:
-                keyIndex = 3;
-                break;
-            case STATE_4F:
-                keyIndex = 4;
-                break;
-            default:
-                keyIndex = 0;
+            case STATE_1F:  keyIndex = 1;   break;
+            case STATE_2F:  keyIndex = 2;   break;
+            case STATE_3F:  keyIndex = 3;   break;
+            case STATE_4F:  keyIndex = 4;   break;
+            default:        keyIndex = 0;
         }
         return key[keyIndex];
     }

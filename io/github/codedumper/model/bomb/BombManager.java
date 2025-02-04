@@ -3,7 +3,6 @@ package io.github.codedumper.model.bomb;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.codedumper.model.Constant;
 import io.github.codedumper.model.GameModel;
 
 /*
@@ -18,10 +17,10 @@ public class BombManager {
     public BombManager(GameModel model){
         this.model = model;
         bombs = new ArrayList<Bomb>();
-        addBomb(model, new CodeDisarmStrategy(model, Constant.oneFloorBombCode));
-        addBomb(model, new CodeDisarmStrategy(model, Constant.twoFloorBombCode));
-        addBomb(model, new CodeDisarmStrategy(model, Constant.threeFloorBombCode));
-        addBomb(model, new CodeDisarmStrategy(model, Constant.fourFloorBombCode));
+        addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(1)));
+        addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(2)));
+        addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(3)));
+        addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(4)));
     }
 
     public void addBomb(GameModel model, BaseDisarmStrategy disarmStrategy){
