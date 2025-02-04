@@ -18,22 +18,24 @@ public class GameModel extends Observable implements IGameModel{
     
     private       State currentState; //現在のゲーム状態
     private final GameTimer timer; //ゲームで共通のタイマー
-    private final BombManager bombManager; //爆弾管理
-    private final StateMachine stateMachine; //状態管理
-    private final GraphManager graphManager; //ミニゲームのグラフ管理
-    public  final DataManager dataManager;
+    private BombManager bombManager; //爆弾管理
+    private StateMachine stateMachine; //状態管理
+    private GraphManager graphManager; //ミニゲームのグラフ管理
+    public  DataManager dataManager;
 
     //残り時間をINITIAL_TIME(3600s)、初期状態をタイトル状態
     public GameModel(){
-        currentState = State.STATE_TITLE;
         timer = new GameTimer(INITIAL_TIME, this, this);
+        initialize();
+    }
+    public final synchronized void initialize(){
+        currentState = State.STATE_TITLE;
         dataManager = new DataManager(60);
         bombManager = new BombManager(this);
         stateMachine = new StateMachine();
         graphManager = new GraphManager(this);
         timer.start();
     }
-
     //残り時間の通知
     public final synchronized double getTimeRemaining(){
         return timer.getRemainingTime();
@@ -119,11 +121,15 @@ public class GameModel extends Observable implements IGameModel{
     //Observerへ状態変化の通知
     private final void notifyStateChange(){
         SwingUtilities.invokeLater(() ->{
-                setChanged(); 
                 //タイトルに戻ったら時間を回復させる(この時、timer.stop()がすでに呼ばれていて、タイマーは動かない。)
                 if(currentState.equals(State.STATE_TITLE)){
                     timer.setRemainingTime(INITIAL_TIME);
                 }
+                if(timer.isStopped() && !currentState.equals(State.STATE_GAMEOVER)){
+                    timer.start();
+                    this.initialize();
+                }
+                setChanged(); 
                 notifyObservers("STATE_CHANGE");
             });
     }
