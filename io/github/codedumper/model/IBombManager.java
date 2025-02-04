@@ -11,7 +11,7 @@ public interface IBombManager {
     /**
      * @param event 爆弾に対応したイベント
      */
-    void resetCode();
+    void resetCurrentCode();
 
     /**
      * @param event 解除したい爆弾のイベント名

@@ -90,8 +90,8 @@ public class GameModel extends Observable implements IGameModel{
         bombManager.inputCodeTo(currentState, input);
     }
 
-    public final void resetCode(){
-        bombManager.resetCode(currentState);
+    public final void resetCurrentCode(){
+        bombManager.resetCurrentCode(currentState);
     }
 
     public final int getCurrentCode(){
