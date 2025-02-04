@@ -120,6 +120,10 @@ public class GameModel extends Observable implements IGameModel{
     private final void notifyStateChange(){
         SwingUtilities.invokeLater(() ->{
                 setChanged(); 
+                //タイトルに戻ったら時間を回復させる(この時、timer.stop()がすでに呼ばれていて、タイマーは動かない。)
+                if(currentState.equals(State.STATE_TITLE)){
+                    timer.setRemainingTime(INITIAL_TIME);
+                }
                 notifyObservers("STATE_CHANGE");
             });
     }
