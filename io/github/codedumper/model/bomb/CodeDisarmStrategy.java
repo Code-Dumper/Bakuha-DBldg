@@ -3,14 +3,19 @@ package io.github.codedumper.model.bomb;
 import io.github.codedumper.model.GameModel;
 
 //暗号入力を鍵とした爆弾解除戦略クラス
-public class CodeDisarmStrategy extends BaseDisarmStrategy{
+public class CodeDisarmStrategy{
+    private GameModel model;
+    private int key;
     public CodeDisarmStrategy(GameModel model, int correctCode){
-        super(model, correctCode);
+        this.model = model;
+        this.key = correctCode;
     }
 
-    @Override
-    public boolean canDisarm(Bomb bomb, Object input){
-        if(!(input instanceof Integer)) return false;
-        return key.equals(input);
+    public boolean canDisarm(Bomb bomb, int input){
+        return key == input;
+    }
+
+    public int getCorrectCode(){
+        return this.key;
     }
 }
