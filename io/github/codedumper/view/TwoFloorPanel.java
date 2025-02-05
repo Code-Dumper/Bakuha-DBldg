@@ -76,8 +76,10 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
                 buttonToLeft = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "LEFT");
-                //this.createButton(State.SUBSTATE_AIRTRACK_NOTE,new ButtonProperties(5,700,300,100));
-                //this.createButton(State.SUBSTATE_AIRTRACK_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
+                JButton AirtrackNoteButton = createButtonWithoutImage(SUBSTATE_AIRTRACK_NOTE,240,500,50,60);
+                JButton AirtrackWhitebordButton = createButtonWithoutImage(SUBSTATE_AIRTRACK_WHITEBOARD,0,30,100,300);
+                addButton(AirtrackNoteButton, LAYER_UTIL_FIRST);
+                addButton(AirtrackWhitebordButton, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
@@ -87,8 +89,10 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Radiation.jpg",0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-                //this.createButton(State.SUBSTATE_RADIATION_NOTE,new ButtonProperties(5,700,300,100));
-                //this.createButton(State.SUBSTATE_RADIATION_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
+                JButton RadiationNoteButton = createButtonWithoutImage(SUBSTATE_RADIATION_NOTE,240,500,50,60);
+                JButton RadiationWhitebordButton = createButtonWithoutImage(SUBSTATE_RADIATION_WHITEBOARD,270,20,300,120);
+                addButton(RadiationNoteButton, LAYER_UTIL_FIRST);
+                addButton(RadiationWhitebordButton, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
@@ -97,8 +101,10 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "LEFT");
-                //this.createButton(State.SUBSTATE_PHOTOELECTRIC_NOTE,new ButtonProperties(5,700,300,100));
-                //this.createButton(State.SUBSTATE_PHOTOELECTRIC_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
+                JButton PhotoelectricNoteButton = createButtonWithoutImage(SUBSTATE_PHOTOELECTRIC_NOTE,240,500,50,60);
+                JButton PhotoelectricWhitebordButton = createButtonWithoutImage(SUBSTATE_PHOTOELECTRIC_WHITEBOARD,80,30,440,210);
+                addButton(PhotoelectricNoteButton, LAYER_UTIL_FIRST);
+                addButton(PhotoelectricWhitebordButton, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
@@ -107,11 +113,13 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_AIRTRACK, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "REAR");
-                //this.createButton(State.SUBSTATE_EQUIPOTENTIAL_NOTE,new ButtonProperties(5,700,300,100));
-                //this.createButton(State.SUBSTATE_EQUIPOTENTIAL_WHITEBOARD,new ButtonProperties(100, 50, 400, 300));
+                JButton EquipotentialNoteButton = createButtonWithoutImage(SUBSTATE_EQUIPOTENTIAL_NOTE,240,620,80,60);
+                JButton EquipotentialWhitebordButton = createButtonWithoutImage(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD,240,30,290,120);
+                addButton(EquipotentialNoteButton, LAYER_UTIL_FIRST);
+                addButton(EquipotentialWhitebordButton, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
-            //TODO 完成してない
+            
             case SUBSTATE_2FBOMB:
                 //番号確認、番号入力用のコンポーネントを表示
                 createNumberButtonPanel("image-Bumb-Detail2.jpg");
@@ -120,51 +128,51 @@ public class TwoFloorPanel extends FundamentalPanel{
             break;
 
             case SUBSTATE_AIRTRACK_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_AIRTRACK_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_RADIATION_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_RADIATION_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_PHOTOELECTRIC_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Note.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_PHOTOELECTRIC_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_EQUIPOTENTIAL_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Note.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_EQUIPOTENTIAL_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             default:
