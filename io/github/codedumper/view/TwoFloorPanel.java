@@ -254,6 +254,71 @@ public class TwoFloorPanel extends FundamentalPanel{
                 controller.transition(State.STATE_LOBBY);
             break;
 
+            //爆弾解除のためのボタン入力
+            case "Number_1":
+                controller.inputCodeToCurrentStateBomb(1);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_2":
+                controller.inputCodeToCurrentStateBomb(2);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_3":
+                controller.inputCodeToCurrentStateBomb(3);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_4":
+                controller.inputCodeToCurrentStateBomb(4);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_5":
+                controller.inputCodeToCurrentStateBomb(5);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_6":
+                controller.inputCodeToCurrentStateBomb(6);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_7":
+                controller.inputCodeToCurrentStateBomb(7);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_8":
+                controller.inputCodeToCurrentStateBomb(8);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_9":
+                controller.inputCodeToCurrentStateBomb(9);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Number_0":
+                controller.inputCodeToCurrentStateBomb(0);
+                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            break;
+
+            case "Clear":
+                controller.resetCodeOfCurrentStateBomb();
+                displayLabel.setText("");
+            break;
+
+            case "Enter":
+                if(controller.disarmCurrentStateBombByCurrentCode()) {
+                    changeSubState(SUBSTATE_INITIAL);
+                }
+                else {
+                    displayLabel.setText("Incorrect");
+                }
+            break;
+
         }
     }
 }
