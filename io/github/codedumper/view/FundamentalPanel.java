@@ -66,8 +66,6 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     //入力した文字を4つまで表示する
     protected JLabel displayLabel;
-    //入力した文字を4つまで格納する
-    protected StringBuilder inputNumbers;
     //ボタンを12個配置するパネル
     protected JPanel NumberButtonPanel;
 
@@ -326,7 +324,6 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     //数字入力を表示するラベル
     protected JLabel createNumberDisplayLabel() {
-        inputNumbers = new StringBuilder();
         displayLabel = new JLabel("", SwingConstants.CENTER);
         displayLabel.setBounds(33, 75, 532, 122);
         displayLabel.setFont(new Font("Arial", Font.BOLD, 90));
