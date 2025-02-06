@@ -18,17 +18,19 @@ public class BombManager {
     public BombManager(GameModel model){
         this.model = model;
         bombs = new ArrayList<Bomb>();
+        //最初の一つはダミーボム
+        addBomb(model, new CodeDisarmStrategy(model, 0000));
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(1)));
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(2)));
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(3)));
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(4)));
     }
 
-    public void addBomb(GameModel model, BaseDisarmStrategy disarmStrategy){
+    public void addBomb(GameModel model, CodeDisarmStrategy disarmStrategy){
         bombs.add(new Bomb(model, disarmStrategy));
     }
     
-    public boolean disarmBomb(int index, Object input){
+    public boolean disarmBomb(int index, int input){
         if(index < 0 || bombs.size() <= index){
             throw new IllegalArgumentException();
         }
@@ -36,21 +38,21 @@ public class BombManager {
         return bombToDisarm.disarm(input);
     }
 
-    public int getBombCodeOf(State currentState){
+    public int getBombCodeOf(State state){
         int keyIndex;
-        switch(currentState){
+        switch(state){
             case STATE_1F:  keyIndex = 1;   break;
             case STATE_2F:  keyIndex = 2;   break;
             case STATE_3F:  keyIndex = 3;   break;
             case STATE_4F:  keyIndex = 4;   break;
             default:        keyIndex = 0;
         }
-        return bombs.get(keyIndex).getCode();
+        return bombs.get(keyIndex).getCurrentCode();
     }
 
-    public void inputCodeTo(State currentState, int value){
+    public void inputCodeTo(State state, int value){
         int keyIndex;
-        switch(currentState){
+        switch(state){
             case STATE_1F:  keyIndex = 1;   break;
             case STATE_2F:  keyIndex = 2;   break;
             case STATE_3F:  keyIndex = 3;   break;
@@ -62,9 +64,9 @@ public class BombManager {
         bombs.get(keyIndex).inputCode(value);
     }
 
-    public boolean disarmBomb(State currentState){
+    public boolean disarmBomb(State state){
         int keyIndex;
-        switch(currentState){
+        switch(state){
             case STATE_1F: keyIndex = 1; break;
             case STATE_2F: keyIndex = 2; break;
             case STATE_3F: keyIndex = 3; break;
@@ -72,12 +74,13 @@ public class BombManager {
             default:       keyIndex = 0; break;
         }
         if(keyIndex == 0){return false;}
-        return bombs.get(keyIndex).disarm(getBombCodeOf(currentState));
+        System.out.println("try to disarm bomb of "+keyIndex + "floor.");
+        return bombs.get(keyIndex).disarm(getBombCodeOf(state));
     }
 
-    public boolean isDisarmedBombOf(State currentState){
+    public boolean isDisarmedBombOf(State state){
         int keyIndex;
-        switch(currentState){
+        switch(state){
             case STATE_1F: keyIndex = 1; break;
             case STATE_2F: keyIndex = 2; break;
             case STATE_3F: keyIndex = 3; break;
@@ -87,16 +90,28 @@ public class BombManager {
         return bombs.get(keyIndex).isDisarmed();
     }
 
-    public void resetCode(State currentState){
+    public void resetCurrentCode(State state){
         int keyIndex;
-        switch(currentState){
+        switch(state){
             case STATE_1F: keyIndex = 1; break;
             case STATE_2F: keyIndex = 2; break;
             case STATE_3F: keyIndex = 3; break;
             case STATE_4F: keyIndex = 4; break;
             default:       keyIndex = 0; break;
         }
-        bombs.get(keyIndex).resetCode();
+        bombs.get(keyIndex).resetCurrentCode();
+    }
+
+    public int getProperCode(State state){
+        int keyIndex;
+        switch(state){
+            case STATE_1F: keyIndex = 1; break;
+            case STATE_2F: keyIndex = 2; break;
+            case STATE_3F: keyIndex = 3; break;
+            case STATE_4F: keyIndex = 4; break;
+            default:       keyIndex = 0; break;
+        }
+        return bombs.get(keyIndex).getProperCode();
     }
 
     public boolean areAllBombsDisarmed(){

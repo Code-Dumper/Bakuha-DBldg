@@ -11,10 +11,10 @@ public class DataManager {
     public int threeFloorBombCode;
     public int fourFloorBombCode;
     public DataManager(int size){
-        oneFloorBombCode = 0000;
+        oneFloorBombCode = 1111;
         twoFloorBombCode = 7705;
-        threeFloorBombCode = 0000;
-        fourFloorBombCode = 0000;
+        threeFloorBombCode = 3333;
+        fourFloorBombCode = 4444;
     }
     public Font genFont(String filename, float size){
         Font font = null;
@@ -29,10 +29,10 @@ public class DataManager {
             font = font.deriveFont(size);
             is.close();
         }catch(IOException e){
-            System.out.println("IOException\n");
+            System.out.println("IOException");
             e.printStackTrace();
         }catch(FontFormatException e){
-            System.out.println("FontFormatException\n");
+            System.out.println("FontFormatException");
             e.printStackTrace();
         }
         return font;

@@ -48,6 +48,7 @@ public class GameViewPanel extends JPanel implements Observer {
                 // 状態に応じてパネルを切り替え
                 remove(currentPanel);
                 currentPanel = PanelFactory.createPanel(model.getCurrentState(), model, controller);
+                this.timerPanel.updateTime(this.model.getTimeRemaining());
                 add(currentPanel);
                 revalidate();
                 repaint();

@@ -76,7 +76,7 @@ public class GameController extends MouseAdapter implements IGameController{
 
     @Override
     public void resetCodeOfCurrentStateBomb() {
-        model.resetCode();
+        model.resetCurrentCode();
     }
 
     @Override
@@ -92,5 +92,10 @@ public class GameController extends MouseAdapter implements IGameController{
     @Override
     public boolean areAllBombsDisarmed() {
         return model.areAllBombsDisarmed();
+    }
+
+    @Override
+    public boolean isDisarmedCurrentFloorBomb(){
+        return model.isDisarmedCurrentFloorBomb();
     }
 }

@@ -5,16 +5,16 @@ import io.github.codedumper.model.GameModel;
 
 
 public class Bomb{
-    private BaseDisarmStrategy disarmStrategy;
+    private CodeDisarmStrategy disarmStrategy;
     private boolean disarmed;
     private int codeInputted;
 
-    public Bomb(GameModel model, BaseDisarmStrategy disarmStrategy) {
+    public Bomb(GameModel model, CodeDisarmStrategy disarmStrategy) {
         this.disarmStrategy = disarmStrategy;
         this.disarmed = false;
     }
 
-    public boolean disarm(Object input) {
+    public boolean disarm(int input) {
         if (disarmStrategy.canDisarm(this, input)) {
             disarmed = true;
             return true;
@@ -24,18 +24,22 @@ public class Bomb{
     }
 
     public void inputCode(int input){
-        if(this.codeInputted >= 9000){
+        if(this.codeInputted >= 1000){
             return;
         }else{
             this.codeInputted = codeInputted * 10 + input;
         }
     }
-    public int getCode(){
+    public int getCurrentCode(){
         return this.codeInputted;
     }
 
-    public void resetCode(){
+    public void resetCurrentCode(){
         this.codeInputted = 0;
+    }
+
+    public int getProperCode(){
+        return this.disarmStrategy.getCorrectCode();
     }
 
     public boolean isDisarmed() {

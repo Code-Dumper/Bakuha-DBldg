@@ -34,10 +34,9 @@ class PanelFactory{
             case STATE_4F:
                 productPanel = new FloorFourPanel(controller);
                 break;
-            /*
             case STATE_GAMEOVER:
-                return new GameOverPanel(controller);
-            */
+                productPanel = new GameOverPanel(controller);
+                break;
             case STATE_MINIGAME:
                 productPanel = new PlanarityPanel(model, controller);
             default:
