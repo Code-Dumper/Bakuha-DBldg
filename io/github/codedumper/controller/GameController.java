@@ -93,4 +93,9 @@ public class GameController extends MouseAdapter implements IGameController{
     public boolean areAllBombsDisarmed() {
         return model.areAllBombsDisarmed();
     }
+
+    @Override
+    public boolean isDisarmedCurrentFloorBomb(){
+        return model.isDisarmedCurrentFloorBomb();
+    }
 }
