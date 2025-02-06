@@ -24,7 +24,7 @@ public class Bomb{
     }
 
     public void inputCode(int input){
-        if(this.codeInputted >= 9000){
+        if(this.codeInputted >= 1000){
             return;
         }else{
             this.codeInputted = codeInputted * 10 + input;
