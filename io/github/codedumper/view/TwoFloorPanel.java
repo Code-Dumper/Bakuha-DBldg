@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
@@ -215,7 +216,12 @@ public class TwoFloorPanel extends FundamentalPanel{
             break;
             
             case "7":
-                changeSubState(SUBSTATE_2FBOMB);
+                if(controller.isDisarmedCurrentFloorBomb()) {
+                    JOptionPane.showMessageDialog(this, "すでに解除されている...。");
+                }
+                else{
+                    changeSubState(SUBSTATE_2FBOMB);
+                }
             break;
 
             case "8":
@@ -313,6 +319,7 @@ public class TwoFloorPanel extends FundamentalPanel{
             case "Enter":
                 if(controller.disarmCurrentStateBombByCurrentCode()) {
                     displayLabel.setText("Correct!");
+                    JOptionPane.showMessageDialog(this, "2階の爆弾の解除に成功した!");
                     changeSubState(SUBSTATE_INITIAL);
                 }
                 else {
