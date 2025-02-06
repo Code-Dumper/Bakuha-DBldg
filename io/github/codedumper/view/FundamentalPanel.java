@@ -271,6 +271,24 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     }
 
+    protected JButton createButtonWithImage(State state, String imagePath, int x, int y, int width, int height){
+        JButton buttonWithImage = new JButton();
+        buttonWithImage.setBounds(x,y,width,height);
+        buttonWithImage.setActionCommand(state.toString());
+        buttonWithImage.addActionListener(this);
+        try{
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
+            imageIcon = new ImageIcon(scaledIcon); 
+            buttonWithImage.setIcon(imageIcon);
+            return buttonWithImage;
+        }catch(Exception e){
+            e.printStackTrace();
+            return new JButton("Failed to load image");
+        }
+
+    }
+
     protected JButton BumbcreateButtonWithImage(Integer subState, String imagePath, int x, int y, int width, int height){
         JButton buttonWithImage = new JButton();
         buttonWithImage.setBounds(x,y,width,height);
