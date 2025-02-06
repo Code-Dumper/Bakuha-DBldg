@@ -54,8 +54,8 @@ public class TwoFloorPanel extends FundamentalPanel{
             //初期状態の時、上に部屋、下に全体ロビー
             case SUBSTATE_INITIAL:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "ROBBYFRONT");
-                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "ROBBYREAR");
+                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "LOBBYFRONT");
+                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
                 JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB, "image-Bumb.jpg", 50, 490, 150, 100);
                 addButton(bumbButton, LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
@@ -123,7 +123,7 @@ public class TwoFloorPanel extends FundamentalPanel{
             case SUBSTATE_2FBOMB:
                 //番号確認、番号入力用のコンポーネントを表示
                 createNumberButtonPanel("image-Bumb-Detail2.jpg");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BOMBREAR");
                 
             break;
 
@@ -312,6 +312,7 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case "Enter":
                 if(controller.disarmCurrentStateBombByCurrentCode()) {
+                    displayLabel.setText("Correct!");
                     changeSubState(SUBSTATE_INITIAL);
                 }
                 else {
