@@ -324,6 +324,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 }
                 else {
                     displayLabel.setText("Incorrect");
+                    controller.resetCodeOfCurrentStateBomb();
                 }
             break;
 
