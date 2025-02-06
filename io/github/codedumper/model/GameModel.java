@@ -105,6 +105,10 @@ public class GameModel extends Observable implements IGameModel{
         return this.bombManager.disarmBomb(currentState);
     }
 
+    public final boolean isDisarmedCurrentFloorBomb(){
+        return this.bombManager.isDisarmedBombOf(currentState);
+    }
+
     public final boolean areAllBombsDisarmed(){
         return bombManager.areAllBombsDisarmed();
     }

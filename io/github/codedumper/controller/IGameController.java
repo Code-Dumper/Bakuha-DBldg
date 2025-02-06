@@ -31,4 +31,7 @@ public interface IGameController {
     public boolean disarmCurrentStateBombByCurrentCode();
     //爆弾が全て解除されたかを返すメソッド。
     public boolean areAllBombsDisarmed();
+
+    //モデルの管理する状態に対応する爆弾が解除されているかどうかを表すbooleanを返すメソッド。
+    public boolean isDisarmedCurrentFloorBomb();
 }
