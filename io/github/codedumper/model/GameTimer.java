@@ -5,6 +5,7 @@ import java.util.TimerTask;
 public class GameTimer {
     private double remainTime; // 残り時間
     private Timer timer; // タイマー
+    private boolean isActive;
     private ITimerListener listener; // リスナー（通知先)
     private GameModel model;
 
@@ -17,6 +18,7 @@ public class GameTimer {
         this.remainTime = initialTime;
         this.listener = listener;
         this.model = model;
+        this.isActive = false;
     }
 
     /**
@@ -26,6 +28,8 @@ public class GameTimer {
      */
     public void start() {
         stop(); // 既存のタイマーが動いていれば停止
+        this.isActive = true;
+        System.out.println("Timer started.");
         timer = new Timer(true); // デーモンスレッド
         timer.scheduleAtFixedRate(
             new TimerTask() {
@@ -40,14 +44,16 @@ public class GameTimer {
                             listener.onTimeChange(remainTime); // 残り時間を通知
                         }
                     } else {
+                        System.out.println("Timer stopped.");
                         stop(); // タイマー停止
+                        isActive = false;
                         if (listener != null) {
                             listener.onTimeOut(); // タイムアウト通知
                         }
                     }
                 }
             },
-            0, 10 // 初回遅延0ms、0.008秒ごとに実行
+            0, 10 // 初回遅延0ms、period * 1/1000 秒ごとに実行
         );
     }
 
@@ -76,5 +82,9 @@ public class GameTimer {
      */
     public void setRemainingTime(double time) {
         this.remainTime = time;
+    }
+
+    public boolean isStopped(){
+        return !isActive;
     }
 }
