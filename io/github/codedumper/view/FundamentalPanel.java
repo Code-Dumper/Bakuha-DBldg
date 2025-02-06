@@ -7,11 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import java.awt.Font;
 import java.awt.Color;
-import java.io.IOException;
-import java.io.InputStream;
-import java.awt.FontFormatException;
 
 import java.awt.event.ActionListener;
 import java.awt.Image;
@@ -49,9 +45,9 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] INFO_RIGHT_BUTTON = {100, 375, 50, 50};
     protected final Integer[] INFO_FRONT_BUTTON = {50, 325, 50, 50};
     protected final Integer[] INFO_REAR_BUTTON = {50, 425, 50, 50};
-    protected final Integer[] BUMB_REAR_BUTOON = {550,0,50,50};
-    protected final Integer[] ROBBY_REAR_BUTOON = {325,650,50,50};
-    protected final Integer[] ROBBY_FRONT_BUTOON = {325,550,50,50};
+    protected final Integer[] BOMB_REAR_BUTTON = {550,0,50,50};
+    protected final Integer[] LOBBY_REAR_BUTTON = {325,650,50,50};
+    protected final Integer[] LOBBY_FRONT_BUTTON = {325,550,50,50};
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
 
@@ -127,17 +123,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
             break;
-            case "BUMBREAR":
+            case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(subState, imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
-            case"ROBBYFRONT":
+            case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
-            directionalButton = createButtonWithImage(subState, imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
             break;
-            case"ROBBYREAR":
+            case"LOBBYREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(subState, imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
             default:
             throw new IllegalArgumentException();
@@ -168,17 +164,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(state.ordinal(),imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
             break;
-            case "BUMBREAR":
+            case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(state.ordinal(), imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
-            case"ROBBYFRONT":
+            case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
-            directionalButton = createButtonWithImage(state.ordinal(), imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
             break;
-            case"ROBBYREAR":
+            case"LOBBYREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(state.ordinal(), imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
             default:
             throw new IllegalArgumentException();
@@ -212,17 +208,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             itemButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
             break;
-            case "BUMBREAR":
+            case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            itemButton = createButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
-            case"ROBBYFRONT":
+            case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            itemButton = createButtonWithImage(subState, imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
             break;
-            case"ROBBYREAR":
+            case"LOBBYREAR":
             imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            itemButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
             default:
             throw new IllegalArgumentException();
@@ -261,6 +257,24 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         JButton buttonWithImage = new JButton();
         buttonWithImage.setBounds(x,y,width,height);
         buttonWithImage.setActionCommand(Integer.toString(subState));
+        buttonWithImage.addActionListener(this);
+        try{
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
+            imageIcon = new ImageIcon(scaledIcon); 
+            buttonWithImage.setIcon(imageIcon);
+            return buttonWithImage;
+        }catch(Exception e){
+            e.printStackTrace();
+            return new JButton("Failed to load image");
+        }
+
+    }
+
+    protected JButton createButtonWithImage(State state, String imagePath, int x, int y, int width, int height){
+        JButton buttonWithImage = new JButton();
+        buttonWithImage.setBounds(x,y,width,height);
+        buttonWithImage.setActionCommand(state.toString());
         buttonWithImage.addActionListener(this);
         try{
             ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
