@@ -33,6 +33,26 @@ public class TwoFloorPanel extends FundamentalPanel{
     private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
     private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
     private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+
+    //整数とSUBSTATEを対応させるための配列
+    private final int[] SUBSTATE = new int[] {
+        0,
+        SUBSTATE_INITIAL,
+        SUBSTATE_ROOM,
+        SUBSTATE_AIRTRACK,
+        SUBSTATE_RADIATION,
+        SUBSTATE_PHOTOELECTRIC,
+        SUBSTATE_EQUIPOTENTIAL,
+        SUBSTATE_2FBOMB,
+        SUBSTATE_AIRTRACK_NOTE,
+        SUBSTATE_AIRTRACK_WHITEBOARD,
+        SUBSTATE_EQUIPOTENTIAL_NOTE,
+        SUBSTATE_EQUIPOTENTIAL_WHITEBOARD,
+        SUBSTATE_PHOTOELECTRIC_NOTE,
+        SUBSTATE_PHOTOELECTRIC_WHITEBOARD,
+        SUBSTATE_RADIATION_NOTE,
+        SUBSTATE_RADIATION_WHITEBOARD
+    };
     
     public TwoFloorPanel(GameController controller){
         super(controller);
@@ -190,125 +210,35 @@ public class TwoFloorPanel extends FundamentalPanel{
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
         System.out.println("Event is" + e);
-        switch(actionCommand){
-            case "1":
-                changeSubState(SUBSTATE_INITIAL);
-            break;
 
-            case "2": //SUBSTATE_ROOM
-                changeSubState(SUBSTATE_ROOM);
-            break;
-
-            case "3": //SUBSTATE_AIRTRACK
-                changeSubState(SUBSTATE_AIRTRACK);
-            break;
-
-            case "4": //SUBSTATE_RADIATION
-                changeSubState(SUBSTATE_RADIATION);
-            break;
-
-            case "5": //SUBSTATE_PHOTOELECTRIC
-                changeSubState(SUBSTATE_PHOTOELECTRIC);
-            break;
-
-            case "6": //SUBSTATE_EQUIPOTENTIAL
-                changeSubState(SUBSTATE_EQUIPOTENTIAL);
-            break;
-            
-            case "7":
-                if(controller.isDisarmedCurrentFloorBomb()) {
+        //SUBSTATE
+        try {
+            int number_SUBSTATE = Integer.parseInt(actionCommand);
+            if (number_SUBSTATE > 0 && number_SUBSTATE < SUBSTATE.length) {
+                if(number_SUBSTATE == 7 && controller.isDisarmedCurrentFloorBomb()) {
                     JOptionPane.showMessageDialog(this, "すでに解除されている...。");
+                } else {
+                    changeSubState(SUBSTATE[number_SUBSTATE]);
                 }
-                else{
-                    changeSubState(SUBSTATE_2FBOMB);
-                }
-            break;
+            }
+        } catch (NumberFormatException ex) {
+            //SUBSTATE以外のcase
+        }
 
-            case "8":
-                changeSubState(SUBSTATE_AIRTRACK_NOTE);
-            break;
 
-            case "9":
-                changeSubState(SUBSTATE_AIRTRACK_WHITEBOARD);
-            break;
+        //爆弾解除のための数字入力
+        if (actionCommand.startsWith("Number_")) {
+            int number = Integer.parseInt(actionCommand.substring(7));
+            controller.inputCodeToCurrentStateBomb(number);
+            displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            return;
+        }
 
-            case "10":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
-            break;
 
-            case "11":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
-            break;
-
-            case "12":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
-            break;
-
-            case "13":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
-            break;
-
-            case "14":
-                changeSubState(SUBSTATE_RADIATION_NOTE);
-            break;
-
-            case "15":
-                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
-            break;
-
+        //それ以外
+        switch(actionCommand){
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
-            break;
-
-            //爆弾解除のためのボタン入力
-            case "Number_1":
-                controller.inputCodeToCurrentStateBomb(1);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_2":
-                controller.inputCodeToCurrentStateBomb(2);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_3":
-                controller.inputCodeToCurrentStateBomb(3);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_4":
-                controller.inputCodeToCurrentStateBomb(4);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_5":
-                controller.inputCodeToCurrentStateBomb(5);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_6":
-                controller.inputCodeToCurrentStateBomb(6);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_7":
-                controller.inputCodeToCurrentStateBomb(7);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_8":
-                controller.inputCodeToCurrentStateBomb(8);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_9":
-                controller.inputCodeToCurrentStateBomb(9);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
-            break;
-
-            case "Number_0":
-                controller.inputCodeToCurrentStateBomb(0);
-                displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
             break;
 
             case "Clear":
