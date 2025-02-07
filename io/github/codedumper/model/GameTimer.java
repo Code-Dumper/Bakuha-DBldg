@@ -44,6 +44,8 @@ public class GameTimer {
                             listener.onTimeChange(remainTime); // 残り時間を通知
                         }
                     } else {
+                        //負になる可能性があるので0に戻しておく
+                        remainTime = 0;
                         System.out.println("Timer stopped.");
                         stop(); // タイマー停止
                         isActive = false;
