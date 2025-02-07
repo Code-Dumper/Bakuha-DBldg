@@ -55,7 +55,7 @@ public class GameTimer {
                     }
                 }
             },
-            0, 10 // 初回遅延0ms、period * 1/1000 秒ごとに実行
+            0, 100 // 初回遅延0ms、period * 1/1000 秒ごとに実行
         );
     }
 
