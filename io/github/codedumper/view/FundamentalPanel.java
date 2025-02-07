@@ -7,8 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import java.awt.GridLayout;
-import java.awt.Font;
 import java.awt.Color;
 
 import java.awt.event.ActionListener;
@@ -47,11 +45,13 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] INFO_RIGHT_BUTTON = {100, 375, 50, 50};
     protected final Integer[] INFO_FRONT_BUTTON = {50, 325, 50, 50};
     protected final Integer[] INFO_REAR_BUTTON = {50, 425, 50, 50};
+
     protected final Integer[] BUMB_REAR_BUTOON = {550,0,50,50};
     protected final Integer[] ROBBY_REAR_BUTOON = {325,650,50,50};
     protected final Integer[] ROBBY_FRONT_BUTOON = {325,550,50,50};
     protected final Integer[] LOBBY_LEFT_BUTTON = {275, 600, 50, 50};
     protected final Integer[] LOBBY_RIGHT_BUTTON = {375, 600, 50, 50};
+
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
 
@@ -66,8 +66,6 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     //入力した文字を4つまで表示する
     protected JLabel displayLabel;
-    //入力した文字を4つまで格納する
-    protected StringBuilder inputNumbers;
     //ボタンを12個配置するパネル
     protected JPanel NumberButtonPanel;
 
@@ -86,7 +84,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         this.currentSubState = SUBSTATE_INITIAL;
         //画面描画
         changeSubState(currentSubState);
-        System.out.println("Successfully initialize FundamentalPanel.");
+        System.out.println("Successfully initializing FundamentalPanel.");
         this.add(layeredPane);
         //ボタンの反映
         updateButton();
@@ -129,17 +127,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
             break;
-            case "BUMBREAR":
+            case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(subState, imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
-            case"ROBBYFRONT":
+            case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
-            directionalButton = createButtonWithImage(subState, imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
             break;
-            case"ROBBYREAR":
+            case"LOBBYREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(subState, imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
             case "ROBBYLEFT":
             imagePath = "image-Direction-Left.jpg";
@@ -178,17 +176,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(state.ordinal(),imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
             break;
-            case "BUMBREAR":
+            case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(state.ordinal(), imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
-            case"ROBBYFRONT":
+            case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
-            directionalButton = createButtonWithImage(state.ordinal(), imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
             break;
-            case"ROBBYREAR":
+            case"LOBBYREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = createButtonWithImage(state.ordinal(), imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            directionalButton = createButtonWithImage(state.ordinal(), imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
             case "ROBBYLEFT":
             imagePath = "image-Direction-Left.jpg";
@@ -230,17 +228,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             itemButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
             break;
-            case "BUMBREAR":
+            case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, BUMB_REAR_BUTOON[0], BUMB_REAR_BUTOON[1], BUMB_REAR_BUTOON[2], BUMB_REAR_BUTOON[3]);
+            itemButton = createButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
-            case"ROBBYFRONT":
+            case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, ROBBY_FRONT_BUTOON[0], ROBBY_FRONT_BUTOON[1], ROBBY_FRONT_BUTOON[2], ROBBY_FRONT_BUTOON[3]);
+            itemButton = createButtonWithImage(subState, imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
             break;
-            case"ROBBYREAR":
+            case"LOBBYREAR":
             imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, ROBBY_REAR_BUTOON[0], ROBBY_REAR_BUTOON[1], ROBBY_REAR_BUTOON[2], ROBBY_REAR_BUTOON[3]);
+            itemButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
             case "ROBBYLEFT":
             imagePath = "image-Direction-Left.jpg";
@@ -287,6 +285,24 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         JButton buttonWithImage = new JButton();
         buttonWithImage.setBounds(x,y,width,height);
         buttonWithImage.setActionCommand(Integer.toString(subState));
+        buttonWithImage.addActionListener(this);
+        try{
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
+            imageIcon = new ImageIcon(scaledIcon); 
+            buttonWithImage.setIcon(imageIcon);
+            return buttonWithImage;
+        }catch(Exception e){
+            e.printStackTrace();
+            return new JButton("Failed to load image");
+        }
+
+    }
+
+    protected JButton createButtonWithImage(State state, String imagePath, int x, int y, int width, int height){
+        JButton buttonWithImage = new JButton();
+        buttonWithImage.setBounds(x,y,width,height);
+        buttonWithImage.setActionCommand(state.toString());
         buttonWithImage.addActionListener(this);
         try{
             ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
@@ -353,10 +369,9 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     //数字入力を表示するラベル
     protected JLabel createNumberDisplayLabel() {
-        inputNumbers = new StringBuilder();
         displayLabel = new JLabel("", SwingConstants.CENTER);
         displayLabel.setBounds(33, 75, 532, 122);
-        displayLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        displayLabel.setFont(controller.getFont("DS-DIGI.TTF", 90));
         displayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         layeredPane.add(displayLabel, LAYER_UTIL_SECOND);
         return displayLabel;
@@ -374,17 +389,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         createNumberDisplayLabel();
         
         //ボタンに数字またはEnter,Clearを与えて作成
-        createNumberButton(String.valueOf(1),33,197,177,118);
-        createNumberButton(String.valueOf(2),210,197,187,118);
-        createNumberButton(String.valueOf(3),397,197,170,118);
-        createNumberButton(String.valueOf(4),33,315,177,128);
-        createNumberButton(String.valueOf(5),210,315,187,128);
-        createNumberButton(String.valueOf(6),397,315,170,128);
-        createNumberButton(String.valueOf(7),33,443,177,147);
-        createNumberButton(String.valueOf(8),210,443,187,147);
-        createNumberButton(String.valueOf(9),397,443,170,147);
+        createNumberButton("Number_7",33,197,177,118);
+        createNumberButton("Number_8",210,197,187,118);
+        createNumberButton("Number_9",397,197,170,118);
+        createNumberButton("Number_4",33,315,177,128);
+        createNumberButton("Number_5",210,315,187,128);
+        createNumberButton("Number_6",397,315,170,128);
+        createNumberButton("Number_1",33,443,177,147);
+        createNumberButton("Number_2",210,443,187,147);
+        createNumberButton("Number_3",397,443,170,147);
         createNumberButton("Enter",33,590,177,130);
-        createNumberButton(String.valueOf(0),210,590,187,130);
+        createNumberButton("Number_0",210,590,187,130);
         createNumberButton("Clear",397,590,170,130);
 
         

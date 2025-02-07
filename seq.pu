@@ -1,0 +1,90 @@
+@startuml シーケンス図_サンプル
+title シーケンス図_サンプル
+
+/'
+シーケンス図サンプル
+ここではサンプルを記載します
+'/
+
+' フッターを隠せる
+hide footbox
+
+' actorで人型、Participantでボックスを定義
+' asで別名を定義、処理の中で利用できる
+actor user
+Participant GameFrame as GF
+Participant GameViewPanel as GVP
+Participant GameController as GC
+Participant GameModel as GM
+Participant GameTimer as GT
+Participant BombManager as BM
+Participant StateMachine as SM
+Participant DataManager as DM
+Participant GraphManager as GrM
+
+' ==でイベントごとにシーケンスを分割
+== 初期表示 ==
+' autonumber：処理に番号を自動でつけられる、
+' イベントの初めに定義すればそこから番号を付与
+autonumber
+user -> GF: 実行
+activate GF
+    GF -> GM: インスタンス生成
+    activate GM
+        GM -> GT: インスタンス生成
+        activate GT
+        GM -> BM: インスタンス生成
+        activate BM
+        note right
+            爆弾のコードは
+            DataManagerに記載
+        end note
+        GM -> SM: インスタンス生成
+        activate SM
+        note right
+            この時点で状態が
+            STATE_TITLEに設定される
+        end note
+        GM -> DM: インスタンス生成
+        activate DM
+        GM -> GrM: インスタンス生成
+        activate GrM
+        GF -> GC: インスタンス生成
+        activate GC
+
+        GF -> GVP: インスタンス生成
+        activate GVP
+            GVP -> GC: 現状態の問い合わせ
+            GC -> GM: 現状態の問い合わせ
+            GM -> GC :現状態の返却
+            GC -> GVP :現状態の返却
+            GVP -> GF : 対応する画面の描画
+            GF -> user :画面の閲覧
+== 状態遷移 ==
+            user -> GVP: ボタンのクリック
+            GVP -> GC: 状態変化をControllerに要請
+            GC -> GM: 状態変化要請を受け取る
+            GM -> SM: 対応する次の状態を確認
+            note right
+                もし状態遷移ができなければ、
+                現状態をそのまま返す
+            end note
+            SM -> GM: 新しい状態を設定
+            GM -> GVP: 新しい状態を通知
+            note right
+                ModelからViewへの状態の通知は
+                notifyObserverにより行われる
+            end note
+            GVP -> GF: 対応する新しい状態の画面を提示
+            GF -> user: 画面提示
+            deactivate GVP
+            deactivate GC
+        deactivate GT
+        deactivate DM
+        deactivate BM
+        deactivate SM
+        deactivate GrM
+    deactivate GM
+deactivate GF
+
+@enduml

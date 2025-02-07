@@ -2,6 +2,7 @@ package io.github.codedumper.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 import java.awt.Point;
 
 import io.github.codedumper.model.*;
@@ -26,6 +27,9 @@ public class GameController extends MouseAdapter implements IGameController{
     }
     public void transition(State state) {
         model.setCurrentState(state);
+    }
+    public Font getFont(String fontName, int size){
+        return model.dataManager.genFont(fontName, size);
     }
 
     @Override
@@ -72,7 +76,7 @@ public class GameController extends MouseAdapter implements IGameController{
 
     @Override
     public void resetCodeOfCurrentStateBomb() {
-        model.resetCode();
+        model.resetCurrentCode();
     }
 
     @Override
@@ -88,5 +92,10 @@ public class GameController extends MouseAdapter implements IGameController{
     @Override
     public boolean areAllBombsDisarmed() {
         return model.areAllBombsDisarmed();
+    }
+
+    @Override
+    public boolean isDisarmedCurrentFloorBomb(){
+        return model.isDisarmedCurrentFloorBomb();
     }
 }
