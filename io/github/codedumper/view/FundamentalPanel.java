@@ -187,56 +187,15 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         return directionalButton;
     }
 
-    //アイテム用のボタン
-    protected JButton ItemButton(Integer subState, String direction){
-        JButton itemButton;
-        String imagePath;
-        switch(direction){
-            case "FRONT":
-            imagePath = "image-Direction-Front.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, INFO_FRONT_BUTTON[0], INFO_FRONT_BUTTON[1], INFO_FRONT_BUTTON[2], INFO_FRONT_BUTTON[3]);
-            break;
-            case "LEFT":
-            imagePath = "image-Direction-Left.jpg";
-            itemButton = createButtonWithImage(subState, imagePath,INFO_LEFT_BUTTON[0], INFO_LEFT_BUTTON[1], INFO_LEFT_BUTTON[2], INFO_LEFT_BUTTON[3]);
-            break;
-            case "RIGHT":
-            imagePath = "image-Direction-Right.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, INFO_RIGHT_BUTTON[0], INFO_RIGHT_BUTTON[1], INFO_RIGHT_BUTTON[2], INFO_RIGHT_BUTTON[3]);
-            break;
-            case "REAR":
-            imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, INFO_REAR_BUTTON[0], INFO_REAR_BUTTON[1], INFO_REAR_BUTTON[2], INFO_REAR_BUTTON[3]);
-            break;
-            case "BOMBREAR":
-            imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
-            break;
-            case"LOBBYFRONT":
-            imagePath = "image-Direction-Front.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, LOBBY_FRONT_BUTTON[0], LOBBY_FRONT_BUTTON[1], LOBBY_FRONT_BUTTON[2], LOBBY_FRONT_BUTTON[3]);
-            break;
-            case"LOBBYREAR":
-            imagePath = "image-Direction-Rear.jpg";
-            itemButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
-            break;
-            default:
-            throw new IllegalArgumentException();
-        }
-        itemButton.setOpaque(false);
-        itemButton.setContentAreaFilled(false);
-        itemButton.setBorderPainted(false);
-        return itemButton;
-    }
-
     //位置x,y大きさwidth,height、subStateを内包したJButtonを作成する。
     protected JButton createButtonWithoutImage(Integer subState, int x, int y, int width, int height){
         JButton buttonWithoutImage = new JButton();
         buttonWithoutImage.setBounds(x, y, width, height);
         buttonWithoutImage.setActionCommand(Integer.toString(subState));
         buttonWithoutImage.addActionListener(this);
-
-        
+        buttonWithoutImage.setOpaque(false);
+        buttonWithoutImage.setContentAreaFilled(false);
+        buttonWithoutImage.setBorderPainted(false);        
         return buttonWithoutImage;
 
     }
