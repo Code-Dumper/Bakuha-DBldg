@@ -246,7 +246,11 @@ public class FloorThreePanel extends FundamentalPanel{
             break;
 
             case "9":
-                changeSubState(SUBSTATE_3FBOMB);
+                if(!controller.isDisarmedCurrentFloorBomb()){
+                    changeSubState(SUBSTATE_3FBOMB);
+                }else{
+                    JOptionPane.showMessageDialog(this, "すでに解除されている。他の階へ行こう");
+                }
             break;
 
             case "10":
