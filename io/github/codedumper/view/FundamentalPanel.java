@@ -8,7 +8,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -228,6 +228,9 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
 
     protected JButton createButtonWithoutImage(State state, int x, int y, int width, int height){
         JButton buttonWithoutImage = new JButton();
+        buttonWithoutImage.setOpaque(false);
+        buttonWithoutImage.setContentAreaFilled(false);
+        buttonWithoutImage.setBorderPainted(false);   
         buttonWithoutImage.setBounds(x, y, width, height);
         buttonWithoutImage.setActionCommand(state.toString());
         buttonWithoutImage.addActionListener(this);
