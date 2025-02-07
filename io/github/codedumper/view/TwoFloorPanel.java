@@ -149,13 +149,13 @@ public class TwoFloorPanel extends FundamentalPanel{
             break;
 
             case SUBSTATE_AIRTRACK_NOTE:
-                imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
+                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack-Note.jpg", 0, 0, 600, 800);
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_AIRTRACK_WHITEBOARD:
-                imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
+                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack-Whiteboard.jpg", 0, 0, 600, 800);
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
