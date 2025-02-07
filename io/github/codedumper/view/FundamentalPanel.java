@@ -382,6 +382,17 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         numberButton.setBorderPainted(false);
         NumberButtonPanel.add(numberButton);
     }
+
+    //JLabelをlayeredPaneに追加する。背景は透明、字の色とサイズはcolorとfontSizeにより指定される
+    public void addLabelWithMessage(String message, int x, int y, int width, int height, int fontSize, Color color){
+        JLabel label = new JLabel(message);
+        label.setFont(new Font("Arial", Font.PLAIN, 12));
+        label.setSize(width, height);
+        label.setLocation(x, y);
+        label.setForeground(color);
+        label.setOpaque(false);
+        layeredPane.add(label, LAYER_UTIL_THIRD);
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
