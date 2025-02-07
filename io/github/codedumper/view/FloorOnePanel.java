@@ -18,20 +18,8 @@ import io.github.codedumper.model.State;
 public class FloorOnePanel extends FundamentalPanel{
 
     //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
-    private final int SUBSTATE_ROOM = 2; //部屋
-    private final int SUBSTATE_1FBOMB = 3; //1F爆弾
-    private final int SUBSTATE_ROOM_A = 4; //謁見べや(スペクトル実験室)
-    private final int SUBSTATE_ROOM_B = 5; //びっけん部屋
-    private final int SUBSTATE_INFRARED = 6; //赤外線
-    private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
-    private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
-    private final int SUBSTATE_3FBOMB = 9; //3階爆弾
-    private final int SUBSTATE_EQUIPOTENTIAL_NOTE = 10; //等電位線ノート
-    private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
-    private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
-    private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
-    private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
-    private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+    private final int SUBSTATE_1FROOM = 2; //部屋
+    private final int SUBSTATE_1FBOX = 3; //1F爆弾
     
     public FloorOnePanel(GameController controller){
         super(controller);
@@ -48,130 +36,18 @@ public class FloorOnePanel extends FundamentalPanel{
         JLabel imageLabel;
         //TODO 禁忌的なnull手法
         buttonToFront = buttonToLeft = buttonToRear = buttonToRight = null;
-        //subStateに対応したボタンと画像を読み込む
         switch(subState){
-
-            //初期状態の時、上に部屋、下に全体ロビー
+            //初期状態の時、後ろへ進むボタンはロビーへ戻るボタンで、前へ進むボタンは部屋へ移るボタンである。
             case SUBSTATE_INITIAL:
-                imageLabel = createJLabelWithImage("image-OneFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "LOBBYFRONT");
+                imageLabel = createJLabelWithImage("image-OneFloor-Lobby.jpg", 0, 0, 600, 800);
+                buttonToFront = createDirectionalButton(SUBSTATE_1FROOM, "LOBBYFRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
-                JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_1FBOMB, "image-Bomb.jpg", 10, 480, 150, 100);
-                addButton(bumbButton, LAYER_UTIL_FIRST);
+                //現在、ボックスがないため爆弾で代用している
+                JButton boxButton = createButtonWithImage(State.STATE_MINIGAME, "image-Bumb.jpg", 0, 490, 150, 100);
+                addButton(boxButton, LAYER_UTIL_SECOND);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
-                
             break;
 
-            //部屋の時、下にロビー(INITIAL)
-            case SUBSTATE_ROOM:
-                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-                
-            break;
-/* 
-            //びっけん部屋入り口の時、上にROOM、左に謁見部屋、下にロビー(INITIAL)
-            case SUBSTATE_B:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-B.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM_B, "FRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_ROOM_A, "LEFT");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            //謁見べやの時、上に光速度、下に謁見部屋入り口
-            case SUBSTATE_ROOM_A:
-                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_LIGHTSPEED, "FRONT");
-                buttonToRear = createDirectionalButton(SUBSTATE_A, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-            
-            //びっけんべやの時、上に赤外線、右に赤外線部屋、下にびっけんべや入り口
-            case SUBSTATE_ROOM_B:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Room-B.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_INFRARED, "FRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            
-
-            
-
-            //赤外線のとき、右に赤外線部屋、下にびっけんべや
-            case SUBSTATE_INFRARED:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_INFRARED_ROOM:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Room.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-          */   
-            case SUBSTATE_1FBOMB:
-                createNumberButtonPanel("image-Bumb-Detail2.jpg");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BOMBREAR");
-                
-            break;
-
-            /* 
-            case SUBSTATE_AIRTRACK_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_AIRTRACK_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_RADIATION_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_RADIATION_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_PHOTOELECTRIC_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_PHOTOELECTRIC_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_EQUIPOTENTIAL_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_EQUIPOTENTIAL_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;*/
-
-            default:
-                throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
         }
         System.out.println("Succenssfully change substate to " + subState);
         updateButton();
@@ -182,71 +58,13 @@ public class FloorOnePanel extends FundamentalPanel{
     
     @Override
     public void actionPerformed(ActionEvent e){
-        String actionCommand = e.getActionCommand();
-        System.out.println("Event is" + e);
-        switch(actionCommand){
-            case "1":
-                changeSubState(SUBSTATE_INITIAL);
-            break;
-
-            case "2": //SUBSTATE_ROOM
-                changeSubState(SUBSTATE_ROOM);
-            break;
-
-            case "3": //SUBSTATE_1FBOMB
-                changeSubState(SUBSTATE_1FBOMB);
-            break;
-/* 
-            case "4": //SUBSTATE_ROOM_A
-                changeSubState(SUBSTATE_ROOM_A);
-            break;
-
-            case "5": //SUBSTATE_ROOM_B
-                changeSubState(SUBSTATE_ROOM_B);
-            break;
-
-            case "6": //SUBSTATE_INFRARED
-                changeSubState(SUBSTATE_INFRARED);
-            break;
-            
-            case "7":
-                changeSubState(SUBSTATE_INFRARED_ROOM);
-            break;
-
-            case "8":
-                changeSubState(SUBSTATE_LIGHTSPEED);
-            break;
-
-            case "9":
-                changeSubState(SUBSTATE_3FBOMB);
-            break;
-
-            case "10":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
-            break;
-
-            case "11":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
-            break;
-
-            case "12":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
-            break;
-
-            case "13":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
-            break;
-
-            case "14":
-                changeSubState(SUBSTATE_RADIATION_NOTE);
-            break;
-
-            case "15":
-                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
-            break;
-*/
+        String command = e.getActionCommand();
+        switch(command){
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
+            break;
+            default:
+                changeSubState(Integer.parseInt(command));
             break;
 
         }
