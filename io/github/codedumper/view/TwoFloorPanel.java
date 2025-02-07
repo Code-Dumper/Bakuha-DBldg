@@ -110,8 +110,8 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Radiation.jpg",0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-                JButton RadiationNoteButton = createButtonWithoutImage(SUBSTATE_RADIATION_NOTE,240,500,50,60);
-                JButton RadiationWhitebordButton = createButtonWithoutImage(SUBSTATE_RADIATION_WHITEBOARD,270,20,300,120);
+                JButton RadiationNoteButton = createButtonWithoutImage(SUBSTATE_RADIATION_NOTE,140,570,175,100);
+                JButton RadiationWhitebordButton = createButtonWithoutImage(SUBSTATE_RADIATION_WHITEBOARD,240,20,300,120);
                 addButton(RadiationNoteButton, LAYER_UTIL_FIRST);
                 addButton(RadiationWhitebordButton, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
@@ -122,7 +122,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_RADIATION, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM, "LEFT");
-                JButton PhotoelectricNoteButton = createButtonWithoutImage(SUBSTATE_PHOTOELECTRIC_NOTE,240,500,50,60);
+                JButton PhotoelectricNoteButton = createButtonWithoutImage(SUBSTATE_PHOTOELECTRIC_NOTE,120,600,200,200);
                 JButton PhotoelectricWhitebordButton = createButtonWithoutImage(SUBSTATE_PHOTOELECTRIC_WHITEBOARD,80,30,440,210);
                 addButton(PhotoelectricNoteButton, LAYER_UTIL_FIRST);
                 addButton(PhotoelectricWhitebordButton, LAYER_UTIL_FIRST);
