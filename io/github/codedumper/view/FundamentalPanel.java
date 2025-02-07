@@ -45,6 +45,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] INFO_RIGHT_BUTTON = {100, 375, 50, 50};
     protected final Integer[] INFO_FRONT_BUTTON = {50, 325, 50, 50};
     protected final Integer[] INFO_REAR_BUTTON = {50, 425, 50, 50};
+
     protected final Integer[] BOMB_REAR_BUTTON = {550,0,50,50};
     protected final Integer[] LOBBY_REAR_BUTTON = {325,650,50,50};
     protected final Integer[] LOBBY_FRONT_BUTTON = {325,550,50,50};
