@@ -9,19 +9,19 @@ import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
 
 
-//このクラスは2Fの中での状態遷移と2Fの画像とボタンの表示を担うクラスです。
+//このクラスは3Fの中での状態遷移と3Fの画像とボタンの表示を担うクラスです。
 //このクラスはFundamentalPanelを継承し、changeSubStateをオーバーライドしています。
-//2Fには6つの状態が定義されており、ロビー、ロビーから入った場所、エアトラック、放射線、光電効果、等電位の部屋に対応します。
+//3Fには9つの状態が定義されており、ロビー、謁見部屋、びっけんべや、それぞれ入ったところと入り口、赤外線、赤外線部屋、スペクトル、光速度に対応します。
 //SUBSTATEはFundamentalPanelの実装に合わせ、int型として定義しており、この実装は2025/01/30時点での仕様に準拠しています。
 //画像ファイルはviewパッケージの下に位置していることが仮定されています。
 //このクラスはスレッドセーフではありません。
 public class FloorThreePanel extends FundamentalPanel{
 
     //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
-    private final int SUBSTATE_A = 2; //びっけんべや入り口
-    private final int SUBSTATE_B = 3; //謁見部屋入り口
-    private final int SUBSTATE_ROOM_A = 4; //びっけんべや
-    private final int SUBSTATE_ROOM_B = 5; //謁見部屋
+    private final int SUBSTATE_A = 2; //謁見部屋入り口
+    private final int SUBSTATE_B = 3; //びっけん部屋入り口
+    private final int SUBSTATE_ROOM_A = 4; //謁見べや(スペクトル実験室)
+    private final int SUBSTATE_ROOM_B = 5; //びっけん部屋
     private final int SUBSTATE_INFRARED = 6; //赤外線
     private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
     private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
@@ -54,9 +54,9 @@ public class FloorThreePanel extends FundamentalPanel{
             //初期状態の時、上に謁見部屋、右にびっけんべや
             case SUBSTATE_INITIAL:
                 imageLabel = createJLabelWithImage("image-ThreeFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_A, "ROBBYFRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_B,"ROBBYRIGHT");
-                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "ROBBYREAR");
+                buttonToFront = createDirectionalButton(SUBSTATE_A, "LOBBYFRONT");
+                buttonToRight = createDirectionalButton(SUBSTATE_B,"LOBBYRIGHT");
+                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
                 JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_3FBOMB, "image-Bomb.jpg", 8, 490, 150, 100);
                 addButton(bumbButton, LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
@@ -120,7 +120,7 @@ public class FloorThreePanel extends FundamentalPanel{
             
             case SUBSTATE_3FBOMB:
                 createNumberButtonPanel("image-Bumb-Detail2.jpg");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BOMBREAR");
                 
             break;
 
@@ -223,7 +223,7 @@ public class FloorThreePanel extends FundamentalPanel{
             case "9":
                 changeSubState(SUBSTATE_3FBOMB);
             break;
-
+/* 
             case "10":
                 changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
             break;
@@ -247,7 +247,7 @@ public class FloorThreePanel extends FundamentalPanel{
             case "15":
                 changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
             break;
-
+*/
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
