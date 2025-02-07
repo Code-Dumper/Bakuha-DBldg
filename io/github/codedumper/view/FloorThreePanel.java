@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
@@ -187,6 +188,30 @@ public class FloorThreePanel extends FundamentalPanel{
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
         System.out.println("Event is" + e);
+
+         //爆弾解除のための数字入力
+         //爆弾解除のためのボタンであれば、必ずactionCommandはNumber_から始まるのでその区別を行う
+        if (actionCommand.startsWith("Number_")) {
+            int number = Integer.parseInt(actionCommand.substring(7));
+            controller.inputCodeToCurrentStateBomb(number);
+            displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            return;
+        }else if(actionCommand.equals("Enter")){
+            if(controller.disarmCurrentStateBombByCurrentCode()) {
+                displayLabel.setText("Correct!");
+                JOptionPane.showMessageDialog(this, "3階の爆弾の解除に成功した!");
+                changeSubState(SUBSTATE_INITIAL);
+            }
+            else {
+                displayLabel.setText("Incorrect");
+                controller.resetCodeOfCurrentStateBomb();
+            }
+        }else if(actionCommand.equals("Clear")){
+            controller.resetCodeOfCurrentStateBomb();
+            displayLabel.setText("");
+        }
+
+        //状態遷移のための入力
         switch(actionCommand){
             case "1":
                 changeSubState(SUBSTATE_INITIAL);
@@ -221,7 +246,11 @@ public class FloorThreePanel extends FundamentalPanel{
             break;
 
             case "9":
-                changeSubState(SUBSTATE_3FBOMB);
+                if(!controller.isDisarmedCurrentFloorBomb()){
+                    changeSubState(SUBSTATE_3FBOMB);
+                }else{
+                    JOptionPane.showMessageDialog(this, "すでに解除されている。他の階へ行こう");
+                }
             break;
 
             case "10":

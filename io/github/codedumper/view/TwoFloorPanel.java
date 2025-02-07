@@ -216,7 +216,7 @@ public class TwoFloorPanel extends FundamentalPanel{
             int number_SUBSTATE = Integer.parseInt(actionCommand);
             if (number_SUBSTATE > 0 && number_SUBSTATE < SUBSTATE.length) {
                 if(number_SUBSTATE == 7 && controller.isDisarmedCurrentFloorBomb()) {
-                    JOptionPane.showMessageDialog(this, "すでに解除されている...。");
+                    JOptionPane.showMessageDialog(this, "すでに解除されている。他の階へ行こう。");
                 } else {
                     changeSubState(SUBSTATE[number_SUBSTATE]);
                 }
@@ -226,38 +226,33 @@ public class TwoFloorPanel extends FundamentalPanel{
         }
 
 
-        //爆弾解除のための数字入力
+        //爆弾解除のため入力を処理するコード
         if (actionCommand.startsWith("Number_")) {
             int number = Integer.parseInt(actionCommand.substring(7));
             controller.inputCodeToCurrentStateBomb(number);
             displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
             return;
+        }else if(actionCommand.equals("Enter")){
+            if(controller.disarmCurrentStateBombByCurrentCode()) {
+                displayLabel.setText("Correct!");
+                JOptionPane.showMessageDialog(this, "2階の爆弾の解除に成功した!");
+                changeSubState(SUBSTATE_INITIAL);
+            }
+            else {
+                displayLabel.setText("Incorrect");
+                controller.resetCodeOfCurrentStateBomb();
+            }
+        }else if(actionCommand.equals("Clear")){
+            controller.resetCodeOfCurrentStateBomb();
+            displayLabel.setText("");
         }
 
 
-        //それ以外
+        //それ以外の状態遷移を処理する
         switch(actionCommand){
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
-
-            case "Clear":
-                controller.resetCodeOfCurrentStateBomb();
-                displayLabel.setText("");
-            break;
-
-            case "Enter":
-                if(controller.disarmCurrentStateBombByCurrentCode()) {
-                    displayLabel.setText("Correct!");
-                    JOptionPane.showMessageDialog(this, "2階の爆弾の解除に成功した!");
-                    changeSubState(SUBSTATE_INITIAL);
-                }
-                else {
-                    displayLabel.setText("Incorrect");
-                    controller.resetCodeOfCurrentStateBomb();
-                }
-            break;
-
         }
     }
 }
