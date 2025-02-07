@@ -3,9 +3,11 @@ package io.github.codedumper.controller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.util.List;
 import java.awt.Point;
 
 import io.github.codedumper.model.*;
+import io.github.codedumper.model.planarity.Edge;
 import io.github.codedumper.view.GameViewPanel;
 //ViewとModelの間のデータ共有を可能とするコントローラ。
 //もしかしたら分割した方がいいかもしれないが、現状クラス数削減のため爆弾処理、Planarity処理、状態遷移処理を一つのコントローラーが担っている。
@@ -20,6 +22,9 @@ public class GameController extends MouseAdapter implements IGameController{
         this.model = model;
     }
 
+    public GameModel getModel(){
+        return model;
+    }
     public void addView(GameViewPanel view){
         this.view = view;
         view.addMouseListener(this);
@@ -97,5 +102,21 @@ public class GameController extends MouseAdapter implements IGameController{
     @Override
     public boolean isDisarmedCurrentFloorBomb(){
         return model.isDisarmedCurrentFloorBomb();
+    }
+
+    public List<Edge> getEdges(){
+        return model.getEdges();
+    }
+
+    public List<Point> getNodes(){
+        return model.getNodes();
+    }
+
+    public List<Edge> getIntersectingEdges(){
+        return model.getIntersectingEdges();
+    }
+
+    public boolean isPuzzleSolved(){
+        return model.isPuzzleSolved();
     }
 }
