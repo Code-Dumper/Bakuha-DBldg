@@ -96,13 +96,13 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     //ボタンを更新する
     protected void updateButton(){
         if(buttonToFront != null){
-            layeredPane.add(buttonToFront, LAYER_UTIL_FIRST);}
+            layeredPane.add(buttonToFront, LAYER_UTIL_SECOND);}
         if(buttonToLeft != null){
-            layeredPane.add(buttonToLeft, LAYER_UTIL_FIRST);}
+            layeredPane.add(buttonToLeft, LAYER_UTIL_SECOND);}
         if(buttonToRear != null){
-            layeredPane.add(buttonToRear, LAYER_UTIL_FIRST);}
+            layeredPane.add(buttonToRear, LAYER_UTIL_SECOND);}
         if(buttonToRight != null){
-            layeredPane.add(buttonToRight, LAYER_UTIL_FIRST);}
+            layeredPane.add(buttonToRight, LAYER_UTIL_SECOND);}
         layeredPane.revalidate();
         layeredPane.repaint();
     }
