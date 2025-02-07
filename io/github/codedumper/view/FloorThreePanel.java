@@ -54,9 +54,9 @@ public class FloorThreePanel extends FundamentalPanel{
             //初期状態の時、上に謁見部屋、右にびっけんべや
             case SUBSTATE_INITIAL:
                 imageLabel = createJLabelWithImage("image-ThreeFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_A, "ROBBYFRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_B,"ROBBYRIGHT");
-                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "ROBBYREAR");
+                buttonToFront = createDirectionalButton(SUBSTATE_A, "LOBBYFRONT");
+                buttonToRight = createDirectionalButton(SUBSTATE_B,"LOBBYRIGHT");
+                buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
                 JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_3FBOMB, "image-Bomb.jpg", 8, 490, 150, 100);
                 addButton(bumbButton, LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
