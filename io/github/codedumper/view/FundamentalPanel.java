@@ -139,11 +139,11 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
-            case "ROBBYLEFT":
+            case "LOBBYLEFT":
             imagePath = "image-Direction-Left.jpg";
             directionalButton = createButtonWithImage(subState, imagePath,LOBBY_LEFT_BUTTON[0], LOBBY_LEFT_BUTTON[1], LOBBY_LEFT_BUTTON[2], LOBBY_LEFT_BUTTON[3]);
             break;
-            case "ROBBYRIGHT":
+            case "LOBBYRIGHT":
             imagePath = "image-Direction-Right.jpg";
             directionalButton = createButtonWithImage(subState, imagePath,LOBBY_RIGHT_BUTTON[0], LOBBY_RIGHT_BUTTON[1], LOBBY_RIGHT_BUTTON[2], LOBBY_RIGHT_BUTTON[3]);
             break;
