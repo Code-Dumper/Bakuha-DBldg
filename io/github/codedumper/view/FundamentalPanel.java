@@ -46,9 +46,9 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] INFO_FRONT_BUTTON = {50, 325, 50, 50};
     protected final Integer[] INFO_REAR_BUTTON = {50, 425, 50, 50};
 
-    protected final Integer[] BOMB_REAR_BUTTON = {550,0,50,50};
-    protected final Integer[] LOBBY_REAR_BUTTON = {325,650,50,50};
-    protected final Integer[] LOBBY_FRONT_BUTTON = {325,550,50,50};
+    protected final Integer[] BUMB_REAR_BUTOON = {550,0,50,50};
+    protected final Integer[] ROBBY_REAR_BUTOON = {325,650,50,50};
+    protected final Integer[] ROBBY_FRONT_BUTOON = {325,550,50,50};
     protected final Integer[] LOBBY_LEFT_BUTTON = {275, 600, 50, 50};
     protected final Integer[] LOBBY_RIGHT_BUTTON = {375, 600, 50, 50};
 
@@ -139,11 +139,11 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(subState, imagePath, LOBBY_REAR_BUTTON[0], LOBBY_REAR_BUTTON[1], LOBBY_REAR_BUTTON[2], LOBBY_REAR_BUTTON[3]);
             break;
-            case "LOBBYLEFT":
+            case "ROBBYLEFT":
             imagePath = "image-Direction-Left.jpg";
             directionalButton = createButtonWithImage(subState, imagePath,LOBBY_LEFT_BUTTON[0], LOBBY_LEFT_BUTTON[1], LOBBY_LEFT_BUTTON[2], LOBBY_LEFT_BUTTON[3]);
             break;
-            case "LOBBYRIGHT":
+            case "ROBBYRIGHT":
             imagePath = "image-Direction-Right.jpg";
             directionalButton = createButtonWithImage(subState, imagePath,LOBBY_RIGHT_BUTTON[0], LOBBY_RIGHT_BUTTON[1], LOBBY_RIGHT_BUTTON[2], LOBBY_RIGHT_BUTTON[3]);
             break;

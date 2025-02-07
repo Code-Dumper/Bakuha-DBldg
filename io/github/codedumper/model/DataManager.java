@@ -5,21 +5,6 @@ import java.awt.FontFormatException;
 import java.io.InputStream;
 import java.io.IOException;
 
-//注意：このクラスを見るとゲームは楽しくプレイできなくなります。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public class DataManager {
     public int oneFloorBombCode;
     public int twoFloorBombCode;
