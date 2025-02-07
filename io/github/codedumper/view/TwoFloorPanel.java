@@ -156,7 +156,7 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case SUBSTATE_AIRTRACK_WHITEBOARD:
                 imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack-Whiteboard.jpg", 0, 0, 600, 800);
-                buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "ITEMREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
@@ -168,7 +168,7 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case SUBSTATE_RADIATION_WHITEBOARD:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
-                buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "ITEMREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
@@ -180,7 +180,7 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case SUBSTATE_PHOTOELECTRIC_WHITEBOARD:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
-                buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "ITEMREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
@@ -192,7 +192,7 @@ public class TwoFloorPanel extends FundamentalPanel{
 
             case SUBSTATE_EQUIPOTENTIAL_WHITEBOARD:
                 imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
-                buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "ITEMREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 

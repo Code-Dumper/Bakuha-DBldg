@@ -51,6 +51,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] LOBBY_FRONT_BUTTON = {325,550,50,50};
     protected final Integer[] LOBBY_LEFT_BUTTON = {275, 600, 50, 50};
     protected final Integer[] LOBBY_RIGHT_BUTTON = {375, 600, 50, 50};
+    protected final Integer[] ITEM_REAR_BUTTON = {275, 500, 50, 50};
 
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
@@ -146,6 +147,10 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             case "LOBBYRIGHT":
             imagePath = "image-Direction-Right.jpg";
             directionalButton = createButtonWithImage(subState, imagePath,LOBBY_RIGHT_BUTTON[0], LOBBY_RIGHT_BUTTON[1], LOBBY_RIGHT_BUTTON[2], LOBBY_RIGHT_BUTTON[3]);
+            break;
+            case "ITEMREAR":
+            imagePath = "image-Direction-Rear.jpg";
+            directionalButton = createButtonWithImage(subState, imagePath,ITEM_REAR_BUTTON[0], ITEM_REAR_BUTTON[1], ITEM_REAR_BUTTON[2], ITEM_REAR_BUTTON[3]);
             break;
             default:
             throw new IllegalArgumentException();
