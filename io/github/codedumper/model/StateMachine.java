@@ -30,6 +30,7 @@ public class StateMachine {
         // 状態「STATE_1F」の遷移リスト
         transitions.put(State.STATE_1F,
                         Arrays.asList(  State.STATE_LOBBY,
+                                        State.STATE_MINIGAME,
                                         State.STATE_GAMEOVER));
         // 状態「STATE_2F」の遷移リスト
         transitions.put(State.STATE_2F,
@@ -47,11 +48,17 @@ public class StateMachine {
         transitions.put(State.STATE_GAMEOVER, 
                         Arrays.asList(  State.STATE_TITLE, 
                                         State.STATE_GAMEOVER));
+        transitions.put(State.STATE_MINIGAME,
+                        Arrays.asList(  State.STATE_1F,
+                                        State.STATE_GAMEOVER
+                            
+                        ));
     }
 
     public State getNextState(State currentState, State event) {
         List<State> possibleTransitions = transitions.getOrDefault(currentState, Collections.emptyList());
         if (possibleTransitions.contains(event)) {
+            System.out.println("return:" + event);
             return event;
         } else {
             return currentState; // 状態の変更がない場合、現在の状態を返す
