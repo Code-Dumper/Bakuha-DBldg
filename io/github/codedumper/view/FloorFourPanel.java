@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
@@ -23,6 +24,7 @@ public class FloorFourPanel extends FundamentalPanel{
     private final int SUBSTATE_COLORRATION = 4; //比色
     private final int SUBSTATE_REACTIONSPEAD = 5; //反応速度
     private final int SUBSTATE_4FBOMB = 6; //4階爆弾
+    /*
     private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
     private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
     private final int SUBSTATE_3FBOMB = 9; //3階爆弾
@@ -32,6 +34,18 @@ public class FloorFourPanel extends FundamentalPanel{
     private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
     private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
     private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+    */
+
+    //整数とSUBSTATEを対応させるための配列
+    private final int[] SUBSTATE = new int[] {
+        0,
+        SUBSTATE_INITIAL,
+        SUBSTATE_ROOM,
+        SUBSTATE_MOLECULAR,
+        SUBSTATE_COLORRATION,
+        SUBSTATE_REACTIONSPEAD,
+        SUBSTATE_4FBOMB,
+    };
     
     public FloorFourPanel(GameController controller){
         super(controller);
@@ -97,10 +111,6 @@ public class FloorFourPanel extends FundamentalPanel{
                 buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEAD, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
-
-            
-
-            
 
             /*//赤外線のとき、右に赤外線部屋、下にびっけんべや
             case SUBSTATE_INFRARED:
@@ -186,71 +196,52 @@ public class FloorFourPanel extends FundamentalPanel{
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
         System.out.println("Event is" + e);
-        switch(actionCommand){
-            case "1":
+
+        //SUBSTATE
+        try {
+            int number_SUBSTATE = Integer.parseInt(actionCommand);
+            if (number_SUBSTATE > 0 && number_SUBSTATE < SUBSTATE.length) {
+                if(number_SUBSTATE == 6 && controller.isDisarmedCurrentFloorBomb()) {
+                    JOptionPane.showMessageDialog(this, "すでに解除されている。他の階へ行こう。");
+                } else {
+                    changeSubState(SUBSTATE[number_SUBSTATE]);
+                }
+            }
+        } catch (NumberFormatException ex) {
+            //SUBSTATE以外のcase
+        }
+
+        //爆弾解除のための数字入力
+        //爆弾解除のためのボタンであれば、必ずactionCommandはNumber_から始まるのでその区別を行う
+        if (actionCommand.startsWith("Number_")) {
+            int number = Integer.parseInt(actionCommand.substring(7));
+            controller.inputCodeToCurrentStateBomb(number);
+            displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            return;
+        }else if(actionCommand.equals("Enter")){
+            if(controller.disarmCurrentStateBombByCurrentCode()) {
+                displayLabel.setText("Correct!");
+                JOptionPane.showMessageDialog(this, "3階の爆弾の解除に成功した!");
                 changeSubState(SUBSTATE_INITIAL);
-            break;
+                if(controller.areAllBombsDisarmed()) {
+                    JOptionPane.showMessageDialog(this, "全ての階の爆弾を解除した!");
+                    controller.transition(State.STATE_GAMECLEAR);
+                }
+            }
+            else {
+                displayLabel.setText("Incorrect");
+                controller.resetCodeOfCurrentStateBomb();
+            }
+        }else if(actionCommand.equals("Clear")){
+            controller.resetCodeOfCurrentStateBomb();
+            displayLabel.setText("");
+        }
 
-            case "2": //SUBSTATE_ROOM
-                changeSubState(SUBSTATE_ROOM);
-            break;
-
-            case "3": //SUBSTATE_MOLECULAR
-                changeSubState(SUBSTATE_MOLECULAR);
-            break;
-
-            case "4": //SUBSTATE_COLORRATION
-                changeSubState(SUBSTATE_COLORRATION);
-            break;
-
-            case "5": //SUBSTATE_REACTIONSPEED
-                changeSubState(SUBSTATE_REACTIONSPEAD);
-            break;
-
-            case "6": //SUBSTATE_4FBOMB
-                changeSubState(SUBSTATE_4FBOMB);
-            break;
-            /* 
-            case "7":
-                changeSubState(SUBSTATE_INFRARED_ROOM);
-            break;
-
-            case "8":
-                changeSubState(SUBSTATE_LIGHTSPEED);
-            break;
-
-            case "9":
-                changeSubState(SUBSTATE_3FBOMB);
-            break;
-
-            case "10":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
-            break;
-
-            case "11":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
-            break;
-
-            case "12":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
-            break;
-
-            case "13":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
-            break;
-
-            case "14":
-                changeSubState(SUBSTATE_RADIATION_NOTE);
-            break;
-
-            case "15":
-                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
-            break;*/
-
+        //それ以外の状態遷移を処理する
+        switch(actionCommand){
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
-
         }
     }
 }
