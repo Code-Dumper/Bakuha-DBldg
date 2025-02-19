@@ -65,7 +65,7 @@ public class FloorFourPanel extends FundamentalPanel{
         this.currentSubState = subState;
         JLabel imageLabel;
         //TODO 禁忌的なnull手法
-        buttonToFront = buttonToLeft = buttonToRear = buttonToRight = null;
+        buttonToFront = buttonToLeft = buttonToRear = buttonToRight = bombHintButton = null;
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
 
