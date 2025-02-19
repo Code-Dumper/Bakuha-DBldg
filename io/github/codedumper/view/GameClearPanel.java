@@ -13,7 +13,8 @@ public class GameClearPanel extends BasePanel{
         //ボタンをset
         this.setBackground("io/github/codedumper/view/image-GameClear-Image.jpg", 0);
         this.createButton(State.STATE_TITLE, new ButtonProperties(230, 540, 140, 30));
-        this.addLabel("全ての階の爆弾を解除した！", 150, 350, 600, 50, Color.WHITE);
+        this.addLabel("D棟を爆破しようとする陰謀は未然に防がれた。", 150, 350, 600, 50, Color.WHITE);
+        this.addLabel("だが、D棟爆破を企む電通大生の正体は、未だ明らかになっていない。", 150, 370, 600, 50, Color.WHITE);
         System.out.println("GameClearPanel successfully created");
     }
 
