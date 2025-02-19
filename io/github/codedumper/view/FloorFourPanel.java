@@ -30,6 +30,7 @@ public class FloorFourPanel extends FundamentalPanel{
     private final int SUBSTATE_COLORRATION_SLIDE = 10; //比色スライド
     private final int SUBSTATE_REACTIONSPEED_NOTE = 11; //反応速度ノート
     private final int SUBSTATE_REACTIONSPEED_SLIDE = 12; //反応速度スライド
+    private final int SUBSTATE_4FBOMB_HINT = 13;
 
 
     //整数とSUBSTATEを対応させるための配列
@@ -46,7 +47,8 @@ public class FloorFourPanel extends FundamentalPanel{
         SUBSTATE_COLORRATION_NOTE,
         SUBSTATE_COLORRATION_SLIDE,
         SUBSTATE_REACTIONSPEED_NOTE,
-        SUBSTATE_REACTIONSPEED_SLIDE 
+        SUBSTATE_REACTIONSPEED_SLIDE,
+        SUBSTATE_4FBOMB_HINT 
     };
     
     public FloorFourPanel(GameController controller){
@@ -72,8 +74,10 @@ public class FloorFourPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-FourFloor-Lobby.jpg",0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "LOBBYFRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
+                bombHintButton = createDirectionalButton(SUBSTATE_4FBOMB_HINT, "BOMBHINT4F");
                 JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_4FBOMB, "image-Bomb.jpg", 8, 490, 150, 100);
                 addButton(bumbButton, LAYER_UTIL_FIRST);
+                addButton(bombHintButton,LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
@@ -132,6 +136,12 @@ public class FloorFourPanel extends FundamentalPanel{
                 createNumberButtonPanel("image-Bumb-Detail2.jpg");
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
                 
+            break;
+
+            case SUBSTATE_4FBOMB_HINT:
+                imageLabel = createJLabelWithImage("image-4F-information.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BOMBREAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_MOLECULAR_NOTE:
