@@ -33,6 +33,7 @@ public class TwoFloorPanel extends FundamentalPanel{
     private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
     private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
     private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+    private final int SUBSTATE_2FBOMB_HINT = 16; // 2Fの爆弾解除のためのヒント
 
     //整数とSUBSTATEを対応させるための配列
     private final int[] SUBSTATE = new int[] {
@@ -51,7 +52,8 @@ public class TwoFloorPanel extends FundamentalPanel{
         SUBSTATE_PHOTOELECTRIC_NOTE,
         SUBSTATE_PHOTOELECTRIC_WHITEBOARD,
         SUBSTATE_RADIATION_NOTE,
-        SUBSTATE_RADIATION_WHITEBOARD
+        SUBSTATE_RADIATION_WHITEBOARD,
+        SUBSTATE_2FBOMB_HINT
     };
     
     public TwoFloorPanel(GameController controller){
@@ -68,7 +70,7 @@ public class TwoFloorPanel extends FundamentalPanel{
         this.currentSubState = subState;
         JLabel imageLabel;
         //TODO 禁忌的なnull手法
-        buttonToFront = buttonToLeft = buttonToRear = buttonToRight = null;
+        buttonToFront = buttonToLeft = buttonToRear = buttonToRight = bombHintButton = null;
         //subStateに対応したボタンと画像を読み込む
         switch(subState){
 
@@ -77,8 +79,12 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "LOBBYFRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
-                JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB, "image-Bomb.jpg", 50, 490, 150, 100);
-                addButton(bumbButton, LAYER_UTIL_FIRST);
+                //bombHintButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB_HINT, "image-TwoFloor-BombHint.jpg", 50, 350, 150, 100);
+                bombHintButton = createDirectionalButton(SUBSTATE_2FBOMB_HINT, "BOMBHINT");
+                //JButton bombHintButton = BombHintcreateButtonWithImage(SUBSTATE_2FBOMB_HINT, "image-TwoFloor-BombHint.jpg", 50,350,60,80); 
+                JButton bombButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB, "image-Bomb.jpg", 50, 490, 150, 100);
+                addButton(bombButton, LAYER_UTIL_FIRST);
+                //addButton(bombHintButton,LAYER_UTIL_FIFTH);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;
@@ -148,6 +154,12 @@ public class TwoFloorPanel extends FundamentalPanel{
                 
             break;
 
+            case SUBSTATE_2FBOMB_HINT:
+                imageLabel = createJLabelWithImage("image-TwoFloor-BombHint.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BOMBREAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
+            break;
+
             case SUBSTATE_AIRTRACK_NOTE:
                 imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack-Note.jpg", 0, 0, 600, 800);
                 buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
@@ -195,6 +207,7 @@ public class TwoFloorPanel extends FundamentalPanel{
                 buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "ITEMREAR");
                 addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
+            
 
             default:
                 throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
