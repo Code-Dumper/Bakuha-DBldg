@@ -133,7 +133,7 @@ public class FloorFourPanel extends FundamentalPanel{
             break;
 
             case SUBSTATE_4FBOMB:
-                createNumberButtonPanel("image-Bumb-Detail2.jpg");
+                createNumberButtonPanel("image-Bomb-Detail4.jpg");
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
                 
             break;
