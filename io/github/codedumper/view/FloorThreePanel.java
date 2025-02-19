@@ -19,35 +19,31 @@ import io.github.codedumper.model.State;
 public class FloorThreePanel extends FundamentalPanel{
 
     //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
-    private final int SUBSTATE_A = 2; //謁見部屋入り口
-    private final int SUBSTATE_B = 3; //びっけん部屋入り口
-    private final int SUBSTATE_ROOM_A = 4; //謁見べや(スペクトル実験室)
-    private final int SUBSTATE_ROOM_B = 5; //びっけん部屋
-    private final int SUBSTATE_INFRARED = 6; //赤外線
-    private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
-    private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
-    private final int SUBSTATE_3FBOMB = 9; //3階爆弾
-    /*
-    private final int SUBSTATE_EQUIPOTENTIAL_NOTE = 10; //等電位線ノート
-    private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
-    private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
-    private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
-    private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
-    private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
-    */
+    private final int SUBSTATE_B = 2; //びっけん部屋入り口
+    private final int SUBSTATE_ROOM_B = 3; //びっけん部屋
+    private final int SUBSTATE_INFRARED = 4; //赤外線
+    private final int SUBSTATE_INFRARED_ROOM = 5; //赤外線部屋
+    private final int SUBSTATE_LIGHTSPEED = 6; //光速度部屋
+    private final int SUBSTATE_3FBOMB = 7; //3階爆弾
+    private final int SUBSTATE_INFRARED_NOTE = 8; //赤外線ノート
+    private final int SUBSTATE_INFRARED_SLIDE = 9; //赤外線スライド
+    private final int SUBSTATE_INFRARED_PC = 10; //赤外線PC
+
+   
 
     //整数とSUBSTATEを対応させるための配列
     private final int[] SUBSTATE = new int[] {
         0,
         SUBSTATE_INITIAL,
-        SUBSTATE_A,
         SUBSTATE_B,
-        SUBSTATE_ROOM_A,
         SUBSTATE_ROOM_B,
         SUBSTATE_INFRARED,
         SUBSTATE_INFRARED_ROOM,
         SUBSTATE_LIGHTSPEED,
         SUBSTATE_3FBOMB,
+        SUBSTATE_INFRARED_NOTE,
+        SUBSTATE_INFRARED_SLIDE,
+        SUBSTATE_INFRARED_PC
     };
     
     public FloorThreePanel(GameController controller){
@@ -71,7 +67,6 @@ public class FloorThreePanel extends FundamentalPanel{
             //初期状態の時、上に謁見部屋、右にびっけんべや
             case SUBSTATE_INITIAL:
                 imageLabel = createJLabelWithImage("image-ThreeFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_A, "LOBBYFRONT");
                 buttonToRight = createDirectionalButton(SUBSTATE_B,"LOBBYRIGHT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
                 JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_3FBOMB, "image-Bomb.jpg", 8, 490, 150, 100);
@@ -80,32 +75,17 @@ public class FloorThreePanel extends FundamentalPanel{
                 
             break;
 
-            //謁見部屋前の時、上に部屋、右にびっけんべや、下に3階
-            case SUBSTATE_A:
-                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM_A, "FRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_B, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-                
-            break;
+            
 
             //びっけん部屋入り口の時、上にROOM、左に謁見部屋、下にロビー(INITIAL)
             case SUBSTATE_B:
                 imageLabel = createJLabelWithImage("image-ThreeFloor-B.jpg", 0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM_B, "FRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_ROOM_A, "LEFT");
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
-            //謁見べやの時、上に光速度、下に謁見部屋入り口
-            case SUBSTATE_ROOM_A:
-                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_LIGHTSPEED, "FRONT");
-                buttonToRear = createDirectionalButton(SUBSTATE_A, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
+           
             
             //びっけんべやの時、上に赤外線、右に赤外線部屋、下にびっけんべや入り口
             case SUBSTATE_ROOM_B:
@@ -121,13 +101,19 @@ public class FloorThreePanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared.jpg", 0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
+                JButton infrarednote = createButtonWithoutImage(SUBSTATE_INFRARED_NOTE, 60, 580, 150, 80);
+                JButton infraredslide = createButtonWithoutImage(SUBSTATE_INFRARED_SLIDE, 240, 70, 185, 230);
+                addButton(infraredslide,LAYER_UTIL_FIRST);
+                addButton(infrarednote,LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_INFRARED_ROOM:
                 imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Room.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
+                buttonToLeft = createDirectionalButton(SUBSTATE_INFRARED, "LEFT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
+                JButton infraredpc = createButtonWithoutImage(SUBSTATE_INFRARED_PC, 340, 105, 115, 70);
+                addButton(infraredpc,LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
             
@@ -137,26 +123,26 @@ public class FloorThreePanel extends FundamentalPanel{
                 
             break;
 
-            /* 
-            case SUBSTATE_AIRTRACK_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+            
+            case SUBSTATE_INFRARED_NOTE:
+            imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_INFRARED, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_AIRTRACK_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+            case SUBSTATE_INFRARED_SLIDE:
+            imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Slide.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_INFRARED, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_RADIATION_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+            case SUBSTATE_INFRARED_PC:
+            imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-PC.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_RADIATION_WHITEBOARD:
+            /*case SUBSTATE_RADIATION_WHITEBOARD:
             imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
             buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
