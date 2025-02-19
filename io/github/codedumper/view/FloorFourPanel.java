@@ -221,7 +221,7 @@ public class FloorFourPanel extends FundamentalPanel{
         }else if(actionCommand.equals("Enter")){
             if(controller.disarmCurrentStateBombByCurrentCode()) {
                 displayLabel.setText("Correct!");
-                JOptionPane.showMessageDialog(this, "3階の爆弾の解除に成功した!");
+                JOptionPane.showMessageDialog(this, "4階の爆弾の解除に成功した!");
                 changeSubState(SUBSTATE_INITIAL);
                 if(controller.areAllBombsDisarmed()) {
                     JOptionPane.showMessageDialog(this, "全ての階の爆弾を解除した!");
