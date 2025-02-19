@@ -42,7 +42,7 @@ public void isTrue{
 このプログラムでは
 [DS-DIGI](https://www.dafont.com/ds-digital.font)
 [x12y16pxMaruMonica](https://hicchicc.github.io/00ff/)
-を利用させていただいています。
+を利用させていただいています。これらのフォントの著作権は製作者様にあります。
 # 参考リンク
 
 Minecraftのプラグイン開発

@@ -27,12 +27,28 @@ public class FloorThreePanel extends FundamentalPanel{
     private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
     private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
     private final int SUBSTATE_3FBOMB = 9; //3階爆弾
+    /*
     private final int SUBSTATE_EQUIPOTENTIAL_NOTE = 10; //等電位線ノート
     private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
     private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
     private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
     private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
     private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+    */
+
+    //整数とSUBSTATEを対応させるための配列
+    private final int[] SUBSTATE = new int[] {
+        0,
+        SUBSTATE_INITIAL,
+        SUBSTATE_A,
+        SUBSTATE_B,
+        SUBSTATE_ROOM_A,
+        SUBSTATE_ROOM_B,
+        SUBSTATE_INFRARED,
+        SUBSTATE_INFRARED_ROOM,
+        SUBSTATE_LIGHTSPEED,
+        SUBSTATE_3FBOMB,
+    };
     
     public FloorThreePanel(GameController controller){
         super(controller);
@@ -99,10 +115,6 @@ public class FloorThreePanel extends FundamentalPanel{
                 buttonToRear = createDirectionalButton(SUBSTATE_B, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
-
-            
-
-            
 
             //赤外線のとき、右に赤外線部屋、下にびっけんべや
             case SUBSTATE_INFRARED:
@@ -189,8 +201,22 @@ public class FloorThreePanel extends FundamentalPanel{
         String actionCommand = e.getActionCommand();
         System.out.println("Event is" + e);
 
-         //爆弾解除のための数字入力
-         //爆弾解除のためのボタンであれば、必ずactionCommandはNumber_から始まるのでその区別を行う
+        //SUBSTATE
+        try {
+            int number_SUBSTATE = Integer.parseInt(actionCommand);
+            if (number_SUBSTATE > 0 && number_SUBSTATE < SUBSTATE.length) {
+                if(number_SUBSTATE == 9 && controller.isDisarmedCurrentFloorBomb()) {
+                    JOptionPane.showMessageDialog(this, "すでに解除されている。他の階へ行こう。");
+                } else {
+                    changeSubState(SUBSTATE[number_SUBSTATE]);
+                }
+            }
+        } catch (NumberFormatException ex) {
+            //SUBSTATE以外のcase
+        }
+
+        //爆弾解除のための数字入力
+        //爆弾解除のためのボタンであれば、必ずactionCommandはNumber_から始まるのでその区別を行う
         if (actionCommand.startsWith("Number_")) {
             int number = Integer.parseInt(actionCommand.substring(7));
             controller.inputCodeToCurrentStateBomb(number);
@@ -201,6 +227,10 @@ public class FloorThreePanel extends FundamentalPanel{
                 displayLabel.setText("Correct!");
                 JOptionPane.showMessageDialog(this, "3階の爆弾の解除に成功した!");
                 changeSubState(SUBSTATE_INITIAL);
+                if(controller.areAllBombsDisarmed()) {
+                    JOptionPane.showMessageDialog(this, "全ての階の爆弾を解除した!");
+                    controller.transition(State.STATE_GAMECLEAR);
+                }
             }
             else {
                 displayLabel.setText("Incorrect");
@@ -211,76 +241,11 @@ public class FloorThreePanel extends FundamentalPanel{
             displayLabel.setText("");
         }
 
-        //状態遷移のための入力
+        //それ以外の状態遷移を処理する
         switch(actionCommand){
-            case "1":
-                changeSubState(SUBSTATE_INITIAL);
-            break;
-
-            case "2": //SUBSTATE_A
-                changeSubState(SUBSTATE_A);
-            break;
-
-            case "3": //SUBSTATE_B
-                changeSubState(SUBSTATE_B);
-            break;
-
-            case "4": //SUBSTATE_ROOM_A
-                changeSubState(SUBSTATE_ROOM_A);
-            break;
-
-            case "5": //SUBSTATE_ROOM_B
-                changeSubState(SUBSTATE_ROOM_B);
-            break;
-
-            case "6": //SUBSTATE_INFRARED
-                changeSubState(SUBSTATE_INFRARED);
-            break;
-            
-            case "7":
-                changeSubState(SUBSTATE_INFRARED_ROOM);
-            break;
-
-            case "8":
-                changeSubState(SUBSTATE_LIGHTSPEED);
-            break;
-
-            case "9":
-                if(!controller.isDisarmedCurrentFloorBomb()){
-                    changeSubState(SUBSTATE_3FBOMB);
-                }else{
-                    JOptionPane.showMessageDialog(this, "すでに解除されている。他の階へ行こう");
-                }
-            break;
-/* 
-            case "10":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
-            break;
-
-            case "11":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
-            break;
-
-            case "12":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
-            break;
-
-            case "13":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
-            break;
-
-            case "14":
-                changeSubState(SUBSTATE_RADIATION_NOTE);
-            break;
-
-            case "15":
-                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
-            break;
-*/
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
-
         }
     }
 }
