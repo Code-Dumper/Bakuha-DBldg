@@ -31,19 +31,23 @@ public class StateMachine {
         transitions.put(State.STATE_1F,
                         Arrays.asList(  State.STATE_LOBBY,
                                         State.STATE_MINIGAME,
-                                        State.STATE_GAMEOVER));
+                                        State.STATE_GAMEOVER,
+                                        State.STATE_GAMECLEAR));
         // 状態「STATE_2F」の遷移リスト
         transitions.put(State.STATE_2F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_GAMEOVER));
+                                        State.STATE_GAMEOVER,
+                                        State.STATE_GAMECLEAR));
         // 状態「STATE_3F」の遷移リスト
         transitions.put(State.STATE_3F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_GAMEOVER));
+                                        State.STATE_GAMEOVER,
+                                        State.STATE_GAMECLEAR));
         // 状態「STATE_4F」の遷移リスト
         transitions.put(State.STATE_4F,
                         Arrays.asList(  State.STATE_LOBBY,
-                                        State.STATE_GAMEOVER));
+                                        State.STATE_GAMEOVER,
+                                        State.STATE_GAMECLEAR));
         // 状態「STATE_GAMEOVER」の遷移リスト
         transitions.put(State.STATE_GAMEOVER, 
                         Arrays.asList(  State.STATE_TITLE, 
@@ -53,6 +57,9 @@ public class StateMachine {
                                         State.STATE_GAMEOVER
                             
                         ));
+        //GAMECLEAR
+        transitions.put(State.STATE_GAMECLEAR,
+                        Arrays.asList(  State.STATE_TITLE));
     }
 
     public State getNextState(State currentState, State event) {

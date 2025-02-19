@@ -24,6 +24,7 @@ public class BombManager {
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(2)));
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(3)));
         addBomb(model, new CodeDisarmStrategy(model, model.dataManager.getCode(4)));
+        disarmBomb(0,0000);
     }
 
     public void addBomb(GameModel model, CodeDisarmStrategy disarmStrategy){

@@ -118,14 +118,21 @@ public class FloorOnePanel extends FundamentalPanel{
                 displayLabel.setText("Correct!");
                 JOptionPane.showMessageDialog(this, "1階の爆弾の解除に成功した!");
                 changeSubState(SUBSTATE_INITIAL);
+                if(controller.areAllBombsDisarmed()){
+                    JOptionPane.showMessageDialog(this, "全ての階の爆弾を解除した!");
+                    controller.transition(State.STATE_GAMECLEAR);
+                }
+                return;
             }
             else {
                 displayLabel.setText("Incorrect");
                 controller.resetCodeOfCurrentStateBomb();
+                return;
             }
         }else if(command.equals("Clear")){
             controller.resetCodeOfCurrentStateBomb();
             displayLabel.setText("");
+            return;
         }
 
 

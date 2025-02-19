@@ -16,8 +16,8 @@ public class DataManager {
     public DataManager(int size){
         oneFloorBombCode = 2241;
         twoFloorBombCode = 7705;
-        threeFloorBombCode = 3333;
-        fourFloorBombCode = 4444;
+        threeFloorBombCode = 1712;
+        fourFloorBombCode = 7946;
         timesLabel1Clicked = 5;
         timesLabel2Clicked = 5;
     }
