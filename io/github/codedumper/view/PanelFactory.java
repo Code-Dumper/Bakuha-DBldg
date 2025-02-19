@@ -37,6 +37,9 @@ class PanelFactory{
             case STATE_GAMEOVER:
                 productPanel = new GameOverPanel(controller);
                 break;
+            case STATE_GAMECLEAR:
+                productPanel = new GameClearPanel(controller);
+                break;
             case STATE_MINIGAME:
                 productPanel = new PlanarityPanel(model, controller);
             default:
