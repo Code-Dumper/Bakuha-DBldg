@@ -52,6 +52,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] LOBBY_LEFT_BUTTON = {275, 600, 50, 50};
     protected final Integer[] LOBBY_RIGHT_BUTTON = {375, 600, 50, 50};
     protected final Integer[] ITEM_REAR_BUTTON = {275, 500, 50, 50};
+    protected final Integer[] BOMB_HINT_BUTTON = {30,250,180,240};
 
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
@@ -63,6 +64,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected JButton buttonToRight;
     protected JButton buttonToLeft;
     protected JButton buttonToRear;
+    protected JButton bombHintButton;
 
 
     //入力した文字を4つまで表示する
@@ -103,6 +105,9 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             layeredPane.add(buttonToRear, LAYER_UTIL_SECOND);}
         if(buttonToRight != null){
             layeredPane.add(buttonToRight, LAYER_UTIL_SECOND);}
+            if(bombHintButton != null){
+                layeredPane.add(bombHintButton,LAYER_UTIL_SECOND);
+            }
         layeredPane.revalidate();
         layeredPane.repaint();
     }
@@ -130,7 +135,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             break;
             case "BOMBREAR":
             imagePath = "image-Direction-Rear.jpg";
-            directionalButton = BumbcreateButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
+            directionalButton = createButtonWithImage(subState, imagePath, BOMB_REAR_BUTTON[0], BOMB_REAR_BUTTON[1], BOMB_REAR_BUTTON[2], BOMB_REAR_BUTTON[3]);
             break;
             case"LOBBYFRONT":
             imagePath = "image-Direction-Front.jpg";
@@ -152,7 +157,12 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-Direction-Rear.jpg";
             directionalButton = createButtonWithImage(subState, imagePath,ITEM_REAR_BUTTON[0], ITEM_REAR_BUTTON[1], ITEM_REAR_BUTTON[2], ITEM_REAR_BUTTON[3]);
             break;
+            case "BOMBHINT":
+            imagePath = "image-TwoFloor-BombHint.jpg";
+            directionalButton = BombHintcreateButtonWithImage(subState, imagePath, BOMB_HINT_BUTTON[0], BOMB_HINT_BUTTON[1], BOMB_HINT_BUTTON[2], BOMB_HINT_BUTTON[3]);
+            break;
             default:
+
             throw new IllegalArgumentException();
         }
         directionalButton.setOpaque(false);
@@ -221,7 +231,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         buttonWithoutImage.addActionListener(this);
         buttonWithoutImage.setOpaque(false);
         buttonWithoutImage.setContentAreaFilled(false);
-        buttonWithoutImage.setBorderPainted(false);        
+        buttonWithoutImage.setBorderPainted(false);
         return buttonWithoutImage;
 
     }
@@ -282,6 +292,24 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         try{
             ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
             Image scaledIcon = imageIcon.getImage().getScaledInstance(150,100,Image.SCALE_DEFAULT);
+            imageIcon = new ImageIcon(scaledIcon); 
+            buttonWithImage.setIcon(imageIcon);
+            return buttonWithImage;
+        }catch(Exception e){
+            e.printStackTrace();
+            return new JButton("Failed to load image");
+        }
+
+    }
+
+    protected JButton BombHintcreateButtonWithImage(Integer subState, String imagePath, int x, int y, int width, int height){
+        JButton buttonWithImage = new JButton();
+        buttonWithImage.setBounds(x,y,width,height);
+        buttonWithImage.setActionCommand(Integer.toString(subState));
+        buttonWithImage.addActionListener(this);
+        try{
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(180,240,Image.SCALE_DEFAULT);
             imageIcon = new ImageIcon(scaledIcon); 
             buttonWithImage.setIcon(imageIcon);
             return buttonWithImage;
