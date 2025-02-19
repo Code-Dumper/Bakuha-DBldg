@@ -39,8 +39,14 @@ public class FloorFourPanel extends FundamentalPanel{
         SUBSTATE_ROOM,
         SUBSTATE_MOLECULAR,
         SUBSTATE_COLORRATION,
-        SUBSTATE_REACTIONSPEAD,
+        SUBSTATE_REACTIONSPEED,
         SUBSTATE_4FBOMB,
+        SUBSTATE_MOLECULAR_NOTE,
+        SUBSTATE_MOLECULAR_SLIDE,
+        SUBSTATE_COLORRATION_NOTE,
+        SUBSTATE_COLORRATION_SLIDE,
+        SUBSTATE_REACTIONSPEED_NOTE,
+        SUBSTATE_REACTIONSPEED_SLIDE 
     };
     
     public FloorFourPanel(GameController controller){
@@ -142,27 +148,27 @@ public class FloorFourPanel extends FundamentalPanel{
             
             
             case SUBSTATE_COLORRATION_NOTE:
-            imageLabel = createJLabelWithImage("image-FourFloor-Colorration-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_COLORRATION, "ITEMREAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-FourFloor-Colorration-Note.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_COLORRATION, "ITEMREAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_COLORRATION_SLIDE:
-            imageLabel = createJLabelWithImage("image-FourFloor-Colorration-Slide.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_COLORRATION, "ITEMREAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-FourFloor-Colorration-Slide.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_COLORRATION, "ITEMREAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_REACTIONSPEED_NOTE:
-            imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "ITEMREAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed-Note.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "ITEMREAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             case SUBSTATE_REACTIONSPEED_SLIDE:
-            imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed-Slide.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "ITEMREAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
+                imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed-Slide.jpg", 0, 0, 600, 800);
+                buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "ITEMREAR");
+                addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
             
@@ -223,7 +229,6 @@ public class FloorFourPanel extends FundamentalPanel{
 
         //それ以外の状態遷移を処理する
         switch(actionCommand){
-
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
