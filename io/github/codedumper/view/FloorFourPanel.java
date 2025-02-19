@@ -21,14 +21,14 @@ public class FloorFourPanel extends FundamentalPanel{
     private final int SUBSTATE_ROOM = 2; //部屋
     private final int SUBSTATE_MOLECULAR = 3; //分子量
     private final int SUBSTATE_COLORRATION = 4; //比色
-    private final int SUBSTATE_REACTIONSPEAD = 5; //反応速度
+    private final int SUBSTATE_REACTIONSPEED = 5; //反応速度
     private final int SUBSTATE_4FBOMB = 6; //4階爆弾
-    private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
-    private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
-    private final int SUBSTATE_3FBOMB = 9; //3階爆弾
-    private final int SUBSTATE_EQUIPOTENTIAL_NOTE = 10; //等電位線ノート
-    private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
-    private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
+    private final int SUBSTATE_MOLECULAR_NOTE = 7; //分子量ノート
+    private final int SUBSTATE_MOLECULAR_SLIDE = 8; //分子量スライド
+    private final int SUBSTATE_COLORRATION_NOTE = 9; //比色ノート
+    private final int SUBSTATE_COLORRATION_SLIDE = 10; //比色スライド
+    private final int SUBSTATE_REACTIONSPEED_NOTE = 11; //反応速度ノート
+    private final int SUBSTATE_REACTIONSPEED_SLIDE = 12; //反応速度スライド
     private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
     private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
     private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
@@ -64,8 +64,8 @@ public class FloorFourPanel extends FundamentalPanel{
 
             //へやの時、上に反応速度、右に分子量、下にロビー(INITIAL)
             case SUBSTATE_ROOM:
-                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_REACTIONSPEAD, "FRONT");
+                imageLabel = createJLabelWithImage("image-FourFloor-Room.jpg", 0,0,600,800);
+                buttonToFront = createDirectionalButton(SUBSTATE_REACTIONSPEED, "FRONT");
                 buttonToRight = createDirectionalButton(SUBSTATE_MOLECULAR, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
@@ -74,104 +74,87 @@ public class FloorFourPanel extends FundamentalPanel{
 
             //分子量の時、上に部屋、左に比色、下に反応速度
             case SUBSTATE_MOLECULAR:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-B.jpg", 0,0,600,800);
+                imageLabel = createJLabelWithImage("image-FourFloor-Molecular.jpg", 0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "FRONT");
                 buttonToLeft = createDirectionalButton(SUBSTATE_COLORRATION, "LEFT");
-                buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEAD, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "REAR");
+                JButton molecularnote = createButtonWithoutImage(SUBSTATE_MOLECULAR_NOTE, 200, 640, 110, 50);
+                JButton molecularslide = createButtonWithoutImage(SUBSTATE_MOLECULAR_SLIDE, 0, 100, 310, 350);
+                addButton(molecularnote, LAYER_UTIL_FIRST);
+                addButton(molecularslide,LAYER_UTIL_FIRST);
+                
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
             //反応速度の時、右に比色、下に分子量、左に部屋
-                case SUBSTATE_REACTIONSPEAD:
-                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_COLORRATION, "FRONT");
+                case SUBSTATE_REACTIONSPEED:
+                imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed.jpg", 0,0,600,800);
+                buttonToRight = createDirectionalButton(SUBSTATE_COLORRATION, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_MOLECULAR, "REAR");
                 buttonToLeft = createDirectionalButton(SUBSTATE_ROOM, "REAR");
+                JButton reactionspeednote = createButtonWithoutImage(SUBSTATE_REACTIONSPEED_NOTE, 150, 680, 230, 120);
+                JButton reactionspeedslide = createButtonWithoutImage(SUBSTATE_REACTIONSPEED_SLIDE, 300, 0, 300, 300);
+                addButton(reactionspeednote,LAYER_UTIL_FIRST);
+                addButton(reactionspeedslide, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
             
             //比色の時、右に分子量、下に反応速度
             case SUBSTATE_COLORRATION:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Room-B.jpg",0,0,600,800);
+                imageLabel = createJLabelWithImage("image-FourFloor-Colorration.jpg",0,0,600,800);
                 buttonToRight = createDirectionalButton(SUBSTATE_MOLECULAR, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEAD, "REAR");
+                buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "REAR");
+                JButton colorrationnote = createButtonWithoutImage(SUBSTATE_COLORRATION_NOTE, 170, 590, 200, 120);
+                JButton colorrationslide = createButtonWithoutImage(SUBSTATE_COLORRATION_SLIDE, 220, 20, 220, 170);
+                addButton(colorrationnote,LAYER_UTIL_FIRST);
+                addButton(colorrationslide, LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
 
-            
-
-            
-
-            /*//赤外線のとき、右に赤外線部屋、下にびっけんべや
-            case SUBSTATE_INFRARED:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_INFRARED_ROOM:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Room.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-            */
             case SUBSTATE_4FBOMB:
                 createNumberButtonPanel("image-Bumb-Detail2.jpg");
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BUMBREAR");
                 
             break;
 
-            /* 
-            case SUBSTATE_AIRTRACK_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+            case SUBSTATE_MOLECULAR_NOTE:
+                imageLabel = createJLabelWithImage("image-FourFloor-Molecular-Note.jpg", 0,0,600,800);
+                buttonToRear = createDirectionalButton(SUBSTATE_MOLECULAR, "ITEMREAR");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
+            break;
+
+            case SUBSTATE_MOLECULAR_SLIDE:
+                imageLabel = createJLabelWithImage("image-FourFloor-Molecular-Slide.jpg", 0,0,600,800);
+                buttonToRear = createDirectionalButton(SUBSTATE_MOLECULAR, "ITEMREAR");
+                addLabel(imageLabel, LAYER_FIGURE_FIRST);
+            break;
+            
+            
+            case SUBSTATE_COLORRATION_NOTE:
+            imageLabel = createJLabelWithImage("image-FourFloor-Colorration-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_COLORRATION, "ITEMREAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_AIRTRACK_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+            case SUBSTATE_COLORRATION_SLIDE:
+            imageLabel = createJLabelWithImage("image-FourFloor-Colorration-Slide.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_COLORRATION, "ITEMREAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_RADIATION_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+            case SUBSTATE_REACTIONSPEED_NOTE:
+            imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed-Note.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "ITEMREAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_RADIATION_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+            case SUBSTATE_REACTIONSPEED_SLIDE:
+            imageLabel = createJLabelWithImage("image-FourFloor-Reactionspeed-Slide.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_REACTIONSPEED, "ITEMREAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_PHOTOELECTRIC_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_PHOTOELECTRIC_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_EQUIPOTENTIAL_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_EQUIPOTENTIAL_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;*/
-
+            
             default:
                 throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
         }
@@ -204,49 +187,37 @@ public class FloorFourPanel extends FundamentalPanel{
             break;
 
             case "5": //SUBSTATE_REACTIONSPEED
-                changeSubState(SUBSTATE_REACTIONSPEAD);
+                changeSubState(SUBSTATE_REACTIONSPEED);
             break;
 
             case "6": //SUBSTATE_4FBOMB
                 changeSubState(SUBSTATE_4FBOMB);
             break;
-            /* 
+            
             case "7":
-                changeSubState(SUBSTATE_INFRARED_ROOM);
+                changeSubState(SUBSTATE_MOLECULAR_NOTE);
             break;
 
             case "8":
-                changeSubState(SUBSTATE_LIGHTSPEED);
+                changeSubState(SUBSTATE_MOLECULAR_SLIDE);
             break;
 
             case "9":
-                changeSubState(SUBSTATE_3FBOMB);
+                changeSubState(SUBSTATE_COLORRATION_NOTE);
             break;
 
             case "10":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
+                changeSubState(SUBSTATE_COLORRATION_SLIDE);
             break;
 
             case "11":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
+                changeSubState(SUBSTATE_REACTIONSPEED_NOTE);
             break;
 
             case "12":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
+                changeSubState(SUBSTATE_REACTIONSPEED_SLIDE);
             break;
-
-            case "13":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
-            break;
-
-            case "14":
-                changeSubState(SUBSTATE_RADIATION_NOTE);
-            break;
-
-            case "15":
-                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
-            break;*/
-
+            
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
