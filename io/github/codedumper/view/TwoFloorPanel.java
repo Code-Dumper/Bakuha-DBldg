@@ -79,12 +79,10 @@ public class TwoFloorPanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-TwoFloor-Lobby.jpg",0,0,600,800);
                 buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "LOBBYFRONT");
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
-                //bombHintButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB_HINT, "image-TwoFloor-BombHint.jpg", 50, 350, 150, 100);
                 bombHintButton = createDirectionalButton(SUBSTATE_2FBOMB_HINT, "BOMBHINT");
-                //JButton bombHintButton = BombHintcreateButtonWithImage(SUBSTATE_2FBOMB_HINT, "image-TwoFloor-BombHint.jpg", 50,350,60,80); 
                 JButton bombButton = BumbcreateButtonWithImage(SUBSTATE_2FBOMB, "image-Bomb.jpg", 50, 490, 150, 100);
                 addButton(bombButton, LAYER_UTIL_FIRST);
-                //addButton(bombHintButton,LAYER_UTIL_FIFTH);
+                addButton(bombHintButton,LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
                 
             break;

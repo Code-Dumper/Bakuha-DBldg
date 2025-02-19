@@ -53,6 +53,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
     protected final Integer[] LOBBY_RIGHT_BUTTON = {375, 600, 50, 50};
     protected final Integer[] ITEM_REAR_BUTTON = {275, 500, 50, 50};
     protected final Integer[] BOMB_HINT_BUTTON = {30,250,180,240};
+    protected final Integer[] BOMB_HINT_BUTTON_4F = {200,400,120,160};
 
     //画像ファイルの位置するディレクトリ。
     protected final String CLASSPATH = "io/github/codedumper/view/";
@@ -161,6 +162,12 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
             imagePath = "image-TwoFloor-BombHint.jpg";
             directionalButton = BombHintcreateButtonWithImage(subState, imagePath, BOMB_HINT_BUTTON[0], BOMB_HINT_BUTTON[1], BOMB_HINT_BUTTON[2], BOMB_HINT_BUTTON[3]);
             break;
+
+            case "BOMBHINT4F":
+            imagePath ="image-4F-information.jpg";
+            directionalButton = BombHintcreateButtonWithImage(subState, imagePath, BOMB_HINT_BUTTON_4F[0], BOMB_HINT_BUTTON_4F[1], BOMB_HINT_BUTTON_4F[2], BOMB_HINT_BUTTON_4F[3]);
+            break;
+
             default:
 
             throw new IllegalArgumentException();
@@ -309,7 +316,7 @@ public abstract class FundamentalPanel extends JPanel implements ActionListener{
         buttonWithImage.addActionListener(this);
         try{
             ImageIcon imageIcon = new ImageIcon(this.getClass().getClassLoader().getResource(CLASSPATH+imagePath));
-            Image scaledIcon = imageIcon.getImage().getScaledInstance(180,240,Image.SCALE_DEFAULT);
+            Image scaledIcon = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_DEFAULT);
             imageIcon = new ImageIcon(scaledIcon); 
             buttonWithImage.setIcon(imageIcon);
             return buttonWithImage;
