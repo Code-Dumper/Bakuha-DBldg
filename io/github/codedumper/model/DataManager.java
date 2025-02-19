@@ -10,11 +10,16 @@ public class DataManager {
     public int twoFloorBombCode;
     public int threeFloorBombCode;
     public int fourFloorBombCode;
+    public int timesLabel1Clicked;
+    public int timesLabel2Clicked;
+
     public DataManager(int size){
-        oneFloorBombCode = 1111;
+        oneFloorBombCode = 2241;
         twoFloorBombCode = 7705;
         threeFloorBombCode = 3333;
         fourFloorBombCode = 4444;
+        timesLabel1Clicked = 5;
+        timesLabel2Clicked = 5;
     }
     public Font genFont(String filename, float size){
         Font font = null;

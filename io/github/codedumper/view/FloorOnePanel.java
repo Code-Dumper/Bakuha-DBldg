@@ -1,9 +1,11 @@
 package io.github.codedumper.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import io.github.codedumper.controller.GameController;
 import io.github.codedumper.model.State;
@@ -18,20 +20,10 @@ import io.github.codedumper.model.State;
 public class FloorOnePanel extends FundamentalPanel{
 
     //private final int SUBSTATE_INITIAL = 1 FundamentalPanelから継承している
-    private final int SUBSTATE_ROOM = 2; //部屋
-    private final int SUBSTATE_1FBOMB = 3; //1F爆弾
-    private final int SUBSTATE_ROOM_A = 4; //謁見べや(スペクトル実験室)
-    private final int SUBSTATE_ROOM_B = 5; //びっけん部屋
-    private final int SUBSTATE_INFRARED = 6; //赤外線
-    private final int SUBSTATE_INFRARED_ROOM = 7; //赤外線部屋
-    private final int SUBSTATE_LIGHTSPEED = 8; //光速度部屋
-    private final int SUBSTATE_3FBOMB = 9; //3階爆弾
-    private final int SUBSTATE_EQUIPOTENTIAL_NOTE = 10; //等電位線ノート
-    private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
-    private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
-    private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
-    private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
-    private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
+    private final int SUBSTATE_1FROOM = 2; //部屋
+    private final int SUBSTATE_1F_BOMB = 3; //1F爆弾
+    private final int SUBSTATE_1F_FRONTDOOR = 4; //部屋から進んだ先のドアの目の前
+    private final int SUBSTATE_1F_TABLE = 5; // 部屋にあるフラスコの場所
     
     public FloorOnePanel(GameController controller){
         super(controller);
@@ -48,130 +40,53 @@ public class FloorOnePanel extends FundamentalPanel{
         JLabel imageLabel;
         //TODO 禁忌的なnull手法
         buttonToFront = buttonToLeft = buttonToRear = buttonToRight = null;
-        //subStateに対応したボタンと画像を読み込む
         switch(subState){
-
-            //初期状態の時、上に部屋、下に全体ロビー
+            //初期状態の時、後ろへ進むボタンはロビーへ戻るボタンで、前へ進むボタンは部屋へ移るボタンである。
             case SUBSTATE_INITIAL:
-                imageLabel = createJLabelWithImage("image-OneFloor-Lobby.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM, "LOBBYFRONT");
+                imageLabel = createJLabelWithImage("image-OneFloor-Lobby-edited.png", 0, 0, 600, 800);
                 buttonToRear = createStateChangeDirectionalButton(State.STATE_LOBBY, "LOBBYREAR");
-                JButton bumbButton = BumbcreateButtonWithImage(SUBSTATE_1FBOMB, "image-Bomb.jpg", 10, 480, 150, 100);
-                addButton(bumbButton, LAYER_UTIL_FIRST);
                 this.addLabel(imageLabel, LAYER_FIGURE_FIRST);
-                
+                //パズルが解かれているかどうかで表示するボタンを変える
+                //もし解除されていれば、爆弾パネルが表示可能に
+                //解除されていなければ、パズル用のボタンを表示
+                if(controller.isPuzzleSolved()){
+                    System.out.println("bombButton created.");
+                    JButton bombButton = BumbcreateButtonWithImage(SUBSTATE_1F_BOMB, "image-Bomb.jpg", 50, 490, 150, 100);
+                    addButton(bombButton, LAYER_UTIL_SECOND);
+                }else{
+                    System.out.println("boxButton created");
+                    JButton boxButton = createButtonWithoutImage(State.STATE_MINIGAME, 0, 490, 150, 100);
+                    addButton(boxButton, LAYER_UTIL_SECOND);
+                }
+                //ボタンが何回も押されていたら、看板の文字が変わるようにする機構。
+                //TODO getModelで実質的にmodelの処理を呼び出しているので、controllerに委任したいかもしれない
+                if(controller.getModel().dataManager.timesLabel1Clicked <= 0){
+                    this.addLabelWithMessage("4! = ?",260, 270, 100, 100, 25, Color.BLACK);
+                }else{
+                    this.addLabelWithMessage("実験室内",260, 270, 100, 100, 25, Color.BLACK);
+                }
+                if(controller.getModel().dataManager.timesLabel2Clicked <= 0){
+                    this.addLabelWithMessage("部屋番号?",260, 288, 100, 100, 25, Color.BLACK);
+                }
+                else{
+                    this.addLabelWithMessage("飲食禁止",260, 288, 100, 100, 25, Color.BLACK);
+                }
+                if(controller.isPuzzleSolved()){
+                    this.addLabelWithMessage("⌊e/2⌋ = ?",60,430,60, 50, 25, Color.BLUE);
+                }else{
+                    this.addLabelWithMessage("Locked",68,430,60, 50, 20, Color.RED);
+                }
+                this.addLabelWithMessage("開放厳禁",305, 350, 100, 100, 25, Color.BLACK);
+                this.addButton(createLifeButton("label1",240, 250, 90, 100),LAYER_UTIL_SECOND);
+                this.addButton(createLifeButton("label2",280, 350, 80, 100),LAYER_UTIL_SECOND);
             break;
 
-            //部屋の時、下にロビー(INITIAL)
-            case SUBSTATE_ROOM:
-                imageLabel = createJLabelWithImage("image-TwoFloor-AirTrack.jpg", 0,0,600,800);
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-                
-            break;
-/* 
-            //びっけん部屋入り口の時、上にROOM、左に謁見部屋、下にロビー(INITIAL)
-            case SUBSTATE_B:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-B.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_ROOM_B, "FRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_ROOM_A, "LEFT");
-                buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            //謁見べやの時、上に光速度、下に謁見部屋入り口
-            case SUBSTATE_ROOM_A:
-                imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric.jpg", 0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_LIGHTSPEED, "FRONT");
-                buttonToRear = createDirectionalButton(SUBSTATE_A, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-            
-            //びっけんべやの時、上に赤外線、右に赤外線部屋、下にびっけんべや入り口
-            case SUBSTATE_ROOM_B:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Room-B.jpg",0,0,600,800);
-                buttonToFront = createDirectionalButton(SUBSTATE_INFRARED, "FRONT");
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            
-
-            
-
-            //赤外線のとき、右に赤外線部屋、下にびっけんべや
-            case SUBSTATE_INFRARED:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_INFRARED_ROOM:
-                imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Room.jpg", 0,0,600,800);
-                buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
-                buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
-                addLabel(imageLabel, LAYER_FIGURE_FIRST);
-            break;
-          */   
-            case SUBSTATE_1FBOMB:
+            case SUBSTATE_1F_BOMB:
+                //番号確認、番号入力用のコンポーネントを表示
                 createNumberButtonPanel("image-Bumb-Detail2.jpg");
                 buttonToRear = createDirectionalButton(SUBSTATE_INITIAL, "BOMBREAR");
                 
             break;
-
-            /* 
-            case SUBSTATE_AIRTRACK_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_AIRTRACK_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_RADIATION_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_RADIATION_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_PHOTOELECTRIC_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_PHOTOELECTRIC_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Photoelectric-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_PHOTOELECTRIC, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_EQUIPOTENTIAL_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;
-
-            case SUBSTATE_EQUIPOTENTIAL_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Equipotential-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_EQUIPOTENTIAL, "REAR");
-            addLabel(imageLabel,LAYER_FIGURE_FIRST);
-            break;*/
-
-            default:
-                throw new IllegalArgumentException("No Such SUBSTATE defined\n.");
         }
         System.out.println("Succenssfully change substate to " + subState);
         updateButton();
@@ -179,76 +94,59 @@ public class FloorOnePanel extends FundamentalPanel{
         this.repaint();
     }
 
-    
+    JButton createLifeButton(String description, int x, int y, int width, int height){
+        JButton lButton = new JButton();
+        lButton.setActionCommand(description);
+        lButton.addActionListener(this);
+        lButton.setOpaque(false);
+        lButton.setContentAreaFilled(false);
+        lButton.setBounds(x,y,width, height);
+        return lButton;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){
-        String actionCommand = e.getActionCommand();
-        System.out.println("Event is" + e);
-        switch(actionCommand){
-            case "1":
+        String command = e.getActionCommand();
+         //爆弾解除のため入力を処理するコード
+        if (command.startsWith("Number_")) {
+            int number = Integer.parseInt(command.substring(7));
+            controller.inputCodeToCurrentStateBomb(number);
+            displayLabel.setText(String.valueOf(controller.getCodeOfCurrentStateBomb()));
+            return;
+        }else if(command.equals("Enter")){
+            if(controller.disarmCurrentStateBombByCurrentCode()) {
+                displayLabel.setText("Correct!");
+                JOptionPane.showMessageDialog(this, "1階の爆弾の解除に成功した!");
                 changeSubState(SUBSTATE_INITIAL);
-            break;
+            }
+            else {
+                displayLabel.setText("Incorrect");
+                controller.resetCodeOfCurrentStateBomb();
+            }
+        }else if(command.equals("Clear")){
+            controller.resetCodeOfCurrentStateBomb();
+            displayLabel.setText("");
+        }
 
-            case "2": //SUBSTATE_ROOM
-                changeSubState(SUBSTATE_ROOM);
-            break;
 
-            case "3": //SUBSTATE_1FBOMB
-                changeSubState(SUBSTATE_1FBOMB);
-            break;
-/* 
-            case "4": //SUBSTATE_ROOM_A
-                changeSubState(SUBSTATE_ROOM_A);
-            break;
-
-            case "5": //SUBSTATE_ROOM_B
-                changeSubState(SUBSTATE_ROOM_B);
-            break;
-
-            case "6": //SUBSTATE_INFRARED
-                changeSubState(SUBSTATE_INFRARED);
-            break;
-            
-            case "7":
-                changeSubState(SUBSTATE_INFRARED_ROOM);
-            break;
-
-            case "8":
-                changeSubState(SUBSTATE_LIGHTSPEED);
-            break;
-
-            case "9":
-                changeSubState(SUBSTATE_3FBOMB);
-            break;
-
-            case "10":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_NOTE);
-            break;
-
-            case "11":
-                changeSubState(SUBSTATE_EQUIPOTENTIAL_WHITEBOARD);
-            break;
-
-            case "12":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_NOTE);
-            break;
-
-            case "13":
-                changeSubState(SUBSTATE_PHOTOELECTRIC_WHITEBOARD);
-            break;
-
-            case "14":
-                changeSubState(SUBSTATE_RADIATION_NOTE);
-            break;
-
-            case "15":
-                changeSubState(SUBSTATE_RADIATION_WHITEBOARD);
-            break;
-*/
+        switch(command){
             case "STATE_LOBBY":
                 controller.transition(State.STATE_LOBBY);
             break;
-
+            case "STATE_MINIGAME":
+                controller.transition(State.STATE_MINIGAME);
+            break;
+            case "label1":
+                System.out.println("label1--" + controller.getModel().dataManager.timesLabel1Clicked);
+                controller.getModel().dataManager.timesLabel1Clicked--;
+            break;
+            case "label2":
+                System.out.println("label2--" + controller.getModel().dataManager.timesLabel2Clicked);
+                controller.getModel().dataManager.timesLabel2Clicked--;
+            break;
+            default:
+                changeSubState(Integer.parseInt(command));
+            break;
         }
     }
 }

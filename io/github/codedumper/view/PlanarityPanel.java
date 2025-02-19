@@ -10,12 +10,12 @@ import java.awt.*;
 
 @SuppressWarnings("deprecation")
 public class PlanarityPanel extends BasePanel implements Observer{
-    private GameModel model;
-
-    public PlanarityPanel(GameModel model, GameController controller){
+    public PlanarityPanel(GameController controller){
         super(controller);
-        this.model = model;
-        this.model.addObserver(this);
+        this.setBackground(Color.GRAY);
+        this.createButtonWithImage(State.STATE_1F, "io/github/codedumper/view/image-Direction-Rear.jpg", 0, 600, 100, 100);
+        createButton(State.STATE_1F, new ButtonProperties(0, 600, 100, 100));
+        controller.getModel().addObserver(this);
     }
 
     @Override 
@@ -23,37 +23,37 @@ public class PlanarityPanel extends BasePanel implements Observer{
         super.paintComponent(g);
 
         //エッジの描画
-        List<Edge> edges = model.getEdges();
+        List<Edge> edges = controller.getEdges();
         for(Edge edge : edges){
-            Point start = model.getNodes().get(edge.getStartIndex());
-            Point end = model.getNodes().get(edge.getEndIndex());
+            Point start = controller.getNodes().get(edge.getStartIndex());
+            Point end = controller.getNodes().get(edge.getEndIndex());
             g.setColor(Color.BLACK);
             g.drawLine((int)start.getX(), (int)start.getY(), (int)end.getX(), (int)end.getY());
         }
 
         //交差
-        List<Edge> intersectingEdges = model.getIntersectingEdges();
+        List<Edge> intersectingEdges = controller.getIntersectingEdges();
         for(Edge edge : intersectingEdges){
-            Point start = model.getNodes().get(edge.getStartIndex());
-            Point end = model.getNodes().get(edge.getEndIndex());
+            Point start = controller.getNodes().get(edge.getStartIndex());
+            Point end = controller.getNodes().get(edge.getEndIndex());
             g.setColor(Color.RED);
             g.drawLine((int)start.getX(), (int)start.getY(), (int)end.getX(), (int)end.getY());
         }
 
-        for (Point node : model.getNodes()) {
+        for (Point node : controller.getNodes()) {
             g.setColor(Color.BLUE);
             g.fillOval((int)node.getX() - 5, (int)node.getY() - 5, 10, 10);
         }
     }
 
+    
+
     @Override
     public void update(Observable o, Object arg){
-        if(model.isPuzzleSolved()){
-            model.disarmBomb();
             repaint();
-        }else{
-            repaint();
-        }
-        
+            if(controller.isPuzzleSolved()){
+                addLabel("パズルが解除された。",250,500,200,100,Color.BLACK);
+                addLabel("爆弾の鍵が解除されます...",250,550,200,100,Color.BLACK);
+            }
     }
 }

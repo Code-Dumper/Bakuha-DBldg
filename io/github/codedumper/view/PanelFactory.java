@@ -13,7 +13,7 @@ import io.github.codedumper.model.GameModel;
  * ...
  */
 class PanelFactory{
-    public static JPanel createPanel(State event, GameModel model, GameController controller){
+    public static JPanel createPanel(State event, GameController controller){
         JPanel productPanel;
         switch(event){
             case STATE_TITLE:
@@ -41,10 +41,12 @@ class PanelFactory{
                 productPanel = new GameClearPanel(controller);
                 break;
             case STATE_MINIGAME:
-                productPanel = new PlanarityPanel(model, controller);
+                productPanel = new PlanarityPanel(controller);
+                break;
             default:
                 productPanel = new TitlePanel(controller);
         }
+        System.out.println(productPanel);
         productPanel.setBounds(0,0,600,800);
         return productPanel;
     }
