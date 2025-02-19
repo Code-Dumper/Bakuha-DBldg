@@ -25,15 +25,11 @@ public class FloorThreePanel extends FundamentalPanel{
     private final int SUBSTATE_INFRARED_ROOM = 5; //赤外線部屋
     private final int SUBSTATE_LIGHTSPEED = 6; //光速度部屋
     private final int SUBSTATE_3FBOMB = 7; //3階爆弾
-    private final int SUBSTATE_INFRARED_NOTE = 11; //赤外線ノート
+    private final int SUBSTATE_INFRARED_NOTE = 8; //赤外線ノート
+    private final int SUBSTATE_INFRARED_SLIDE = 9; //赤外線スライド
+    private final int SUBSTATE_INFRARED_PC = 10; //赤外線PC
 
-    /*
-    private final int SUBSTATE_EQUIPOTENTIAL_WHITEBOARD = 11; //等電位線ホワイトボード
-    private final int SUBSTATE_PHOTOELECTRIC_NOTE = 12; //光電効果ノート
-    private final int SUBSTATE_PHOTOELECTRIC_WHITEBOARD = 13; //光電効果ホワイトボード
-    private final int SUBSTATE_RADIATION_NOTE = 14; //放射線ノート
-    private final int SUBSTATE_RADIATION_WHITEBOARD = 15; //放射線ホワイトボード
-    */
+   
 
     //整数とSUBSTATEを対応させるための配列
     private final int[] SUBSTATE = new int[] {
@@ -45,7 +41,9 @@ public class FloorThreePanel extends FundamentalPanel{
         SUBSTATE_INFRARED_ROOM,
         SUBSTATE_LIGHTSPEED,
         SUBSTATE_3FBOMB,
-        SUBSTATE_INFRARED_NOTE
+        SUBSTATE_INFRARED_NOTE,
+        SUBSTATE_INFRARED_SLIDE,
+        SUBSTATE_INFRARED_PC
     };
     
     public FloorThreePanel(GameController controller){
@@ -104,6 +102,8 @@ public class FloorThreePanel extends FundamentalPanel{
                 buttonToRight = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "RIGHT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
                 JButton infrarednote = createButtonWithoutImage(SUBSTATE_INFRARED_NOTE, 60, 580, 150, 80);
+                JButton infraredslide = createButtonWithoutImage(SUBSTATE_INFRARED_SLIDE, 240, 70, 185, 230);
+                addButton(infraredslide,LAYER_UTIL_FIRST);
                 addButton(infrarednote,LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
@@ -112,6 +112,8 @@ public class FloorThreePanel extends FundamentalPanel{
                 imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Room.jpg", 0,0,600,800);
                 buttonToLeft = createDirectionalButton(SUBSTATE_INFRARED, "LEFT");
                 buttonToRear = createDirectionalButton(SUBSTATE_ROOM_B, "REAR");
+                JButton infraredpc = createButtonWithoutImage(SUBSTATE_INFRARED_PC, 340, 105, 115, 70);
+                addButton(infraredpc,LAYER_UTIL_FIRST);
                 addLabel(imageLabel, LAYER_FIGURE_FIRST);
             break;
             
@@ -127,20 +129,20 @@ public class FloorThreePanel extends FundamentalPanel{
             buttonToRear = createDirectionalButton(SUBSTATE_INFRARED, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
-/*
-            case SUBSTATE_AIRTRACK_WHITEBOARD:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Airtrack-Whiteboard.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_AIRTRACK, "REAR");
+
+            case SUBSTATE_INFRARED_SLIDE:
+            imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-Slide.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_INFRARED, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_RADIATION_NOTE:
-            imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Note.jpg", 0, 0, 600, 800);
-            buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
+            case SUBSTATE_INFRARED_PC:
+            imageLabel = createJLabelWithImage("image-ThreeFloor-Infrared-PC.jpg", 0, 0, 600, 800);
+            buttonToRear = createDirectionalButton(SUBSTATE_INFRARED_ROOM, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
             break;
 
-            case SUBSTATE_RADIATION_WHITEBOARD:
+            /*case SUBSTATE_RADIATION_WHITEBOARD:
             imageLabel = createJLabelWithImage("image-TwoFloor-Radiation-Whiteboard.jpg", 0, 0, 600, 800);
             buttonToRear = createDirectionalButton(SUBSTATE_RADIATION, "REAR");
             addLabel(imageLabel,LAYER_FIGURE_FIRST);
