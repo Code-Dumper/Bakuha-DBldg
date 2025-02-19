@@ -36,7 +36,7 @@ public class GameTimer {
                 @Override
                 public void run() {
                     if (remainTime > 0) {
-                        if(!model.getCurrentState().equals(State.STATE_TITLE)){
+                        if(!(model.getCurrentState().equals(State.STATE_TITLE) || model.getCurrentState().equals(State.STATE_GAMECLEAR))){
                             remainTime = remainTime - 0.1;
                         }
                         if (listener != null) {
