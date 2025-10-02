@@ -19,5 +19,6 @@ jarファイルは[こちら(Download here)](https://drive.google.com/file/d/1b5
 このプログラムでは
 [DS-DIGI](https://www.dafont.com/ds-digital.font)および
 [x12y16pxMaruMonica](https://hicchicc.github.io/00ff/)
-を利用させていただいています。これらのフォントの著作権は製作者様にあり、製作者チームはフォントの著作権を一切保有しません。
+を利用させていただいています。これらのフォントの著作権は製作者様にあり、Bakuha-Dbldg製作者チームはフォントの著作権を一切保有しません。
+
 
